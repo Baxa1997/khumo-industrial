@@ -18,6 +18,7 @@ yarn dev          # http://localhost:3000
 yarn build        # production build
 yarn start        # serve the production build
 yarn typecheck
+yarn generate:map  # regenerate the dotted region map after changing office locations
 ```
 
 ## Structure

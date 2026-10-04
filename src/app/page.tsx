@@ -1,4 +1,5 @@
-import { CategoryGrid, ClientsStrip, HistoryBlock, NewsSection, PageIntro, SustainabilityBlock } from "@/components/Sections";
+import RegionSection from "@/components/RegionSection";
+import { CategoryGrid, ClientsStrip, CtaBanner, HistoryBlock, NewsSection, PageIntro, SustainabilityBlock } from "@/components/Sections";
 import Testimonials from "@/components/Testimonials";
 import { hero, images } from "@/lib/data";
 
@@ -16,6 +17,8 @@ export default function HomePage() {
       <SustainabilityBlock />
       <NewsSection />
       <Testimonials />
+      <RegionSection />
+      <CtaBanner />
     </>
   );
 }

@@ -402,12 +402,45 @@
     postcss "^8.5.16"
     tailwindcss "4.3.3"
 
+"@turf/boolean-point-in-polygon@^7.3.4":
+  version "7.4.0"
+  resolved "https://registry.yarnpkg.com/@turf/boolean-point-in-polygon/-/boolean-point-in-polygon-7.4.0.tgz#8b773bba216fc054600fce55d56e824f7b241fe9"
+  integrity sha512-GQrHc6WSDHhf32GB/b9AGyOeC05AQ3nGN7ooWTrlCYefKn7X9/2wG9BNexF47AuyDq5jPdOvITVR26BLFWV+mA==
+  dependencies:
+    "@turf/helpers" "7.4.0"
+    "@turf/invariant" "7.4.0"
+    "@types/geojson" "^7946.0.10"
+    point-in-polygon-hao "^1.1.0"
+    tslib "^2.8.1"
+
+"@turf/helpers@7.4.0":
+  version "7.4.0"
+  resolved "https://registry.yarnpkg.com/@turf/helpers/-/helpers-7.4.0.tgz#5589f04812ac95f8985e9396db01d9e70f4a35d5"
+  integrity sha512-7PAwLZqOdRzTI5g9bHvUwlloAXPDH/mlajtryk0tw4ZwGMtmXsAyF4QundsAMfy4u48Fyd3AUqMXY0SMxqJGWg==
+  dependencies:
+    "@types/geojson" "^7946.0.10"
+    tslib "^2.8.1"
+
+"@turf/invariant@7.4.0":
+  version "7.4.0"
+  resolved "https://registry.yarnpkg.com/@turf/invariant/-/invariant-7.4.0.tgz#b96eb3a1965cca126fcf15571058d126cc7a32e2"
+  integrity sha512-OAsc3qdNx+tRqzWmMNFMnVlWWACIqnYqIejZKvb2oKkKPYJJrURPXZ6OdrGD58ljJMolLoqwIZGSx3VndaEjxg==
+  dependencies:
+    "@turf/helpers" "7.4.0"
+    "@types/geojson" "^7946.0.10"
+    tslib "^2.8.1"
+
 "@tybys/wasm-util@^0.10.2", "@tybys/wasm-util@^0.10.3":
   version "0.10.4"
   resolved "https://registry.yarnpkg.com/@tybys/wasm-util/-/wasm-util-0.10.4.tgz#3e85ecb266f9d1722250e89bc69528615720b154"
   integrity sha512-W3c4gRigFS0T/Ma4qIYF3GDAc5AQdHb1yL5znJT1Zv1YaD9Kitx656wBjvr19qbiosmZT8lWDM5BEMynUqX65A==
   dependencies:
     tslib "^2.4.0"
+
+"@types/geojson@^7946.0.10":
+  version "7946.0.16"
+  resolved "https://registry.yarnpkg.com/@types/geojson/-/geojson-7946.0.16.tgz#8ebe53d69efada7044454e3305c19017d97ced2a"
+  integrity sha512-6C8nqWur3j98U6+lXDfTUWIfgvZU+EumvpHKcYjujKH7woYyLj2sUmff0tRhrqM7BohUw7Pz3ZB1jj2gW9Fvmg==
 
 "@types/node@^26.6.4":
   version "26.6.4"
@@ -553,6 +586,14 @@ detect-libc@^2.0.3, detect-libc@^2.1.2:
   resolved "https://registry.yarnpkg.com/detect-libc/-/detect-libc-2.1.2.tgz#689c5dcdc1900ef5583a4cb9f6d7b473742074ad"
   integrity sha512-Btj2BOOO83o3WyH59e8MgXsxEQVcarkUOpEYrubB0urwnN10yQ364rsiByU11nZlqWYZm05i/of7io4mzihBtQ==
 
+dotted-map@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/dotted-map/-/dotted-map-3.1.0.tgz#8229b3dd57a4bcc78e3415ce9378c9c283683903"
+  integrity sha512-E0z9o5IaTf44FnWHvbyg4QQcBwXgzZJr82HJASWb1dKUCULHfnlWKRpfe5EFHTk/yaoS1sQSLMyMrL6o74/sIw==
+  dependencies:
+    "@turf/boolean-point-in-polygon" "^7.3.4"
+    proj4 "^2.20.2"
+
 enhanced-resolve@^5.24.1:
   version "5.26.0"
   resolved "https://registry.yarnpkg.com/enhanced-resolve/-/enhanced-resolve-5.26.0.tgz#9dfb47d050ed6c87f2c6d43b4d7e30f8c0a91ed7"
@@ -652,6 +693,11 @@ magic-string@^0.30.21:
   dependencies:
     "@jridgewell/sourcemap-codec" "^1.5.5"
 
+mgrs@1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/mgrs/-/mgrs-1.0.0.tgz#fb91588e78c90025672395cb40b25f7cd6ad1829"
+  integrity sha512-awNbTOqCxK1DBGjalK3xqWIstBZgN6fxsMSiXLs9/spqWkF2pAhb2rrYCFSsr1/tT7PhcDGjZndG8SWYn0byYA==
+
 nanoid@^3.3.16, nanoid@^3.3.18:
   version "3.3.19"
   resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-3.3.19.tgz#336d4aa4bcd4fb24d2cddede7ffeae40bec03f0a"
@@ -684,6 +730,13 @@ picocolors@^1.1.1:
   resolved "https://registry.yarnpkg.com/picocolors/-/picocolors-1.1.1.tgz#3d321af3eab939b083c8f929a1d12cda81c26b6b"
   integrity sha512-xceH2snhtb5M9liqDsmEw56le376mTZkEX/jEb/RxNFyegNul7eNslCXP9FDj/Lcu0X8KEyMceP2ntpaHrDEVA==
 
+point-in-polygon-hao@^1.1.0:
+  version "1.2.4"
+  resolved "https://registry.yarnpkg.com/point-in-polygon-hao/-/point-in-polygon-hao-1.2.4.tgz#8662abdcc84bcca230cc3ecbb0b0ab1a306f1bd6"
+  integrity sha512-x2pcvXeqhRHlNRdhLs/tgFapAbSSe86wa/eqmj1G6pWftbEs5aVRJhRGM6FYSUERKu0PjekJzMq0gsI2XyiclQ==
+  dependencies:
+    robust-predicates "^3.0.2"
+
 postcss@8.5.23:
   version "8.5.23"
   resolved "https://registry.yarnpkg.com/postcss/-/postcss-8.5.23.tgz#3493550116f478487298301d2c2e8dc5a56e6594"
@@ -702,6 +755,14 @@ postcss@^8.5.16, postcss@^8.5.28:
     picocolors "^1.1.1"
     source-map-js "^1.2.1"
 
+proj4@^2.20.2:
+  version "2.22.0"
+  resolved "https://registry.yarnpkg.com/proj4/-/proj4-2.22.0.tgz#f4fa16ed0b158923be8713d67bf62e5e1400693f"
+  integrity sha512-MVvH09QrYm3A235rcX39WDiCKanrBiblu28l0KYIn/B2DofmYhvP/LLS43kE66jNDfx/P1l/nah3JmsAq8UgbQ==
+  dependencies:
+    mgrs "1.0.0"
+    wkt-parser "^1.5.5"
+
 react-dom@^19.3.0:
   version "19.3.0"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-19.3.0.tgz#a0ff19161d7f4e9be5469a07278b0c06e00f9001"
@@ -713,6 +774,11 @@ react@^19.3.0:
   version "19.3.0"
   resolved "https://registry.yarnpkg.com/react/-/react-19.3.0.tgz#e20aa3a14687075ce863351b5878b0608c3fbfb2"
   integrity sha512-E8LUcbtBWt20bbl2YoHfx4ZDBdxVTfOKtCZn9cDSJ4l6/nuoApcpIBcj47t2wZoVX8g2ZHuMHbiShgCR1T5Sog==
+
+robust-predicates@^3.0.2:
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/robust-predicates/-/robust-predicates-3.0.3.tgz#1099061b3349e2c5abec6c2ab0acd440d24d4062"
+  integrity sha512-NS3levdsRIUOmiJ8FZWCP7LG3QpJyrs/TE0Zpf1yvZu8cAJJ6QMW92H1c7kWpdIHo8RvmLxN/o2JXTKHp74lUA==
 
 scheduler@^0.28.0:
   version "0.28.0"
@@ -816,3 +882,8 @@ undici-types@~8.9.0:
   version "8.9.0"
   resolved "https://registry.yarnpkg.com/undici-types/-/undici-types-8.9.0.tgz#e240d97c8b5d85e5347ce73d25865c7906c1ec9f"
   integrity sha512-KTDyRTYX8sWmKXAikPHHSyc63CRPETMctyjKFupcC6OBLXT3xsN0e9aF7m+mIXutFWpUXuedtowG7iLOzp0kQg==
+
+wkt-parser@^1.5.5:
+  version "1.5.6"
+  resolved "https://registry.yarnpkg.com/wkt-parser/-/wkt-parser-1.5.6.tgz#3a19521914b2a21b7a8203590f5b180b9dba8dfa"
+  integrity sha512-cqHU3lzGt/gt2OqIORP0uVy5yeOX43WABmgFkmJsmcqH3HhQo9PiJG6ftytwGKmpQUbegeX7+pQc2BuNCRfcrw==

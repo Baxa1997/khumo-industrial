@@ -209,7 +209,6 @@ export function NewsList({ limit = 3 }: { limit?: number }) {
           <span className="display w-12 shrink-0 text-[2.6rem] leading-none tracking-[-0.03em]">{String(idx + 1).padStart(2, "0")}</span>
           <div>
             <h3 className="display text-2xl leading-tight tracking-[-0.035em] sm:text-[1.75rem]">{n.title}</h3>
-            <p className="mt-2 text-sm text-muted">{n.excerpt}</p>
             <p className="mt-3 text-[15px]">
               <span className="text-orange-500">{n.category}</span>
               <span className="mx-2.5 text-muted">.</span>
@@ -285,26 +284,20 @@ export function CheckList({ items }: { items: string[] }) {
 }
 
 export function CtaBanner({
-  title = "Let’s find the right packaging solution together",
-  text = "Tell us about your products and processes — our specialists will get back to you with a tailored recommendation.",
+  title = "It’s Like Having a Packaging Expert on Your Team",
+  text = "No matter where you are in your packaging journey, from manually taping boxes to fully automated pallet strapping, we are here for you. Let us help you find what works best.",
 }: {
   title?: string;
   text?: string;
 }) {
   return (
-    <section className="px-4 py-16 sm:px-7 lg:px-14">
-      <div className="relative overflow-hidden rounded-[1.75rem] bg-navy-800 px-8 py-16 text-white sm:px-14 lg:px-20 lg:py-20">
-        <svg className="pointer-events-none absolute -right-20 -top-10 h-[26rem] w-[26rem] text-white/10" viewBox="0 0 200 200" fill="none" stroke="currentColor" strokeWidth="0.8" aria-hidden="true">
-          <path d="M60 10h70l50 70-30 80H70L20 90z" />
-        </svg>
-        <div className="relative flex flex-col items-start justify-between gap-10 lg:flex-row lg:items-end">
-          <div className="max-w-3xl">
-            <h2 className="display text-4xl sm:text-5xl">{title}</h2>
-            <p className="mt-5 text-lg text-white/75">{text}</p>
-          </div>
-          <Link href="/contact?topic=quote" className="btn-orange shrink-0">Request a Quote</Link>
-        </div>
+    <section className="py-20 sm:py-28">
+      <div className="mx-auto max-w-3xl px-4 text-center sm:px-8">
+        <h2 className="display text-4xl sm:text-5xl lg:text-[3.6rem]">{title}</h2>
+        <p className="mx-auto mt-8 max-w-2xl text-lg leading-relaxed text-muted">{text}</p>
+        <Link href="/contact?topic=quote" className="btn-orange mt-12">Request a Quote</Link>
       </div>
     </section>
   );
 }
+

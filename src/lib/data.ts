@@ -19,7 +19,9 @@ export type Solution = {
   benefits: string[];
   /** Optional product photo, e.g. "/images/products/strapping.png" (transparent PNG works best). */
   image?: string;
-  products: { name: string; description: string }[];
+  /** Sub-categories / machine types. `image` is optional (e.g. "/images/products/turntable.png"). */
+  products: { name: string; description: string; image?: string }[];
+  faqs: { q: string; a: string }[];
 };
 
 export const solutions: Solution[] = [
@@ -36,6 +38,11 @@ export const solutions: Solution[] = [
       "Ergonomic battery tools that reduce operator fatigue",
       "Automatic systems that integrate into existing conveyor lines",
       "Lower strap consumption through precise tension control",
+    ],
+    faqs: [
+      { q: "Which strap material should I use: PP, PET or steel?", a: "PP strap is ideal for light to medium loads, PET is a strong and cost-effective alternative to steel for heavy loads, and steel strap is used for the heaviest, sharp-edged or hot products." },
+      { q: "Should I choose a manual tool or an automatic machine?", a: "Battery and manual tools are perfect for lower volumes and changing locations. Once you strap many packages per hour, a semi-automatic or automatic machine quickly pays for itself." },
+      { q: "Can a strapping machine be integrated into my conveyor line?", a: "Yes. Our automatic arch and pallet strapping systems are designed for inline integration and can be connected to your existing line controls." },
     ],
     products: [
       { name: "Battery strapping tools", description: "Lightweight cordless tools for PP and PET strap with adjustable tension and friction weld." },
@@ -59,6 +66,11 @@ export const solutions: Solution[] = [
       "Semi-automatic and fully automatic options",
       "Top-sheet dispensers and weather protection available",
     ],
+    faqs: [
+      { q: "What is the difference between turntable, rotary-arm and ring wrappers?", a: "On a turntable the load rotates while the film stays put. With a rotary-arm or ring wrapper the load stays still and the film rotates around it — ideal for heavy, unstable or high-volume loads." },
+      { q: "How much film can pre-stretch save?", a: "Powered pre-stretch can elongate film by up to 300%, which significantly reduces film consumption per pallet compared to hand wrapping." },
+      { q: "Can I wrap pallets of different sizes on one machine?", a: "Yes. Photo-eye height detection and programmable wrap recipes let one machine handle a wide range of load sizes." },
+    ],
     products: [
       { name: "Turntable wrappers", description: "Entry-level and heavy-duty turntables for mixed pallet sizes." },
       { name: "Rotary-arm wrappers", description: "Wraps heavy or unstable loads without rotating the pallet." },
@@ -81,6 +93,10 @@ export const solutions: Solution[] = [
       "Fast changeovers with tool-free adjustment",
       "Pressure-sensitive and water-activated tape",
     ],
+    faqs: [
+      { q: "Do I need a fixed-size or random case sealer?", a: "Fixed-size sealers are ideal when you run one carton size for long periods. Random sealers adjust automatically to every carton and suit mixed production." },
+      { q: "Which tape works best for my cartons?", a: "Acrylic tape performs well in cold or humid conditions, hot-melt offers strong instant adhesion, and water-activated paper tape provides tamper evidence and recyclability." },
+    ],
     products: [
       { name: "Case erectors", description: "Automatic forming and bottom sealing of regular slotted cartons." },
       { name: "Semi-automatic tapers", description: "Top and bottom sealing with manual flap folding." },
@@ -101,6 +117,10 @@ export const solutions: Solution[] = [
       "Inks for porous and non-porous substrates",
       "Easy integration with ERP and line controllers",
       "Low maintenance, high uptime print heads",
+    ],
+    faqs: [
+      { q: "Which coding technology is right for my product?", a: "Continuous inkjet suits high-speed coding on almost any surface, thermal inkjet delivers crisp high-resolution codes, and laser coders mark permanently without consumables." },
+      { q: "Can coders connect to my ERP or MES?", a: "Yes. Our coders support standard communication protocols so codes, batches and dates can be sent automatically from your systems." },
     ],
     products: [
       { name: "Continuous inkjet (CIJ)", description: "High-speed small character coding on almost any surface." },
@@ -124,6 +144,10 @@ export const solutions: Solution[] = [
       "Print-on-band for branding and information",
       "Compact footprint for packing benches",
     ],
+    faqs: [
+      { q: "What can be bundled with banding machines?", a: "Banding works for printed matter, food, textiles, banknotes, pharmaceuticals and many other products that need gentle bundling." },
+      { q: "Is paper banding a sustainable option?", a: "Yes. Paper bands are recyclable together with cardboard and use far less material than shrink film." },
+    ],
     products: [
       { name: "Banding machines", description: "Table-top and automatic banding with paper or film." },
       { name: "Twine binding machines", description: "Binding of newspapers, stacks and bundles with elastic yarn." },
@@ -143,6 +167,10 @@ export const solutions: Solution[] = [
       "Recycled-content and lightweight options",
       "Reliable stock and scheduled deliveries",
       "Technical advice on optimizing consumption",
+    ],
+    faqs: [
+      { q: "Do your consumables run on other brands' machines?", a: "In most cases, yes. Tell us your machine model and we will recommend a compatible strap, film, tape or ink." },
+      { q: "Can I set up scheduled deliveries?", a: "Yes. We can agree a delivery schedule or keep safety stock for you so you never run out." },
     ],
     products: [
       { name: "PP & PET strap", description: "Embossed and smooth strap in a wide range of widths and break strengths." },
@@ -329,9 +357,9 @@ export const hero = {
 export const announcement = { text: "Learn about Khumo Industrial’s commitment to", link: { href: "/sustainability", label: "sustainability" } };
 
 export const locations = [
-  { name: "Uzbekistan (HQ)", city: "Tashkent", phone: "+998 71 200 00 00" },
-  { name: "Kazakhstan", city: "Almaty", phone: "+7 727 000 00 00" },
-  { name: "Kyrgyzstan", city: "Bishkek", phone: "+996 312 00 00 00" },
+  { name: "Uzbekistan (HQ)", label: "Uzbekistan", city: "Tashkent", phone: "+998 71 200 00 00", lat: 41.3, lng: 69.24 },
+  { name: "Kazakhstan", label: "Kazakhstan", city: "Almaty", phone: "+7 727 000 00 00", lat: 43.24, lng: 76.89 },
+  { name: "Kyrgyzstan", label: "Kyrgyzstan", city: "Bishkek", phone: "+996 312 00 00 00", lat: 42.87, lng: 74.59 },
 ];
 
 /** Replace with real client logos (e.g. "/images/clients/acme.svg"). */
