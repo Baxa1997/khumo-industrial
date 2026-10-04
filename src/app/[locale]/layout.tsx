@@ -8,6 +8,7 @@ import { dateLocales, isLocale, locales } from "@/i18n/config";
 import { messages } from "@/i18n/messages";
 import { getI18n } from "@/i18n/server";
 import { company } from "@/lib/data";
+import { fullTitle, seo, siteUrl } from "@/lib/site";
 import "../globals.css";
 
 export const dynamicParams = false;
@@ -18,27 +19,22 @@ export function generateStaticParams() {
 
 export async function generateMetadata(): Promise<Metadata> {
   const { t, locale } = await getI18n();
-  const description = t(
-    "Product marking solutions. Official Cyklop partner in Uzbekistan. CIJ / TIJ / laser marking. Supply, setup and service.",
-  );
+  const title = fullTitle(t(seo.title));
+  const description = t(seo.description);
   return {
-    ...(process.env.NEXT_PUBLIC_SITE_URL ? { metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL) } : {}),
-    title: {
-      default: `${company.name} — ${t(company.tagline)}`,
-      template: `%s | ${company.name}`,
-    },
+    metadataBase: new URL(siteUrl),
+    title: { default: title, template: `%s | ${company.name}` },
     description,
+    keywords: seo.keywords.map((k) => t(k)),
+    applicationName: company.name,
     openGraph: {
       type: "website",
       siteName: company.name,
-      title: `${company.name} — ${t(company.tagline)}`,
+      title,
       description,
       locale: dateLocales[locale].replace(/-/g, "_").replace("_Latn", ""),
     },
-    alternates: {
-      canonical: `/${locale}`,
-      languages: Object.fromEntries(locales.map((l) => [l, `/${l}`])),
-    },
+    twitter: { card: "summary_large_image", title, description },
   };
 }
 
@@ -50,6 +46,23 @@ export default async function LocaleLayout({ children, params }: { children: Rea
     <html lang={locale}>
       <body className="flex min-h-screen flex-col font-sans">
         <LocaleProvider locale={locale} messages={messages[locale]}>
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "Organization",
+                name: company.name,
+                legalName: company.legalName,
+                url: `${siteUrl}/${locale}`,
+                logo: `${siteUrl}/apple-icon.png`,
+                telephone: company.phone.replace(/\s/g, ""),
+                areaServed: "UZ",
+                address: { "@type": "PostalAddress", addressCountry: "UZ" },
+                sameAs: [company.instagram.href, company.telegram.href],
+              }),
+            }}
+          />
           <Header />
           <main className="flex-1">{children}</main>
           <Footer />

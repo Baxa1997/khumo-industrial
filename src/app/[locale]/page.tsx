@@ -1,9 +1,21 @@
+import type { Metadata } from "next";
+import { defaultLocale, locales } from "@/i18n/config";
 import RegionSection from "@/components/RegionSection";
 import Link from "@/i18n/Link";
 import Icon from "@/components/Icon";
 import { CategoryGrid, ClientsStrip, CtaBanner, HistoryBlock, InstagramSection, NewsSection, PageIntro } from "@/components/Sections";
 import { getI18n } from "@/i18n/server";
 import { company, hero, images } from "@/lib/data";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const { locale } = await getI18n();
+  return {
+    alternates: {
+      canonical: `/${locale}`,
+      languages: { ...Object.fromEntries(locales.map((l) => [l, `/${l}`])), "x-default": `/${defaultLocale}` },
+    },
+  };
+}
 
 export default async function HomePage() {
   const { t, loc } = await getI18n();
