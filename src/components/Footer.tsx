@@ -1,6 +1,7 @@
 import Link from "@/i18n/Link";
 import Icon from "./Icon";
 import Logo from "./Logo";
+import SocialLinks from "./SocialLinks";
 import { getI18n } from "@/i18n/server";
 import { company, industries as baseIndustries, resources as baseResources, solutions as baseSolutions } from "@/lib/data";
 
@@ -28,6 +29,7 @@ export default async function Footer() {
           <div>
             <Logo light />
             <p className="display mt-8 max-w-xl text-3xl tracking-[-0.035em] sm:text-4xl">{t(company.focus)} · {t(company.services)}</p>
+            <SocialLinks className="mt-8" itemClassName="h-11 w-11 bg-white/10 text-white hover:bg-orange-500" />
           </div>
           <Link href="/contact?topic=quote" className="btn-orange self-start lg:self-auto">{t("Request a Quote")}</Link>
         </div>
@@ -56,6 +58,10 @@ export default async function Footer() {
       <div className="border-t border-white/15">
         <div className="container-x flex flex-col items-center justify-between gap-3 py-6 text-sm text-white/60 md:flex-row">
           <p>© {year} {company.legalName}. {t("All rights reserved.")}</p>
+          <div className="flex flex-wrap justify-center gap-x-6 gap-y-2">
+            <Link href="/privacy" className="hover:text-white">{t("Privacy Policy")}</Link>
+            <Link href="/terms" className="hover:text-white">{t("Terms & Conditions")}</Link>
+          </div>
         </div>
       </div>
     </footer>

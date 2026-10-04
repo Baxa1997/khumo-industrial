@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
 import Icon from "./Icon";
 import { useI18n } from "@/i18n/client";
 import { regions } from "@/lib/data";
+import { Consent, Honeypot, SubmitError } from "./FormExtras";
+import { useLeadSubmit } from "./useLeadSubmit";
 
 const input =
   "w-full rounded-md border border-ink/15 bg-white px-3 py-3 text-[15px] outline-none transition placeholder:text-ink/55 focus:border-navy-800 focus:ring-2 focus:ring-navy-800/10";
@@ -20,12 +21,12 @@ function Field({ name, placeholder, required, type = "text", autoComplete }: { n
 
 /** Compact quote request form used at the bottom of category pages. */
 export default function QuoteFormCard({ product }: { product?: string }) {
-  const [sent, setSent] = useState(false);
+  const { status, onSubmit } = useLeadSubmit("Quote (category page)");
   const { t, loc } = useI18n();
 
   return (
     <div className="rounded-2xl border border-line bg-white p-6 shadow-[0_10px_40px_-15px_rgba(0,0,0,0.12)] sm:p-7">
-      {sent ? (
+      {status === "sent" ? (
         <div className="flex min-h-80 flex-col items-center justify-center text-center">
           <span className="grid h-14 w-14 place-items-center rounded-full bg-orange-500 text-white">
             <Icon name="check" className="h-7 w-7" strokeWidth={3} />
@@ -35,13 +36,10 @@ export default function QuoteFormCard({ product }: { product?: string }) {
         </div>
       ) : (
         <form
-          className="grid gap-3.5 sm:grid-cols-2"
-          onSubmit={(e) => {
-            e.preventDefault();
-            // TODO: connect to an email service or API route (and add spam protection such as reCAPTCHA).
-            setSent(true);
-          }}
+          className="relative grid gap-3.5 sm:grid-cols-2"
+          onSubmit={onSubmit}
         >
+          <Honeypot />
           {product && <input type="hidden" name="product" value={product} />}
           <Field name="firstName" placeholder={t("First Name")} required autoComplete="given-name" />
           <Field name="lastName" placeholder={t("Last Name")} required autoComplete="family-name" />
@@ -66,7 +64,11 @@ export default function QuoteFormCard({ product }: { product?: string }) {
             <textarea name="message" required rows={4} placeholder={t("Message")} className={`${input} resize-y`} />
             <span className="pointer-events-none absolute right-2 top-1 text-xs text-orange-500" aria-hidden="true">*</span>
           </label>
-          <button type="submit" className="btn-orange mt-4 w-full py-3 text-[15px] sm:col-span-2">{t("Submit")}</button>
+          <Consent className="mt-1 sm:col-span-2" />
+          <SubmitError status={status} className="sm:col-span-2" />
+          <button type="submit" disabled={status === "sending"} className="btn-orange mt-2 w-full py-3 text-[15px] disabled:opacity-60 sm:col-span-2">
+            {status === "sending" ? t("Sending…") : t("Submit")}
+          </button>
         </form>
       )}
     </div>

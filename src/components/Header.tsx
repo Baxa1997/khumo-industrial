@@ -6,6 +6,7 @@ import { useEffect, useMemo, useState } from "react";
 import Icon from "./Icon";
 import Logo from "./Logo";
 import Photo from "./Photo";
+import SocialLinks from "./SocialLinks";
 import { LanguageButtons, LanguageDropdown } from "./LanguageSwitcher";
 import { useI18n } from "@/i18n/client";
 import { localizeHref } from "@/i18n/config";
@@ -56,6 +57,8 @@ export default function Header() {
           <div className="hidden shrink-0 items-center gap-5 sm:flex">
             <a href={company.phoneHref} className="hover:text-orange-500">{company.phone}</a>
             <span className="text-white/60">|</span>
+            <SocialLinks className="gap-2" itemClassName="h-6 w-6 hover:text-orange-500" iconClassName="h-4 w-4" />
+            <span className="text-white/60">|</span>
             <LanguageDropdown />
           </div>
         </div>
@@ -79,7 +82,7 @@ export default function Header() {
                   onMouseEnter={() => setOpen(item.menu)}
                   onFocus={() => setOpen(item.menu)}
                   aria-expanded={open === item.menu}
-                  className={`rounded-full px-3 py-2 text-[15px] transition-colors hover:text-orange-500 ${
+                  className={`whitespace-nowrap rounded-full px-3 py-2 text-[15px] transition-colors hover:text-orange-500 ${
                     (open ? open === item.menu : active) ? "text-orange-500" : "text-ink/85"
                   }`}
                 >
@@ -89,12 +92,12 @@ export default function Header() {
             })}
           </nav>
 
-          <div className="ml-auto hidden items-center gap-4 lg:flex">
-            <SearchBox className="hidden w-60 xl:flex 2xl:w-72" />
+          <div className="ml-auto hidden min-w-0 items-center gap-4 lg:flex">
+            <SearchBox className="hidden w-60 min-w-0 shrink xl:flex 2xl:w-72" />
             <Link href="/search" aria-label={t("Search")} className="p-1.5 hover:text-orange-500 xl:hidden">
               <Icon name="search" className="h-6 w-6" />
             </Link>
-            <Link href="/contact?topic=quote" className="btn-orange px-6 py-2.5 text-[15px] xl:px-8">{t("Request a Quote")}</Link>
+            <Link href="/contact?topic=quote" className="btn-orange shrink-0 whitespace-nowrap px-6 py-2.5 text-[15px] xl:px-8">{t("Request a Quote")}</Link>
           </div>
 
           <div className="ml-auto flex items-center gap-2 lg:hidden">
@@ -138,7 +141,7 @@ function SearchBox({ className = "" }: { className?: string }) {
         onChange={(e) => setQ(e.target.value)}
         placeholder={t("Search Khumo")}
         aria-label={t("Search Khumo")}
-        className="w-full bg-transparent text-[15px] outline-none placeholder:text-ink/60"
+        className="w-full min-w-0 bg-transparent text-[15px] outline-none placeholder:text-ink/60"
       />
     </form>
   );

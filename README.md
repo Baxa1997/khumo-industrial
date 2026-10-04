@@ -41,10 +41,20 @@ The site is available in Uzbek (default), Russian and English under `/uz`, `/ru`
 - `src/app/[locale]/` — pages (one copy per language): `/`, `/products`, `/category/[slug]`, `/industries`, `/industries/[slug]`, `/service`, `/about`, `/company-history`, `/sustainability`, `/resources`, `/news`, `/support`, `/contact`, `/search`, `/favorites`, legal pages.
 - `public/images/` — drop photos here (see the README inside).
 
+## Form submissions
+
+The quote and contact forms post to `src/app/api/lead/route.ts`, which forwards each request to a Telegram chat.
+Copy `.env.example` to `.env.local` (or set the variables on your host) and fill in:
+
+- `TELEGRAM_BOT_TOKEN`: create a bot with @BotFather.
+- `TELEGRAM_CHAT_ID`: the chat or group that should receive requests (add the bot to it, then read the id from `https://api.telegram.org/bot<TOKEN>/getUpdates`).
+- `NEXT_PUBLIC_SITE_URL`: the public site address, used for link previews.
+
+Without these variables the form shows visitors the phone number and Telegram contact instead.
+
 ## Before launch
 
-- Replace placeholder phone, email, address, locations, stats and news with real data.
-- Add real photos, product cut-outs and client logos (`public/images`, paths in `data.ts`).
-- Replace the sample testimonials with real customer quotes.
-- Connect the contact form (`src/components/ContactForm.tsx`) to an email service or API route.
-- Fill in the privacy, terms and imprint pages.
+- Add more real photos (`public/images`, paths in `data.ts`).
+- Set the environment variables above and send a test request.
+- Have a lawyer review the Privacy Policy and Terms & Conditions (`src/lib/legal.ts`).
+- If you add ad pixels (Meta, Google, Yandex), keep the privacy policy's cookie section in line with them.

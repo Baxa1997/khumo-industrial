@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import FloatingContact from "@/components/FloatingContact";
 import { LocaleProvider } from "@/i18n/client";
-import { isLocale, locales } from "@/i18n/config";
+import { dateLocales, isLocale, locales } from "@/i18n/config";
 import { messages } from "@/i18n/messages";
 import { getI18n } from "@/i18n/server";
 import { company } from "@/lib/data";
@@ -17,14 +18,23 @@ export function generateStaticParams() {
 
 export async function generateMetadata(): Promise<Metadata> {
   const { t, locale } = await getI18n();
+  const description = t(
+    "Product marking solutions. Official Cyklop partner in Uzbekistan. CIJ / TIJ / laser marking. Supply, setup and service.",
+  );
   return {
+    ...(process.env.NEXT_PUBLIC_SITE_URL ? { metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL) } : {}),
     title: {
       default: `${company.name} — ${t(company.tagline)}`,
       template: `%s | ${company.name}`,
     },
-    description: t(
-      "Product marking solutions. Official Cyklop partner in Uzbekistan. CIJ / TIJ / laser marking. Supply, setup and service.",
-    ),
+    description,
+    openGraph: {
+      type: "website",
+      siteName: company.name,
+      title: `${company.name} — ${t(company.tagline)}`,
+      description,
+      locale: dateLocales[locale].replace(/-/g, "_").replace("_Latn", ""),
+    },
     alternates: {
       canonical: `/${locale}`,
       languages: Object.fromEntries(locales.map((l) => [l, `/${l}`])),
@@ -43,6 +53,7 @@ export default async function LocaleLayout({ children, params }: { children: Rea
           <Header />
           <main className="flex-1">{children}</main>
           <Footer />
+          <FloatingContact />
         </LocaleProvider>
       </body>
     </html>
