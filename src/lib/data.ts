@@ -17,6 +17,8 @@ export type Solution = {
   summary: string;
   intro: string;
   benefits: string[];
+  /** Optional product photo, e.g. "/images/products/strapping.png" (transparent PNG works best). */
+  image?: string;
   products: { name: string; description: string }[];
 };
 
@@ -160,6 +162,8 @@ export type Industry = {
   summary: string;
   challenges: string[];
   solutionSlugs: string[];
+  /** Optional photo, e.g. "/images/industries/logistics.jpg". */
+  image?: string;
 };
 
 export const industries: Industry[] = [
@@ -275,23 +279,30 @@ export const news = [
   {
     slug: "new-service-center",
     date: "2026-09-12",
-    category: "Company",
-    title: "Khumo Industrial opens a new service and demo center",
+    category: "News",
+    title: "Khumo Industrial Opens a New Service and Demo Center",
     excerpt: "Customers can now test strapping, wrapping and coding equipment live with their own products before they invest.",
   },
   {
     slug: "battery-strapping-tool",
     date: "2026-07-03",
     category: "Products",
-    title: "Next-generation battery strapping tool now available",
+    title: "Next-Generation Battery Strapping Tool Now Available",
     excerpt: "Longer battery life, faster cycle times and an intuitive display make strapping easier than ever.",
   },
   {
     slug: "film-savings",
     date: "2026-05-20",
-    category: "Sustainability",
-    title: "How pre-stretch technology cuts film use by up to 60%",
+    category: "Press",
+    title: "How Pre-Stretch Technology Cuts Film Use by up to 60%",
     excerpt: "Modern stretch wrappers reduce consumables and CO₂ footprint without compromising load stability.",
+  },
+  {
+    slug: "regional-expansion",
+    date: "2026-03-08",
+    category: "Events",
+    title: "Meet Khumo Industrial at the Regional Packaging Expo",
+    excerpt: "Visit our stand to see the latest end-of-line automation and talk to our application engineers.",
   },
 ];
 
@@ -306,3 +317,53 @@ export const milestones = [
 
 export const getSolution = (slug: string) => solutions.find((s) => s.slug === slug);
 export const getIndustry = (slug: string) => industries.find((i) => i.slug === slug);
+
+/** Optional photos used across the site. Drop files into /public/images and set the paths here. */
+export const images: { hero?: string; history?: string; sustainabilityTall?: string; sustainabilityTool?: string; sustainabilityTeam?: string } = {};
+
+export const hero = {
+  lines: ["Strong Packaging.", "Stronger Partner."],
+  text: "Khumo Industrial is your single-source, end-to-end packaging solutions partner. We provide expert support and seamless integration, and stay by your side every step of the way.",
+};
+
+export const announcement = { text: "Learn about Khumo Industrial’s commitment to", link: { href: "/sustainability", label: "sustainability" } };
+
+export const locations = [
+  { name: "Uzbekistan (HQ)", city: "Tashkent", phone: "+998 71 200 00 00" },
+  { name: "Kazakhstan", city: "Almaty", phone: "+7 727 000 00 00" },
+  { name: "Kyrgyzstan", city: "Bishkek", phone: "+996 312 00 00 00" },
+];
+
+/** Replace with real client logos (e.g. "/images/clients/acme.svg"). */
+export const clients: { name: string; logo?: string }[] = [
+  { name: "Client 1" },
+  { name: "Client 2" },
+  { name: "Client 3" },
+  { name: "Client 4" },
+];
+
+/** Sample testimonials — replace with real customer quotes before launch. */
+export const testimonials = [
+  {
+    quote: "Khumo Industrial analysed our end-of-line and recommended an automatic strapping system that doubled our throughput. Their service team responds the same day.",
+    name: "Operations Manager",
+    company: "Building materials producer",
+  },
+  {
+    quote: "Switching to their pre-stretch wrapper cut our film consumption dramatically, and loads arrive at our customers in perfect condition.",
+    name: "Logistics Director",
+    company: "Food & beverage distributor",
+  },
+  {
+    quote: "From installation to operator training, everything was handled professionally. Having machines and consumables from one partner makes life easy.",
+    name: "Plant Manager",
+    company: "Paper & corrugate manufacturer",
+  },
+];
+
+export const resources = [
+  { href: "/news", label: "News & Events", description: "Company updates, product launches and events." },
+  { href: "/support", label: "FAQ & Support", description: "Answers to common questions about machines and service." },
+  { href: "/sustainability", label: "Sustainability", description: "How we help customers reduce packaging waste." },
+  { href: "/company-history", label: "Our History", description: "From a consumables distributor to a full-solution partner." },
+];

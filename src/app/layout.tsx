@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     template: `%s | ${company.name}`,
   },
   description:
-    "Strapping, stretch wrapping, case sealing, coding & marking, binding and consumables. Complete end-of-line packaging solutions with expert advice and service.",
+    "Your single-source, end-to-end packaging solutions partner: stretch wrapping, strapping, case sealing, binding, coding & marking and consumables.",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

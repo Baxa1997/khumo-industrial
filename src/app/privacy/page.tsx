@@ -1,16 +1,16 @@
 import type { Metadata } from "next";
-import { PageHero } from "@/components/Sections";
+import { PageIntro } from "@/components/Sections";
 import { company } from "@/lib/data";
 
-export const metadata: Metadata = { title: "Privacy policy" };
+export const metadata: Metadata = { title: "Privacy Policy" };
 
 export default function Page() {
   return (
     <>
-      <PageHero eyebrow="Legal" title="Privacy policy" crumbs={[{ label: "Privacy policy" }]} />
-      <section className="py-20">
-        <div className="container-x max-w-3xl space-y-4 leading-relaxed text-muted">
-          <p>This page is a placeholder. Replace it with the official Privacy policy text for {company.name}.</p>
+      <PageIntro lines={["Privacy Policy."]} crumbs={[{ label: "Privacy Policy" }]} />
+      <section className="py-16 sm:py-24">
+        <div className="container-x max-w-4xl space-y-4 text-lg leading-relaxed text-muted">
+          <p>This page is a placeholder. Replace it with the official Privacy Policy text for {company.name}.</p>
           <p>For questions, contact us at {company.email}.</p>
         </div>
       </section>

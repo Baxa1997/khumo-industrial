@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import { CtaBanner, PageHero, SectionHeading, StatsBar } from "@/components/Sections";
-import { company, milestones } from "@/lib/data";
+import { CtaBanner, HistoryBlock, PageIntro, SplitHeading, StatsBar } from "@/components/Sections";
+import { company, images } from "@/lib/data";
 
-export const metadata: Metadata = { title: "About us" };
+export const metadata: Metadata = { title: "About" };
 
 const values = [
-  { t: "Customer first", d: "We listen, understand your process and deliver solutions that make a measurable difference." },
+  { t: "Customer First", d: "We listen, understand your process and deliver solutions that make a measurable difference." },
   { t: "Quality", d: "Proven machines and consumables, installed and maintained by trained technicians." },
   { t: "Partnership", d: "Long-term relationships built on reliable service and honest advice." },
   { t: "Sustainability", d: "We help customers reduce material use, energy and waste in packaging." },
@@ -14,46 +14,42 @@ const values = [
 export default function AboutPage() {
   return (
     <>
-      <PageHero
-        eyebrow="About us"
-        title="A trusted partner for packaging solutions"
+      <PageIntro
+        lines={["A Trusted Partner", "for Packaging."]}
         text={`Since ${company.founded}, ${company.name} has helped manufacturers and distributors secure, protect and identify their products — with complete solutions and dependable service.`}
-        crumbs={[{ label: "About us" }]}
+        crumbs={[{ label: "About" }]}
+        image={images.history}
+        imageAlt="Khumo Industrial team"
+        icon="globe"
       />
-      <section className="py-20">
-        <div className="container-x grid gap-16 lg:grid-cols-2">
-          <SectionHeading
-            eyebrow="Who we are"
-            title="Helping customers increase profitability and reduce risk"
-            text="We combine high-quality machines, matched consumables and expert engineering to optimize the end of your production line. Our goal is simple: your products arrive safely, your line runs efficiently and your packaging costs go down."
-          />
-          <div className="grid gap-4 sm:grid-cols-2">
+      <section className="py-20 sm:py-28">
+        <div className="container-x">
+          <SplitHeading title="Helping Customers Increase Profitability and Reduce Risk">
+            <p>
+              We combine high-quality machines, matched consumables and expert engineering to optimize the end of your
+              production line. Our goal is simple: your products arrive safely, your line runs efficiently and your
+              packaging costs go down.
+            </p>
+          </SplitHeading>
+          <div className="mt-20">
+            <StatsBar />
+          </div>
+        </div>
+      </section>
+      <section className="bg-surface py-20 sm:py-28">
+        <div className="container-x">
+          <h2 className="display text-4xl sm:text-5xl">Our Values</h2>
+          <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {values.map((v) => (
-              <div key={v.t} className="rounded-2xl bg-surface p-6">
-                <p className="font-bold text-navy-900">{v.t}</p>
-                <p className="mt-2 text-sm leading-relaxed text-muted">{v.d}</p>
+              <div key={v.t} className="rounded-xl bg-white p-8">
+                <p className="display text-2xl tracking-[-0.035em]">{v.t}</p>
+                <p className="mt-3 leading-relaxed text-muted">{v.d}</p>
               </div>
             ))}
           </div>
         </div>
-        <div className="container-x mt-20">
-          <StatsBar />
-        </div>
       </section>
-      <section id="history" className="scroll-mt-32 bg-surface py-20">
-        <div className="container-x">
-          <SectionHeading eyebrow="History" title="Our journey" />
-          <ol className="relative mt-14 border-l-2 border-brand-500/30 pl-8">
-            {milestones.map((m) => (
-              <li key={m.year} className="relative mb-10 last:mb-0">
-                <span className="absolute -left-[41px] top-1 h-4 w-4 rounded-full border-4 border-surface bg-brand-500" />
-                <p className="text-2xl font-extrabold text-brand-500">{m.year}</p>
-                <p className="mt-1 max-w-2xl text-ink">{m.text}</p>
-              </li>
-            ))}
-          </ol>
-        </div>
-      </section>
+      <HistoryBlock />
       <CtaBanner />
     </>
   );

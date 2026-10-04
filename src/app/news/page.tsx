@@ -1,16 +1,16 @@
 import type { Metadata } from "next";
-import { NewsCards } from "@/components/NewsCards";
-import { CtaBanner, PageHero } from "@/components/Sections";
+import { CtaBanner, NewsList, PageIntro } from "@/components/Sections";
+import { news } from "@/lib/data";
 
-export const metadata: Metadata = { title: "News & events" };
+export const metadata: Metadata = { title: "News & Events" };
 
 export default function NewsPage() {
   return (
     <>
-      <PageHero eyebrow="News & events" title="News from Khumo Industrial" text="Company updates, product launches and insights from the world of packaging." crumbs={[{ label: "News" }]} />
-      <section className="bg-surface py-20">
+      <PageIntro lines={["Latest News,", "Events & Press."]} text="Company updates, product launches and insights from the world of packaging." crumbs={[{ href: "/resources", label: "Resources" }, { label: "News" }]} />
+      <section className="py-20 sm:py-28">
         <div className="container-x">
-          <NewsCards />
+          <NewsList limit={news.length} />
         </div>
       </section>
       <CtaBanner />

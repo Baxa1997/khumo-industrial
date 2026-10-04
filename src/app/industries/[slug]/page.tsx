@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
-import Icon from "@/components/Icon";
-import { CtaBanner, PageHero, SectionHeading, SolutionCards } from "@/components/Sections";
+import { CategoryGrid, CtaBanner, PageIntro, SplitHeading } from "@/components/Sections";
 import { getIndustry, industries } from "@/lib/data";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -21,36 +21,39 @@ export default async function IndustryPage({ params }: Props) {
 
   return (
     <>
-      <PageHero
-        eyebrow={industry.name}
-        title={industry.title}
-        text={industry.summary}
-        icon={industry.icon}
+      <PageIntro
+        lines={[`${industry.name}.`]}
+        text={`${industry.title}. ${industry.summary}`}
         crumbs={[{ href: "/industries", label: "Industries" }, { label: industry.name }]}
-      />
+        image={industry.image}
+        imageAlt={`${industry.name} packaging`}
+        icon={industry.icon}
+      >
+        <div className="mt-10">
+          <Link href="/contact?topic=quote" className="btn-orange">Talk to a Specialist</Link>
+        </div>
+      </PageIntro>
 
-      <section className="py-20">
+      <section className="py-20 sm:py-28">
         <div className="container-x">
-          <SectionHeading eyebrow="Challenges" title={`Packaging challenges in ${industry.name.toLowerCase()}`} />
-          <div className="mt-10 grid gap-6 md:grid-cols-3">
-            {industry.challenges.map((c, idx) => (
-              <div key={c} className="rounded-2xl border border-line p-8">
-                <span className="text-sm font-extrabold text-accent-500">0{idx + 1}</span>
-                <p className="mt-3 text-lg font-bold text-navy-900">{c}</p>
-                <p className="mt-3 flex items-center gap-2 text-sm text-muted">
-                  <Icon name="check" className="h-4 w-4 text-brand-500" /> Solved with the right equipment and expert set-up
-                </p>
-              </div>
-            ))}
-          </div>
+          <SplitHeading title={`Packaging Challenges in ${industry.name}`}>
+            <ol>
+              {industry.challenges.map((c, idx) => (
+                <li key={c} className="flex items-baseline gap-8 border-b border-line py-6 first:pt-0">
+                  <span className="display text-4xl text-ink">{String(idx + 1).padStart(2, "0")}</span>
+                  <span className="display text-2xl tracking-[-0.03em] text-ink">{c}</span>
+                </li>
+              ))}
+            </ol>
+          </SplitHeading>
         </div>
       </section>
 
-      <section className="bg-surface py-20">
+      <section className="pb-20 sm:pb-28">
         <div className="container-x">
-          <SectionHeading eyebrow="Recommended" title="Solutions for your industry" />
-          <div className="mt-10">
-            <SolutionCards slugs={industry.solutionSlugs} />
+          <h2 className="display text-4xl sm:text-5xl">Recommended Products</h2>
+          <div className="mt-12">
+            <CategoryGrid slugs={industry.solutionSlugs} />
           </div>
         </div>
       </section>

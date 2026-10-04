@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { CtaBanner, PageHero, SectionHeading, ServiceGrid } from "@/components/Sections";
+import { CtaBanner, PageIntro, ServiceGrid, SplitHeading } from "@/components/Sections";
 
 export const metadata: Metadata = { title: "Service" };
 
@@ -7,35 +7,38 @@ const steps = [
   { t: "Analysis", d: "We visit your site, review your products and processes and define your goals." },
   { t: "Recommendation", d: "You receive a tailored proposal with machines, consumables and expected savings." },
   { t: "Installation", d: "Our technicians install, commission and integrate the solution into your line." },
-  { t: "Lifetime support", d: "Training, maintenance and spare parts keep your equipment running for years." },
+  { t: "Lifetime Support", d: "Training, maintenance and spare parts keep your equipment running for years." },
 ];
 
 export default function ServicePage() {
   return (
     <>
-      <PageHero
-        eyebrow="Service"
-        title="Service that keeps your line running"
+      <PageIntro
+        lines={["Service That Keeps", "Your Line Running."]}
         text="Our customers have access to experts and engineers who make sure every packaging solution matches their needs — and keeps performing long after installation."
         crumbs={[{ label: "Service" }]}
+        imageAlt="Service technician maintaining a packaging machine"
+        icon="tool"
       />
-      <section className="py-20">
+      <section className="py-20 sm:py-28">
         <div className="container-x">
-          <SectionHeading eyebrow="What we offer" title="Full-service packaging support" />
-          <div className="mt-14">
+          <SplitHeading title="Full-Service Packaging Support">
+            <p>Training, installation, preventive maintenance, technical support — whatever you need, we’ve got your back.</p>
+          </SplitHeading>
+          <div className="mt-16">
             <ServiceGrid />
           </div>
         </div>
       </section>
-      <section className="bg-navy-900 py-20">
+      <section className="bg-navy-800 py-20 text-white sm:py-28">
         <div className="container-x">
-          <SectionHeading light eyebrow="How we work" title="From first contact to lifetime support" />
-          <ol className="mt-14 grid gap-6 md:grid-cols-4">
+          <h2 className="display max-w-3xl text-4xl sm:text-5xl">From First Contact to Lifetime Support</h2>
+          <ol className="mt-16 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
             {steps.map((s, idx) => (
-              <li key={s.t} className="rounded-2xl border border-white/10 bg-white/5 p-6 text-white">
-                <span className="grid h-10 w-10 place-items-center rounded-full bg-accent-500 font-extrabold text-navy-950">{idx + 1}</span>
-                <p className="mt-5 text-lg font-bold">{s.t}</p>
-                <p className="mt-2 text-sm text-white/70">{s.d}</p>
+              <li key={s.t} className="rounded-xl bg-white/5 p-8 ring-1 ring-white/10">
+                <span className="display text-5xl text-orange-500">{String(idx + 1).padStart(2, "0")}</span>
+                <p className="display mt-8 text-2xl tracking-[-0.03em]">{s.t}</p>
+                <p className="mt-3 text-white/70">{s.d}</p>
               </li>
             ))}
           </ol>
