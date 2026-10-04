@@ -1,15 +1,23 @@
 import RegionSection from "@/components/RegionSection";
-import { CategoryGrid, ClientsStrip, CtaBanner, HistoryBlock, NewsSection, PageIntro, SustainabilityBlock } from "@/components/Sections";
-import Testimonials from "@/components/Testimonials";
+import Link from "@/i18n/Link";
+import Icon from "@/components/Icon";
+import { CategoryGrid, ClientsStrip, CtaBanner, HistoryBlock, InstagramSection, NewsSection, PageIntro, SustainabilityBlock } from "@/components/Sections";
 import { getI18n } from "@/i18n/server";
-import { hero, images } from "@/lib/data";
+import { company, hero, images } from "@/lib/data";
 
 export default async function HomePage() {
   const { t, loc } = await getI18n();
   const h = loc(hero);
   return (
     <>
-      <PageIntro lines={h.lines} text={h.text} image={images.hero} imageAlt={t("Khumo Industrial service engineers at work")} icon="gear" />
+      <PageIntro lines={h.lines} text={h.text} image={images.hero} imageAlt={t("Khumo Industrial service engineers at work")} icon="code">
+        <div className="mt-10 flex flex-wrap gap-3">
+          <Link href="/category/coding-marking" className="btn-orange">{t("Marking Solutions")}</Link>
+          <a href={company.telegram.href} target="_blank" rel="noopener noreferrer" className="btn border border-navy-800 text-navy-800 hover:bg-navy-800 hover:text-white">
+            <Icon name="send" className="h-4 w-4" /> {t("Write to us")}
+          </a>
+        </div>
+      </PageIntro>
       <ClientsStrip />
       <section className="pb-8">
         <div className="container-x">
@@ -19,7 +27,7 @@ export default async function HomePage() {
       <HistoryBlock />
       <SustainabilityBlock />
       <NewsSection />
-      <Testimonials />
+      <InstagramSection />
       <RegionSection />
       <CtaBanner />
     </>

@@ -36,7 +36,7 @@ export default async function RegionSection() {
           <div>
             <h2 className="display text-4xl sm:text-5xl lg:text-[3.4rem]">{t("Here for You Across Uzbekistan.")}</h2>
             <p className="display mt-8 text-lg leading-relaxed tracking-[-0.02em] text-white/90">
-              {t("As the official Cyklop partner in Uzbekistan, we bring you the technology of a global packaging leader with local supply, installation, training and service — wherever your production is.")}
+              {t("Khumo Industrial supplies, sets up and services CIJ, TIJ and laser marking systems across Uzbekistan — with operator training, inks and spare parts close to your production.")}
             </p>
             <Link href="/contact" className="btn-orange mt-10">{t("Contact Khumo")}</Link>
           </div>

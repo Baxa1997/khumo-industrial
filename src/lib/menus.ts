@@ -54,14 +54,14 @@ export const menus: Record<"products" | "service" | "industries" | "resources" |
       { href: "/news", label: "News & Events" },
       { href: "/support", label: "FAQ & Support" },
       { href: "/sustainability", label: "Sustainability" },
-      { href: "/company-history", label: "Our History" },
+      { href: "/company-history", label: "Our Story" },
     ],
     cards: news.slice(0, 2).map((n) => ({ href: `/news#${n.slug}`, text: n.title, cta: "Read more" })),
   },
   about: {
     side: [
       { href: "/about", label: "Who We Are" },
-      { href: "/company-history", label: "History" },
+      { href: "/company-history", label: "Our Story" },
       { href: "/sustainability", label: "Sustainability" },
       { href: "/careers", label: "Careers" },
       { href: "/contact", label: "Contact" },

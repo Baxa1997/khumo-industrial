@@ -23,7 +23,7 @@ export async function generateMetadata(): Promise<Metadata> {
       template: `%s | ${company.name}`,
     },
     description: t(
-      "Your single-source, end-to-end packaging solutions partner: stretch wrapping, strapping, case sealing, binding, coding & marking and consumables.",
+      "Product marking solutions. Official Cyklop partner in Uzbekistan. CIJ / TIJ / laser marking. Supply, setup and service.",
     ),
     alternates: {
       canonical: `/${locale}`,

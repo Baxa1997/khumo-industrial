@@ -195,7 +195,7 @@ const reasons: { icon: IconName; title: string; text: string }[] = [
   { icon: "layers", title: "Complete {name} Portfolio", text: "From manual tools to fully automatic systems, we offer {name} solutions for every production environment." },
   { icon: "tool", title: "Tailored to Your Production", text: "Every business is different. Our engineers work with you to recommend the right equipment, automation level and consumables for your application." },
   { icon: "headset", title: "Expert Advice, Local Support", text: "Our specialists and technicians provide fast local service, spare parts and technical support wherever you operate in the region." },
-  { icon: "shield", title: "Backed by Cyklop Since 1912", text: "As the official Cyklop partner in Uzbekistan, we bring you technology from a manufacturer with more than 100 years of packaging innovation." },
+  { icon: "shield", title: "Official Cyklop Partner", text: "Original Cyklop equipment, inks and spare parts — supplied, set up and serviced by our team in Uzbekistan." },
 ];
 
 export async function WhyChoose({ category, name, others }: { category: string; name: string; others: { slug: string; name: string }[] }) {

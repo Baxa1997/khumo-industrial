@@ -5,6 +5,10 @@ export const company = {
   legalName: "KHUMO INDUSTRIAL ООО",
   short: "Khumo",
   tagline: "Official Cyklop partner in Uzbekistan",
+  // From the Instagram bio (@khumo_industrial).
+  focus: "Product marking solutions",
+  technologies: "CIJ / TIJ / Laser marking",
+  services: "Supply, setup, service",
   phone: "+998 88 088 93 20",
   phoneHref: "tel:+998880889320",
   address: "Uzbekistan",
@@ -199,6 +203,15 @@ export type Industry = {
 
 export const industries: Industry[] = [
   {
+    slug: "eggs-poultry",
+    name: "Eggs & Poultry",
+    icon: "egg",
+    title: "Clear codes on every egg",
+    summary: "Print dates and farm codes directly on eggs and egg trays with food-safe inkjet printers.",
+    challenges: ["Curved, fragile surfaces", "Food-safe inks", "High line speeds"],
+    solutionSlugs: ["coding-marking", "consumables"],
+  },
+  {
     slug: "logistics",
     name: "Logistics",
     icon: "truck",
@@ -300,48 +313,50 @@ export const services: { icon: IconName; name: string; description: string }[] =
 ];
 
 export const stats = [
-  { value: "100+", label: "Years of Cyklop innovation" },
-  { value: "3", label: "Coding technologies: CIJ, TIJ & laser" },
+  { value: "3", label: "Marking technologies: CIJ, TIJ & laser" },
+  { value: "150", label: "m/min — CIJ printing speed" },
   { value: "Local", label: "Supply, setup & service" },
   { value: "Official", label: "Cyklop partner in Uzbekistan" },
 ];
 
+/** Highlights from the @khumo_industrial Instagram account. */
 export const news = [
   {
-    slug: "co2-laser-marking",
-    date: "2026-09-12",
-    category: "Products",
-    title: "Cyklop CO2 Laser Marking System Now Available in Uzbekistan",
-    excerpt: "Permanent, consumable-free coding for cartons, plastics, glass and more — supplied, installed and serviced locally.",
+    slug: "uk-standard-cij",
+    category: "Instagram",
+    title: "UK-Standard CIJ Printer: Up to 150 m/min",
+    excerpt: "Cyklop CIJ printers mark up to 150 metres per minute, print in any direction and come at an affordable price.",
+    href: "https://www.instagram.com/khumo_industrial/",
   },
   {
-    slug: "cij-tij-laser",
-    date: "2026-07-03",
-    category: "Guide",
-    title: "CIJ, TIJ or Laser: How to Choose the Right Coding Technology",
-    excerpt: "Line speed, substrate and code content decide which technology fits your production best.",
+    slug: "training",
+    category: "Instagram",
+    title: "Operator Training on Site",
+    excerpt: "Our engineers set up your coder and train your team to run it with confidence.",
+    href: "https://www.instagram.com/khumo_industrial/",
   },
   {
-    slug: "traceability",
-    date: "2026-05-20",
-    category: "Guide",
-    title: "Why Clear Date and Batch Codes Matter for Your Products",
-    excerpt: "Readable codes protect your brand, satisfy retailers and keep your supply chain traceable.",
+    slug: "egg-marking",
+    category: "Instagram",
+    title: "Egg Marking With Inkjet Printers",
+    excerpt: "Date and farm codes printed directly on every egg — fast, clean and food-safe.",
+    href: "https://www.instagram.com/khumo_industrial/",
   },
   {
-    slug: "service-training",
-    date: "2026-03-08",
-    category: "News",
-    title: "Operator Training Included With Every Installation",
-    excerpt: "Our engineers set up your coder on site and train your team to run it with confidence.",
+    slug: "labeling",
+    category: "Instagram",
+    title: "Labeling and Printing in Action",
+    excerpt: "See how our customers code and label products on their lines in Uzbekistan.",
+    href: "https://www.instagram.com/khumo_industrial/",
   },
 ];
 
+/** "Our story" page — what Khumo Industrial does, in order. */
 export const milestones = [
-  { year: "1912", text: "Cyklop is founded in Cologne, Germany, and grows into a global packaging solutions provider." },
-  { year: "2015", text: "Cyklop introduces coding and marking to its portfolio." },
-  { year: "2024", text: "Cyklop acquires Needham, a UK and Ireland based ink and laser coder manufacturer." },
-  { year: "Today", text: "Khumo Industrial is the official Cyklop partner in Uzbekistan, supplying, setting up and servicing CIJ, TIJ and laser marking systems." },
+  { year: "Partner", text: "Khumo Industrial is the official Cyklop partner in Uzbekistan for product marking solutions." },
+  { year: "CIJ · TIJ · Laser", text: "We supply continuous inkjet, thermal inkjet and laser marking systems, plus inks and consumables." },
+  { year: "Setup", text: "Our engineers install and configure every coder on site and train your operators." },
+  { year: "Service", text: "Local service, spare parts and support keep your marking running every day." },
 ];
 
 export const getSolution = (slug: string) => solutions.find((s) => s.slug === slug);
@@ -351,14 +366,14 @@ export const getIndustry = (slug: string) => industries.find((i) => i.slug === s
 export const images: { hero?: string; history?: string; sustainabilityTall?: string; sustainabilityTool?: string; sustainabilityTeam?: string } = {};
 
 export const hero = {
-  lines: ["Strong Packaging.\nStronger Partner."],
-  text: "Khumo Industrial is the official Cyklop partner in Uzbekistan — your single source for coding, marking and end-of-line packaging. We supply, set up and service your equipment and stay by your side every step of the way.",
+  lines: ["Product Marking\nSolutions."],
+  text: "Khumo Industrial is the official Cyklop partner in Uzbekistan. CIJ, TIJ and laser marking — supply, setup and service for your production.",
 };
 
 export const announcement = {
   partner: "Official Cyklop partner in Uzbekistan",
-  text: "Learn about our commitment to",
-  link: { href: "/sustainability", label: "sustainability" },
+  text: "CIJ / TIJ / Laser marking ·",
+  link: { href: "https://t.me/khumo_industrial", label: "Write to us" },
 };
 
 export const locations = [
@@ -370,36 +385,10 @@ export const regions = [
   "Namangan", "Navoi", "Samarkand", "Surkhandarya", "Syrdarya", "Karakalpakstan",
 ];
 
-/** Replace with real client logos (e.g. "/images/clients/acme.svg"). */
-export const clients: { name: string; logo?: string }[] = [
-  { name: "Client 1" },
-  { name: "Client 2" },
-  { name: "Client 3" },
-  { name: "Client 4" },
-];
-
-/** Sample testimonials — replace with real customer quotes before launch. */
-export const testimonials = [
-  {
-    quote: "Khumo Industrial analysed our end-of-line and recommended an automatic strapping system that doubled our throughput. Their service team responds the same day.",
-    name: "Operations Manager",
-    company: "Building materials producer",
-  },
-  {
-    quote: "Switching to their pre-stretch wrapper cut our film consumption dramatically, and loads arrive at our customers in perfect condition.",
-    name: "Logistics Director",
-    company: "Food & beverage distributor",
-  },
-  {
-    quote: "From installation to operator training, everything was handled professionally. Having machines and consumables from one partner makes life easy.",
-    name: "Plant Manager",
-    company: "Paper & corrugate manufacturer",
-  },
-];
 
 export const resources = [
-  { href: "/news", label: "News & Events", description: "Company updates, product launches and events." },
+  { href: "/news", label: "News & Events", description: "Highlights from our Instagram: new equipment, installations and training." },
   { href: "/support", label: "FAQ & Support", description: "Answers to common questions about machines and service." },
   { href: "/sustainability", label: "Sustainability", description: "How we help customers reduce packaging waste." },
-  { href: "/company-history", label: "Our History", description: "Cyklop’s story since 1912 and our partnership in Uzbekistan." },
+  { href: "/company-history", label: "Our Story", description: "Who we are and how we support product marking in Uzbekistan." },
 ];

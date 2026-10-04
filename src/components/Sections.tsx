@@ -2,9 +2,8 @@ import Link from "@/i18n/Link";
 import Icon, { type IconName } from "./Icon";
 import Photo from "./Photo";
 import CategoryCards from "./CategoryCards";
-import { dateLocales } from "@/i18n/config";
 import { getI18n } from "@/i18n/server";
-import { clients, images, news, services, solutions, stats } from "@/lib/data";
+import { company, images, news, services, solutions, stats } from "@/lib/data";
 
 /* ---------- Intro / hero (used on every page) ---------- */
 
@@ -40,10 +39,10 @@ export async function PageIntro({
             ))}
           </nav>
         )}
-        <div className="grid items-end gap-8 lg:grid-cols-[auto_1fr] lg:gap-16">
+        <div className="grid items-end gap-8 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)] lg:gap-16">
           <h1 className="display long-words text-[2.6rem] sm:text-6xl lg:text-[4.5rem] xl:text-[5.25rem]">
             {lines.flatMap((l) => l.split("\n")).map((l) => (
-              <span key={l} className={`block pb-2 ${l.length <= 22 ? "lg:whitespace-nowrap" : ""}`}>{l}</span>
+              <span key={l} className={`block pb-2 ${l.length <= 16 ? "lg:whitespace-nowrap" : ""}`}>{l}</span>
             ))}
           </h1>
           {text && <p className="display max-w-xl pb-3 text-lg leading-relaxed tracking-[-0.02em] text-muted sm:text-[1.35rem] lg:ml-auto">{text}</p>}
@@ -74,26 +73,63 @@ export function SplitHeading({ title, children }: { title: React.ReactNode; chil
 
 export async function ClientsStrip() {
   const { t } = await getI18n();
+  const items = [
+    { icon: "code" as const, title: t(company.focus), text: t(company.technologies) },
+    { icon: "tool" as const, title: t(company.services), text: t("Installation, operator training and local service") },
+    { icon: "shield" as const, title: t("Official Cyklop partner"), text: t("Original equipment, inks and spare parts") },
+  ];
   return (
-    <section className="py-16 sm:py-24">
-      <div className="container-x flex flex-col gap-10 lg:flex-row lg:items-center">
-        <p className="display shrink-0 text-xl leading-snug tracking-[-0.03em] lg:w-72 lg:border-r lg:border-line lg:pr-10 lg:text-[1.6rem]">
-          {t("Some of the brands we are honored to serve")}
-        </p>
-        <ul className="grid flex-1 grid-cols-2 items-center gap-6 sm:grid-cols-4">
-          {clients.map((c) => (
-            <li key={c.name} className="flex h-20 items-center justify-center">
-              {c.logo ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img src={c.logo} alt={c.name} className="max-h-16 max-w-[11rem] object-contain" />
-              ) : (
-                <span className="grid h-16 w-full max-w-[11rem] place-items-center rounded-xl border border-dashed border-ink/20 text-sm text-ink/40">
-                  {t("{name} logo", { name: c.name })}
-                </span>
-              )}
-            </li>
-          ))}
-        </ul>
+    <section className="py-16 sm:py-20">
+      <ul className="container-x grid gap-4 md:grid-cols-3">
+        {items.map((i) => (
+          <li key={i.title} className="flex items-start gap-4 rounded-xl border border-line p-6">
+            <span className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-orange-500/10 text-orange-500">
+              <Icon name={i.icon} className="h-6 w-6" />
+            </span>
+            <span>
+              <span className="display block text-xl tracking-[-0.03em]">{i.title}</span>
+              <span className="mt-1 block text-muted">{i.text}</span>
+            </span>
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+}
+
+/* ---------- Instagram ---------- */
+
+export async function InstagramSection() {
+  const { t } = await getI18n();
+  return (
+    <section className="pb-24 sm:pb-28">
+      <div className="container-x">
+        <div className="grid items-center gap-10 rounded-[1.25rem] bg-surface p-8 sm:p-12 lg:grid-cols-2">
+          <div>
+            <p className="flex items-center gap-2 font-medium text-orange-500">
+              <Icon name="instagram" className="h-5 w-5" /> {company.instagram.label}
+            </p>
+            <h2 className="display long-words mt-4 text-4xl sm:text-5xl">{t("See Our Marking Systems in Action")}</h2>
+            <p className="mt-5 text-lg leading-relaxed text-muted">
+              {t("Egg marking, labeling, printing on production lines and operator training — follow us on Instagram or write to us on Telegram.")}
+            </p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <a href={company.instagram.href} target="_blank" rel="noopener noreferrer" className="btn-orange">
+                <Icon name="instagram" className="h-5 w-5" /> {t("Follow on Instagram")}
+              </a>
+              <a href={company.telegram.href} target="_blank" rel="noopener noreferrer" className="btn border border-navy-800 text-navy-800 hover:bg-navy-800 hover:text-white">
+                <Icon name="send" className="h-4 w-4" /> {t("Write to us")}
+              </a>
+            </div>
+          </div>
+          <ul className="grid grid-cols-2 gap-3">
+            {["Egg marking", "Labeling", "Printing process", "Training"].map((label) => (
+              <li key={label} className="photo-placeholder flex aspect-square items-end rounded-xl p-4 text-white">
+                <span className="display text-lg tracking-[-0.02em]">{t(label)}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </section>
   );
@@ -114,11 +150,14 @@ export async function HistoryBlock() {
   return (
     <section className="py-20 sm:py-28">
       <div className="container-x">
-        <SplitHeading title={t("Over 100 Years of Cyklop Expertise, Delivered Locally")}>
-          <p>{t("Cyklop was established in 1912 and today is a leading global provider of packaging machinery and supplies, including coding and marking systems.")}</p>
-          <p>{t("Khumo Industrial is Cyklop’s official partner in Uzbekistan. We supply, set up and service CIJ, TIJ and laser marking systems and end-of-line packaging equipment — so you get proven technology with local support.")}</p>
-          <div className="pt-6">
-            <Link href="/company-history" className="btn-orange">{t("Learn About Cyklop History")}</Link>
+        <SplitHeading title={t("Product Marking Solutions in Uzbekistan")}>
+          <p>{t("Khumo Industrial is the official Cyklop partner in Uzbekistan. We help manufacturers put clear, durable codes on every product — dates, batch numbers, barcodes and logos.")}</p>
+          <p>{t("We supply CIJ, TIJ and laser marking systems, set them up on your line, train your operators and provide local service, inks and spare parts.")}</p>
+          <div className="flex flex-wrap gap-3 pt-6">
+            <Link href="/about" className="btn-orange">{t("About Khumo Industrial")}</Link>
+            <a href={company.telegram.href} target="_blank" rel="noopener noreferrer" className="btn border border-navy-800 text-navy-800 hover:bg-navy-800 hover:text-white">
+              <Icon name="send" className="h-4 w-4" /> {t("Write to us")}
+            </a>
           </div>
         </SplitHeading>
       </div>
@@ -174,22 +213,22 @@ export async function SustainabilityBlock() {
 /* ---------- News list ---------- */
 
 export async function NewsList({ limit = 3 }: { limit?: number }) {
-  const { loc, locale } = await getI18n();
-  const formatDate = (iso: string) =>
-    new Date(iso).toLocaleDateString(dateLocales[locale], { month: "long", day: "numeric", year: "numeric", timeZone: "UTC" });
+  const { t, loc } = await getI18n();
   return (
     <ol>
       {loc(news).slice(0, limit).map((n, idx) => (
-        <li key={n.slug} id={n.slug} className="flex scroll-mt-32 gap-10 border-b border-line py-8 first:pt-0">
-          <span className="display w-12 shrink-0 text-[2.6rem] leading-none tracking-[-0.03em]">{String(idx + 1).padStart(2, "0")}</span>
-          <div>
-            <h3 className="display text-2xl leading-tight tracking-[-0.035em] sm:text-[1.75rem]">{n.title}</h3>
-            <p className="mt-3 text-[15px]">
-              <span className="text-orange-500">{n.category}</span>
-              <span className="mx-2.5 text-muted">.</span>
-              <time dateTime={n.date} className="text-muted">{formatDate(n.date)}</time>
-            </p>
-          </div>
+        <li key={n.slug} id={n.slug} className="scroll-mt-32 border-b border-line py-8 first:pt-0">
+          <a href={n.href} target="_blank" rel="noopener noreferrer" className="group flex gap-6 sm:gap-10">
+            <span className="display w-12 shrink-0 text-[2.6rem] leading-none tracking-[-0.03em]">{String(idx + 1).padStart(2, "0")}</span>
+            <div>
+              <h3 className="display text-2xl leading-tight tracking-[-0.035em] group-hover:text-orange-500 sm:text-[1.75rem]">{n.title}</h3>
+              <p className="mt-2 text-muted">{n.excerpt}</p>
+              <p className="mt-3 flex items-center gap-2 text-[15px] text-orange-500">
+                <Icon name="instagram" className="h-4 w-4" />
+                {t("View on Instagram")}
+              </p>
+            </div>
+          </a>
         </li>
       ))}
     </ol>

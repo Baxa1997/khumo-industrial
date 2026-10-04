@@ -28,7 +28,7 @@ export default async function Footer() {
         <div className="flex flex-col justify-between gap-10 border-b border-white/15 pb-14 lg:flex-row lg:items-end">
           <div>
             <Logo light />
-            <p className="display mt-8 max-w-xl text-3xl tracking-[-0.035em] sm:text-4xl">{t("Strong packaging. Stronger partner.")}</p>
+            <p className="display mt-8 max-w-xl text-3xl tracking-[-0.035em] sm:text-4xl">{t(company.focus)} · {t(company.services)}</p>
           </div>
           <Link href="/contact?topic=quote" className="btn-orange self-start lg:self-auto">{t("Request a Quote")}</Link>
         </div>

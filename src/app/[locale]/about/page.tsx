@@ -11,7 +11,7 @@ export default async function AboutPage() {
     <>
       <PageIntro
         lines={[t("A Trusted Partner\nfor Packaging.")]}
-        text={t("{name} is the official Cyklop partner in Uzbekistan. We help manufacturers mark, secure and protect their products — with proven equipment, local setup and dependable service.", { name: company.name })}
+        text={t("{name} — product marking solutions. Official Cyklop partner in Uzbekistan. CIJ / TIJ / laser marking. Supply, setup, service.", { name: company.name })}
         crumbs={[{ label: t("About") }]}
         image={images.history}
         imageAlt={t("Khumo Industrial team")}
