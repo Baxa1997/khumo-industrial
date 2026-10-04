@@ -45,7 +45,7 @@ export default function Header() {
     <header className="sticky top-0 z-50 bg-white">
       {/* Announcement bar */}
       <div className="bg-black text-white">
-        <div className="flex h-9 items-center justify-between gap-4 px-4 text-[13px] sm:px-7">
+        <div className="flex h-8 items-center justify-between gap-4 px-4 text-xs sm:px-7">
           <p className="truncate">
             {announcement.text}{" "}
             <Link href={announcement.link.href} className="underline underline-offset-2 hover:text-orange-500">
@@ -76,10 +76,10 @@ export default function Header() {
 
       {/* Main navigation */}
       <div className="relative border-b border-transparent" onMouseLeave={() => setOpen(null)}>
-        <div className="flex h-[4.5rem] items-center gap-6 px-4 sm:px-7 lg:h-20">
+        <div className="flex h-16 items-center gap-6 px-4 sm:px-7">
           <Logo />
 
-          <nav className="hidden items-center gap-1 lg:flex xl:ml-6" aria-label="Main">
+          <nav className="hidden items-center gap-0.5 lg:flex xl:ml-4" aria-label="Main">
             {nav.map((item) => {
               const active = pathname.startsWith(item.href) || (item.menu === "products" && pathname.startsWith("/category"));
               return (
@@ -89,7 +89,7 @@ export default function Header() {
                   onMouseEnter={() => setOpen(item.menu ?? null)}
                   onFocus={() => setOpen(item.menu ?? null)}
                   aria-expanded={item.menu ? open === item.menu : undefined}
-                  className={`rounded-full px-3.5 py-2 text-[17px] transition-colors hover:text-orange-500 ${
+                  className={`rounded-full px-3 py-2 text-[15px] transition-colors hover:text-orange-500 ${
                     active || (item.menu && open === item.menu) ? "text-orange-500" : "text-ink/85"
                   }`}
                 >
@@ -99,12 +99,12 @@ export default function Header() {
             })}
           </nav>
 
-          <div className="ml-auto hidden items-center gap-5 lg:flex">
-            <SearchBox className="hidden w-72 xl:flex 2xl:w-[21rem]" />
+          <div className="ml-auto hidden items-center gap-4 lg:flex">
+            <SearchBox className="hidden w-60 xl:flex 2xl:w-72" />
             <Link href="/search" aria-label="Search" className="p-1.5 hover:text-orange-500 xl:hidden">
-              <Icon name="search" className="h-7 w-7" />
+              <Icon name="search" className="h-6 w-6" />
             </Link>
-            <Link href="/contact?topic=quote" className="btn-orange xl:px-10 xl:text-lg">Request a Quote</Link>
+            <Link href="/contact?topic=quote" className="btn-orange px-6 py-2.5 text-[15px] xl:px-8">Request a Quote</Link>
             <FavoritesLink count={favorites.length} />
           </div>
 
@@ -117,7 +117,7 @@ export default function Header() {
               aria-label={mobile ? "Close menu" : "Open menu"}
               aria-expanded={mobile}
             >
-              <Icon name={mobile ? "close" : "menu"} className="h-7 w-7" />
+              <Icon name={mobile ? "close" : "menu"} className="h-6 w-6" />
             </button>
           </div>
         </div>
@@ -126,7 +126,7 @@ export default function Header() {
       </div>
 
       {mobile && (
-        <div className="max-h-[calc(100vh-7rem)] overflow-y-auto border-t border-line bg-white lg:hidden">
+        <div className="max-h-[calc(100vh-6rem)] overflow-y-auto border-t border-line bg-white lg:hidden">
           <div className="flex flex-col gap-1 px-4 py-4 sm:px-7">
             <SearchBox className="mb-3 w-full" />
             <MobileGroup title="Products" base="/products" items={solutions.map((s) => ({ href: `/category/${s.slug}`, label: s.name }))} />
@@ -149,19 +149,19 @@ function SearchBox({ className = "" }: { className?: string }) {
   return (
     <form
       role="search"
-      className={`flex h-14 items-center gap-3 rounded-full border border-ink/25 px-5 transition-colors focus-within:border-navy-800 ${className}`}
+      className={`flex h-11 items-center gap-2.5 rounded-full border border-ink/25 px-4 transition-colors focus-within:border-navy-800 ${className}`}
       onSubmit={(e) => {
         e.preventDefault();
         router.push(`/search?q=${encodeURIComponent(q.trim())}`);
       }}
     >
-      <Icon name="search" className="h-5 w-5 shrink-0 text-ink/70" />
+      <Icon name="search" className="h-[18px] w-[18px] shrink-0 text-ink/70" />
       <input
         value={q}
         onChange={(e) => setQ(e.target.value)}
         placeholder="Search Khumo"
         aria-label="Search Khumo"
-        className="w-full bg-transparent text-[17px] outline-none placeholder:text-ink/60"
+        className="w-full bg-transparent text-[15px] outline-none placeholder:text-ink/60"
       />
     </form>
   );
@@ -170,7 +170,7 @@ function SearchBox({ className = "" }: { className?: string }) {
 function FavoritesLink({ count }: { count: number }) {
   return (
     <Link href="/favorites" aria-label={`Saved products (${count})`} className="relative p-1.5 text-ink hover:text-orange-500">
-      <Icon name="heart" className="h-8 w-8" strokeWidth={1.6} />
+      <Icon name="heart" className="h-6 w-6" strokeWidth={1.7} />
       {count > 0 && (
         <span className="absolute -right-0.5 -top-0.5 grid h-5 min-w-5 place-items-center rounded-full bg-orange-500 px-1 text-[11px] font-semibold text-white">
           {count}
