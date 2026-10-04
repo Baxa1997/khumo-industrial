@@ -20,6 +20,9 @@ export type Challenge = {
   image?: string;
 };
 
+export type Technology = { title: string; text: string; points: string[]; image?: string };
+export type IndustryCard = { name: string; text: string; image?: string };
+
 export type CategoryDetail = {
   eyebrow: string;
   headline: string;
@@ -28,6 +31,12 @@ export type CategoryDetail = {
   band: { badge: string; title: string; text: string; image?: string; primary: string; secondary: string };
   range: { title: string; text: string; items: RangeItem[] };
   challenges: Challenge[];
+  technology: Technology;
+  /** Optional industry cards; falls back to the global industry list. */
+  industries?: IndustryCard[];
+  /** Optional FAQ list; falls back to the FAQs in data.ts. */
+  faqs?: { q: string; a: string }[];
+  unsure: string;
 };
 
 export const trustPoints = ["15+ years expertise", "Local service & support", "Built for demanding environments"];
@@ -97,6 +106,37 @@ export const categoryDetails: Record<string, CategoryDetail> = {
         benefits: ["Higher uptime", "Fast response", "Planned maintenance", "Longer machine life"],
       },
     ],
+    technology: {
+      title: "The Khumo Difference: Proven Strapping Heads",
+      text: "Our automatic machines use friction-weld strapping heads that create strong seals without heat or fumes. Fewer wear parts mean less maintenance, longer service life and more uptime on your line.",
+      points: ["No fumes during sealing", "Strong strap joints", "Easy maintenance", "Long service life", "Reliable operation", "Lower operating costs"],
+    },
+    industries: [
+      { name: "Food & Beverage", text: "Keep high production speeds while securing stable pallet loads through storage and distribution. Automated strapping reduces manual handling and integrates into high-speed end-of-line operations." },
+      { name: "Logistics & Warehousing", text: "Secure palletized loads efficiently, cut transport damage and raise warehouse productivity with strapping systems that support safe handling throughout the supply chain." },
+      { name: "Manufacturing", text: "Protect products while supporting growing volumes. Scalable strapping solutions reduce manual work, improve consistency and grow with your production." },
+      { name: "Timber Industry", text: "Secure heavy, long and irregular loads that need high strap strength and tension retention, with high-performance PET strap and heavy-duty equipment." },
+      { name: "Paper & Corrugated", text: "Protect paper reels, printed materials and corrugated products without crushing them, using consistent tension that integrates into automated lines." },
+      { name: "Building Materials", text: "Secure bricks, blocks and heavy building products for safe transport while reducing movement and product damage." },
+      { name: "Metals & Steel", text: "Secure extremely heavy loads in harsh environments where maximum holding force is essential, with heavy-duty steel strapping systems." },
+      { name: "FMCG", text: "Maintain continuous, high-speed production while every pallet is securely stabilized for distribution, with fully automatic strapping." },
+      { name: "E-Commerce & Distribution", text: "Prepare high volumes of shipments quickly while keeping loads stable and reducing transport damage as order volumes grow." },
+    ],
+    faqs: [
+      { q: "What is industrial strapping?", a: "Industrial strapping applies a tensioned band of PP, PET or steel around a product or pallet to bundle items, hold them together and secure them for storage and transport." },
+      { q: "How does a strapping machine work?", a: "The machine feeds strap around the product, pulls it back to the set tension, seals the strap ends by friction weld, heat or a seal, and cuts it — automatically or at the push of a button." },
+      { q: "How do I choose the right strapping solution?", a: "Consider load weight and stability, daily volume, available space and the level of automation you need. Our specialists assess your application and recommend tools, machines and strap." },
+      { q: "Why is load stability important?", a: "Stable loads prevent product damage, rejected deliveries and accidents during handling, which lowers logistics costs and improves customer satisfaction." },
+      { q: "What is the difference between PP, PET and steel strapping?", a: "PP is economical for light to medium loads, PET offers high strength and tension retention for heavy loads, and steel provides maximum strength for very heavy, sharp-edged or hot products." },
+      { q: "Can PET strapping replace steel strapping?", a: "In many applications, yes. PET is lighter, safer to handle, does not rust and absorbs impacts better, while delivering comparable holding force." },
+      { q: "When should I replace manual strapping?", a: "When volumes grow, operators spend significant time strapping, or strap quality varies, a battery tool or semi-automatic machine usually pays back quickly." },
+      { q: "How do I reduce manual handling?", a: "Automatic arch and pallet strapping machines integrated with conveyors remove repetitive tasks and improve ergonomics." },
+      { q: "How do I reduce transport damage?", a: "Use the right strap material, the right number of straps and consistent tension, combined with stretch wrapping where needed." },
+      { q: "Can strapping improve sustainability?", a: "Yes. Optimized tension and strap selection reduce material use, and recycled-content PET strap lowers environmental impact." },
+      { q: "Can strapping systems integrate with conveyors and automation?", a: "Yes. Our automatic systems connect to conveyors and line controls for fully automated end-of-line packaging." },
+      { q: "Can Khumo Industrial customize strapping systems?", a: "Yes. We configure machines, strapping patterns and integration to match your products, line layout and throughput." },
+    ],
+    unsure: "A reliable strapping process is about more than applying a strap. We help you build a complete end-of-line solution that improves load stability, increases productivity and protects products throughout storage and transport.",
   },
   "stretch-wrapping": {
     eyebrow: "Helping businesses protect pallets, stabilize loads and reduce film consumption.",
@@ -150,6 +190,12 @@ export const categoryDetails: Record<string, CategoryDetail> = {
         benefits: ["Less film per pallet", "Lower CO₂ footprint", "Lower costs", "Fewer roll changes"],
       },
     ],
+    technology: {
+      title: "The Khumo Difference: Powered Pre-Stretch",
+      text: "Our wrappers stretch film before it reaches the load, delivering consistent containment force with far less material and fewer roll changes.",
+      points: ["Up to 300% pre-stretch", "Consistent containment force", "Fewer roll changes", "Programmable recipes", "Lower film costs", "Reduced plastic waste"],
+    },
+    unsure: "Stable pallets depend on the right machine, film and wrap pattern. We help you find the combination that protects your loads at the lowest cost per pallet.",
   },
   "case-sealing": {
     eyebrow: "Helping businesses close every carton securely, consistently and efficiently.",
@@ -203,6 +249,12 @@ export const categoryDetails: Record<string, CategoryDetail> = {
         benefits: ["Higher output", "Better ergonomics", "Lower labour costs"],
       },
     ],
+    technology: {
+      title: "The Khumo Difference: Precise Tape Heads",
+      text: "Robust tape heads apply consistent tape length and pressure on every carton, with fast, tool-free changeovers.",
+      points: ["Consistent seals", "Tool-free changeover", "Low maintenance", "Works with many tape types", "Safe operation", "Lower tape waste"],
+    },
+    unsure: "Secure cartons start with the right sealing equipment and tape. We help you build a case sealing process that is fast, consistent and cost-effective.",
   },
   "coding-marking": {
     eyebrow: "Helping businesses mark products clearly for traceability and compliance.",
@@ -256,6 +308,12 @@ export const categoryDetails: Record<string, CategoryDetail> = {
         benefits: ["Readable codes", "Less rework", "Brand protection"],
       },
     ],
+    technology: {
+      title: "The Khumo Difference: Connected Coders",
+      text: "Our coders connect to your line and ERP, so codes, batches and dates are always correct — with inks matched to your substrates.",
+      points: ["ERP integration", "Crisp, durable codes", "Inks for every surface", "Low maintenance", "High uptime", "Full traceability"],
+    },
+    unsure: "Clear, compliant codes depend on the right technology and ink. We help you choose a coding solution that fits your products and line speed.",
   },
   "binding-bundling": {
     eyebrow: "Helping businesses bundle products gently, efficiently and sustainably.",
@@ -309,6 +367,12 @@ export const categoryDetails: Record<string, CategoryDetail> = {
         benefits: ["Recyclable", "Less material", "Lower costs"],
       },
     ],
+    technology: {
+      title: "The Khumo Difference: Gentle Banding",
+      text: "Controlled tension and wide bands hold products together without crushing or marking, using paper or film.",
+      points: ["Gentle tension control", "Paper or film bands", "Print-on-band options", "Compact footprint", "Fast cycle times", "Less material"],
+    },
+    unsure: "The best bundling method depends on your products and volumes. We help you find a solution that protects products and presentation.",
   },
   consumables: {
     eyebrow: "Helping businesses run their packaging lines with reliable materials.",
@@ -362,6 +426,12 @@ export const categoryDetails: Record<string, CategoryDetail> = {
         benefits: ["Reliable supply", "Predictable costs"],
       },
     ],
+    technology: {
+      title: "The Khumo Difference: Matched Materials",
+      text: "We test our strap, film, tape and inks on the machines they run on, so you get consistent performance and less downtime.",
+      points: ["Machine-matched grades", "Consistent quality", "Recycled options", "Scheduled deliveries", "Technical advice", "Predictable costs"],
+    },
+    unsure: "The right consumables make every machine perform better. Tell us what you run and we will recommend the optimal materials.",
   },
 };
 

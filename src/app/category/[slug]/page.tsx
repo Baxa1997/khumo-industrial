@@ -1,13 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Breadcrumbs, ChallengeCards, Eyebrow, FramedPhoto, RangeCards } from "@/components/CategoryParts";
+import { Breadcrumbs, ChallengeCards, Eyebrow, FramedPhoto, IndustryCards, RangeCards, TechnologySection, WhyChoose } from "@/components/CategoryParts";
 import Faq from "@/components/Faq";
 import Icon from "@/components/Icon";
-import RegionSection from "@/components/RegionSection";
-import { CtaBanner } from "@/components/Sections";
+import QuoteFormCard from "@/components/QuoteFormCard";
 import { categoryDetails, trustPoints } from "@/lib/categories";
-import { getSolution, solutions } from "@/lib/data";
+import { getSolution, industries, solutions } from "@/lib/data";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -100,21 +99,37 @@ export default async function CategoryPage({ params }: Props) {
         </div>
       </section>
 
+      <TechnologySection technology={detail.technology} icon={solution.icon} />
+
+      <IndustryCards
+        title={`${solution.name} Solutions for Your Industry`}
+        text={`Every industry has different packaging requirements. Whether your priority is protecting products, improving load stability, increasing automation or reducing costs, we offer ${solution.name.toLowerCase()} solutions designed for your application.`}
+        items={detail.industries ?? industries.slice(0, 9).map((i) => ({ name: i.name, text: i.summary, image: i.image }))}
+      />
+
+      <WhyChoose category={slug} name={solution.name} others={solutions.map((s) => ({ slug: s.slug, name: s.name }))} />
+
       {/* FAQ */}
-      <section className="bg-surface py-20 sm:py-24">
-        <div className="mx-auto grid max-w-[74rem] gap-12 px-4 sm:px-8 lg:grid-cols-12">
-          <div className="lg:col-span-4">
-            <Eyebrow>FAQ</Eyebrow>
-            <h2 className="display mt-4 text-4xl sm:text-5xl">Frequently Asked Questions</h2>
-          </div>
-          <div className="lg:col-span-8">
-            <Faq items={solution.faqs} />
+      <section className="py-20 sm:py-24">
+        <div className="mx-auto max-w-[74rem] px-4 sm:px-8">
+          <Eyebrow>FAQ</Eyebrow>
+          <h2 className="display mt-5 text-4xl sm:text-5xl">{solution.name}: frequently asked questions</h2>
+          <div className="mt-12 max-w-[53rem]">
+            <Faq items={detail.faqs ?? solution.faqs} />
           </div>
         </div>
       </section>
 
-      <RegionSection />
-      <CtaBanner />
+      {/* Still unsure */}
+      <section className="pb-24 pt-8">
+        <div className="mx-auto grid max-w-[74rem] items-start gap-12 px-4 sm:px-8 lg:grid-cols-2">
+          <div className="lg:pt-6">
+            <h2 className="display text-4xl sm:text-5xl">Still Unsure?</h2>
+            <p className="mt-6 text-lg leading-relaxed text-muted">{detail.unsure}</p>
+          </div>
+          <QuoteFormCard product={solution.name} />
+        </div>
+      </section>
     </>
   );
 }

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Icon, { type IconName } from "./Icon";
 import Photo from "./Photo";
-import type { Challenge, RangeItem } from "@/lib/categories";
+import type { Challenge, IndustryCard, RangeItem, Technology } from "@/lib/categories";
 
 export function Eyebrow({ children, className = "" }: { children: React.ReactNode; className?: string }) {
   return <p className={`text-[13px] font-semibold uppercase leading-relaxed tracking-[0.14em] text-orange-500 ${className}`}>{children}</p>;
@@ -102,5 +102,129 @@ export function ChallengeCards({ items, icon }: { items: Challenge[]; icon: Icon
         </article>
       ))}
     </div>
+  );
+}
+
+export function TechnologySection({ technology, icon }: { technology: Technology; icon: IconName }) {
+  return (
+    <section className="py-20 sm:py-24">
+      <div className="mx-auto grid max-w-[74rem] items-center gap-12 px-4 sm:px-8 lg:grid-cols-2">
+        <div>
+          <Eyebrow>Our technology</Eyebrow>
+          <h2 className="display mt-5 text-4xl sm:text-5xl">{technology.title}</h2>
+          <p className="mt-6 text-lg leading-relaxed text-muted">{technology.text}</p>
+          <ul className="mt-10 grid gap-x-8 gap-y-3 text-[15px] text-muted sm:grid-cols-2">
+            {technology.points.map((p) => (
+              <li key={p} className="flex items-center gap-2.5">
+                <Icon name="check" className="h-4 w-4 shrink-0 text-orange-500" strokeWidth={2.4} />
+                {p}
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div className="grid h-80 place-items-center sm:h-[26rem]">
+          {technology.image ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img src={technology.image} alt={technology.title} className="max-h-full max-w-full object-contain" />
+          ) : (
+            <Icon name={icon} className="h-64 w-64 text-steel-400" strokeWidth={0.7} />
+          )}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export function IndustryCards({ title, text, items }: { title: string; text: string; items: IndustryCard[] }) {
+  return (
+    <section className="py-20 sm:py-24">
+      <div className="mx-auto max-w-[74rem] px-4 sm:px-8">
+        <Eyebrow>Industries we serve</Eyebrow>
+        <h2 className="display mt-5 text-4xl sm:text-5xl">{title}</h2>
+        <p className="mt-6 max-w-3xl text-lg leading-relaxed text-muted">{text}</p>
+        <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {items.map((i) => (
+            <article key={i.name} className="relative min-h-52 overflow-hidden rounded-xl text-white">
+              {i.image ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src={i.image} alt="" className="absolute inset-0 h-full w-full object-cover" />
+              ) : (
+                <div className="photo-placeholder absolute inset-0" />
+              )}
+              <div className="absolute inset-0 bg-navy-800/70" />
+              <div className="relative p-6">
+                <h3 className="text-lg font-semibold">{i.name}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-white/85">{i.text}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+const reasons = [
+  { icon: "layers" as IconName, title: (n: string) => `Complete ${n} Portfolio`, text: (n: string) => `From manual tools to fully automatic systems, we offer ${n.toLowerCase()} solutions for every production environment.` },
+  { icon: "tool" as IconName, title: () => "Tailored to Your Production", text: () => "Every business is different. Our engineers work with you to recommend the right equipment, automation level and consumables for your application." },
+  { icon: "headset" as IconName, title: () => "Expert Advice, Local Support", text: () => "Our specialists and technicians provide fast local service, spare parts and technical support wherever you operate in the region." },
+  { icon: "shield" as IconName, title: () => "15+ Years of Experience", text: () => "Since 2008 we have helped manufacturers and distributors improve packaging efficiency with reliable equipment and service." },
+];
+
+export function WhyChoose({ category, name, others }: { category: string; name: string; others: { slug: string; name: string }[] }) {
+  return (
+    <section className="relative overflow-hidden bg-navy-800 text-white">
+      <div className="pointer-events-none absolute inset-0 opacity-[0.07] [background-image:repeating-linear-gradient(115deg,#fff_0_1px,transparent_1px_90px)]" />
+      <div className="relative mx-auto max-w-[74rem] px-4 py-20 sm:px-8 sm:py-24">
+        <div className="mx-auto max-w-3xl text-center">
+          <Eyebrow>Why choose Khumo?</Eyebrow>
+          <h2 className="mt-4 text-3xl font-semibold tracking-[-0.02em] sm:text-[2.6rem] sm:leading-tight">A packaging partner, not just a supplier</h2>
+          <p className="mt-6 text-lg leading-relaxed text-white/90">
+            Choosing the right {name.toLowerCase()} solution is about more than selecting a machine. It’s about a partner who
+            understands your production, your packaging challenges and your long-term goals.
+          </p>
+          <p className="mt-5 leading-relaxed text-white/65">
+            For more than 15 years, Khumo Industrial has helped manufacturers raise packaging efficiency, reduce operating
+            costs and protect products in transit with reliable equipment and expert support.
+          </p>
+        </div>
+        <div className="mt-14 grid gap-7 sm:grid-cols-2 lg:grid-cols-4">
+          {reasons.map((r) => (
+            <div key={r.title(name)} className="border-t border-white/20 pt-6">
+              <article className="h-full rounded-lg bg-white p-5 text-ink shadow-xl">
+                <div className="photo-placeholder grid h-36 place-items-center rounded-md">
+                  <Icon name={r.icon} className="h-12 w-12 text-white/40" strokeWidth={1} />
+                </div>
+                <span className="mt-5 grid h-10 w-10 place-items-center rounded-full bg-orange-500/10 text-orange-500">
+                  <Icon name="check" className="h-4 w-4" strokeWidth={2.6} />
+                </span>
+                <h3 className="mt-4 text-lg font-semibold leading-snug">{r.title(name)}</h3>
+                <p className="mt-2.5 text-sm leading-relaxed text-muted">{r.text(name)}</p>
+              </article>
+            </div>
+          ))}
+        </div>
+        <div className="mt-16 grid gap-8 border-t border-white/20 pt-10 lg:grid-cols-2">
+          <div>
+            <h3 className="text-2xl font-semibold tracking-[-0.015em]">Your Complete Packaging Partner</h3>
+            <p className="mt-3 max-w-md text-white/70">
+              Our expertise goes beyond {name.toLowerCase()}. We help you optimize your entire packaging process with:
+            </p>
+          </div>
+          <div className="grid content-start gap-3.5 sm:grid-cols-2">
+            {others.filter((o) => o.slug !== category).map((o) => (
+              <Link
+                key={o.slug}
+                href={`/category/${o.slug}`}
+                className="group flex items-center justify-between rounded-md bg-white px-4 py-3.5 text-[15px] font-semibold text-navy-800 hover:bg-orange-50"
+              >
+                {o.name}
+                <Icon name="arrow" className="h-4 w-4 text-orange-500 transition-transform group-hover:translate-x-0.5" strokeWidth={2.4} />
+              </Link>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
   );
 }
