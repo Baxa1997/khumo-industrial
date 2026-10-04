@@ -24,7 +24,14 @@ export function Breadcrumbs({ items }: { items: { href?: string; label: string }
 export function FramedPhoto({ src, alt, icon }: { src?: string; alt: string; icon: IconName }) {
   return (
     <div className="rounded-[1.25rem] bg-gradient-to-br from-[#e3eaf2] to-[#d3dde9] p-4 shadow-[0_30px_60px_-20px_rgba(0,48,99,0.18)] sm:p-6">
-      <Photo src={src} alt={alt} icon={icon} className="aspect-[16/9] w-full rounded-xl" />
+      {src?.startsWith("/images/products/") ? (
+        <div className="grid aspect-[16/9] w-full place-items-center rounded-xl bg-white p-6">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={src} alt={alt} className="h-full w-full object-contain" />
+        </div>
+      ) : (
+        <Photo src={src} alt={alt} icon={icon} className="aspect-[16/9] w-full rounded-xl" />
+      )}
     </div>
   );
 }
@@ -58,10 +65,10 @@ export function RangeCards({
           key={item.slug}
           className="grid gap-6 rounded-[1.25rem] border border-line bg-white p-7 lg:row-span-6 lg:grid-rows-subgrid"
         >
-          <div className="grid h-52 place-items-center">
+          <div className="flex h-52 items-center justify-center overflow-hidden">
             {item.image ? (
               // eslint-disable-next-line @next/next/no-img-element
-              <img src={item.image} alt={item.name} className="max-h-full max-w-full object-contain" />
+              <img src={item.image} alt={item.name} className="h-full max-h-52 w-full object-contain" />
             ) : (
               <Icon name={icon} className="h-32 w-32 text-steel-400" strokeWidth={0.9} />
             )}
@@ -132,10 +139,10 @@ export function TechnologySection({ technology, icon }: { technology: Technology
             ))}
           </ul>
         </div>
-        <div className="grid h-80 place-items-center sm:h-[26rem]">
+        <div className="flex h-80 items-center justify-center sm:h-[26rem]">
           {technology.image ? (
             // eslint-disable-next-line @next/next/no-img-element
-            <img src={technology.image} alt={technology.title} className="max-h-full max-w-full object-contain" />
+            <img src={technology.image} alt={technology.title} className="h-full max-h-80 w-auto rounded-xl object-contain shadow-[0_30px_60px_-25px_rgba(0,48,99,0.35)] sm:max-h-[26rem]" />
           ) : (
             <Icon name={icon} className="h-64 w-64 text-steel-400" strokeWidth={0.7} />
           )}
@@ -178,7 +185,7 @@ const reasons = [
   { icon: "layers" as IconName, title: (n: string) => `Complete ${n} Portfolio`, text: (n: string) => `From manual tools to fully automatic systems, we offer ${n.toLowerCase()} solutions for every production environment.` },
   { icon: "tool" as IconName, title: () => "Tailored to Your Production", text: () => "Every business is different. Our engineers work with you to recommend the right equipment, automation level and consumables for your application." },
   { icon: "headset" as IconName, title: () => "Expert Advice, Local Support", text: () => "Our specialists and technicians provide fast local service, spare parts and technical support wherever you operate in the region." },
-  { icon: "shield" as IconName, title: () => "15+ Years of Experience", text: () => "Since 2008 we have helped manufacturers and distributors improve packaging efficiency with reliable equipment and service." },
+  { icon: "shield" as IconName, title: () => "Backed by Cyklop Since 1912", text: () => "As the official Cyklop partner in Uzbekistan, we bring you technology from a manufacturer with more than 100 years of packaging innovation." },
 ];
 
 export function WhyChoose({ category, name, others }: { category: string; name: string; others: { slug: string; name: string }[] }) {
@@ -194,8 +201,8 @@ export function WhyChoose({ category, name, others }: { category: string; name: 
             understands your production, your packaging challenges and your long-term goals.
           </p>
           <p className="mt-5 leading-relaxed text-white/65">
-            For more than 15 years, Khumo Industrial has helped manufacturers raise packaging efficiency, reduce operating
-            costs and protect products in transit with reliable equipment and expert support.
+            As the official Cyklop partner in Uzbekistan, Khumo Industrial helps manufacturers raise packaging efficiency,
+            reduce operating costs and protect products with reliable equipment and expert local support.
           </p>
         </div>
         <div className="mt-14 grid gap-7 sm:grid-cols-2 lg:grid-cols-4">

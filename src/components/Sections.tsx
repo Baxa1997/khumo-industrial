@@ -113,7 +113,7 @@ export function CategoryGrid({ slugs }: { slugs?: string[] }) {
           </span>
           {s.image ? (
             // eslint-disable-next-line @next/next/no-img-element
-            <img src={s.image} alt="" className="absolute bottom-0 right-4 h-[78%] w-1/2 object-contain object-bottom" />
+            <img src={s.image} alt="" className="absolute bottom-3 right-3 h-[70%] w-[48%] object-contain object-bottom mix-blend-multiply transition-transform duration-500 group-hover:scale-105" />
           ) : (
             <Icon
               name={s.icon}
@@ -133,18 +133,17 @@ export function HistoryBlock() {
   return (
     <section className="py-20 sm:py-28">
       <div className="container-x">
-        <SplitHeading title="Over 15 Years of Packaging Experience and Expertise">
+        <SplitHeading title="Over 100 Years of Cyklop Expertise, Delivered Locally">
           <p>
-            Khumo Industrial was established in 2008 and today is a leading regional provider of packaging machinery,
-            consumables and service.
+            Cyklop was established in 1912 and today is a leading global provider of packaging machinery and supplies,
+            including coding and marking systems.
           </p>
           <p>
-            Practical know-how has always been the foundation of our customers’ success. From our first strapping
-            consumables to complete, automated end-of-line systems, we are well-equipped to address our customers’
-            packaging needs seamlessly, efficiently and reliably.
+            Khumo Industrial is Cyklop’s official partner in Uzbekistan. We supply, set up and service CIJ, TIJ and laser
+            marking systems and end-of-line packaging equipment — so you get proven technology with local support.
           </p>
           <div className="pt-6">
-            <Link href="/company-history" className="btn-orange">Learn About Our History</Link>
+            <Link href="/company-history" className="btn-orange">Learn About Cyklop History</Link>
           </div>
         </SplitHeading>
       </div>

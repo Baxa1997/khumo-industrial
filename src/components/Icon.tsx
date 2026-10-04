@@ -34,6 +34,8 @@ const paths = {
   arrowUpRight: "M7 17L17 7M8 7h9v9",
   arrowLeft: "M19 12H5M11 6l-6 6 6 6",
   quote: "M7 7h4v4c0 3-1.5 5-4 6M15 7h4v4c0 3-1.5 5-4 6",
+  send: "M21 3L3 10.5l7 2.5 2.5 7zM21 3L10 13",
+  instagram: "M7 3h10a4 4 0 0 1 4 4v10a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V7a4 4 0 0 1 4-4zM12 16a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM17.5 6.5h.01",
 } as const;
 
 export type IconName = keyof typeof paths;

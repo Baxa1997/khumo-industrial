@@ -60,3 +60,11 @@ body {
     radial-gradient(circle at 20% 80%, rgba(161, 182, 204, 0.6), transparent 45%),
     linear-gradient(135deg, #1b2a3d, #4a6280 55%, #b8c6d6);
 }
+
+@keyframes menu-in {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: none; }
+}
+.mobile-menu {
+  animation: menu-in 180ms ease-out;
+}

@@ -2,12 +2,14 @@ import type { IconName } from "@/components/Icon";
 
 export const company = {
   name: "Khumo Industrial",
+  legalName: "KHUMO INDUSTRIAL ООО",
   short: "Khumo",
-  tagline: "Complete packaging solutions for industry",
-  email: "info@khumo-industrial.com",
-  phone: "+998 71 200 00 00",
-  address: "Tashkent, Uzbekistan",
-  founded: 2008,
+  tagline: "Official Cyklop partner in Uzbekistan",
+  phone: "+998 88 088 93 20",
+  phoneHref: "tel:+998880889320",
+  address: "Uzbekistan",
+  telegram: { label: "@khumo_industrial", href: "https://t.me/khumo_industrial" },
+  instagram: { label: "@khumo_industrial", href: "https://www.instagram.com/khumo_industrial/" },
 };
 
 export type Solution = {
@@ -25,6 +27,33 @@ export type Solution = {
 };
 
 export const solutions: Solution[] = [
+  {
+    slug: "coding-marking",
+    name: "Coding & Marking",
+    icon: "code",
+    image: "/images/products/cij-printer.webp",
+    summary:
+      "Continuous inkjet (CIJ), thermal inkjet (TIJ) and laser marking systems plus inks for traceability on cartons, films and products.",
+    intro:
+      "Put clear, durable codes on every product. Our coding and marking portfolio covers continuous and thermal inkjet, large-character printers, laser coders and print-and-apply labeling.",
+    benefits: [
+      "Full traceability with batch, date and serial codes",
+      "Inks for porous and non-porous substrates",
+      "Easy integration with ERP and line controllers",
+      "Low maintenance, high uptime print heads",
+    ],
+    faqs: [
+      { q: "Which coding technology is right for my product?", a: "Continuous inkjet suits high-speed coding on almost any surface, thermal inkjet delivers crisp high-resolution codes, and laser coders mark permanently without consumables." },
+      { q: "Can coders connect to my ERP or MES?", a: "Yes. Our coders support standard communication protocols so codes, batches and dates can be sent automatically from your systems." },
+    ],
+    products: [
+      { name: "Continuous inkjet (CIJ)", description: "High-speed small character coding on almost any surface." },
+      { name: "Thermal inkjet (TIJ)", description: "Crisp high-resolution codes, barcodes and logos with cartridge simplicity." },
+      { name: "Large character printers", description: "Case coding with text, barcodes and graphics directly on cardboard." },
+      { name: "Laser coders", description: "Permanent marking without consumables." },
+      { name: "Print & apply labelers", description: "Automatic labeling of cartons and pallets for logistics compliance." },
+    ],
+  },
   {
     slug: "strapping",
     name: "Strapping",
@@ -102,32 +131,6 @@ export const solutions: Solution[] = [
       { name: "Semi-automatic tapers", description: "Top and bottom sealing with manual flap folding." },
       { name: "Automatic case sealers", description: "Fully automatic flap folding and sealing for fixed and random sizes." },
       { name: "Tape dispensers", description: "Manual and electronic dispensers for every packing bench." },
-    ],
-  },
-  {
-    slug: "coding-marking",
-    name: "Coding & Marking",
-    icon: "code",
-    summary:
-      "Inkjet, thermal transfer and laser coders plus inks for traceability on cartons, films and products.",
-    intro:
-      "Put clear, durable codes on every product. Our coding and marking portfolio covers continuous and thermal inkjet, large-character printers, laser coders and print-and-apply labeling.",
-    benefits: [
-      "Full traceability with batch, date and serial codes",
-      "Inks for porous and non-porous substrates",
-      "Easy integration with ERP and line controllers",
-      "Low maintenance, high uptime print heads",
-    ],
-    faqs: [
-      { q: "Which coding technology is right for my product?", a: "Continuous inkjet suits high-speed coding on almost any surface, thermal inkjet delivers crisp high-resolution codes, and laser coders mark permanently without consumables." },
-      { q: "Can coders connect to my ERP or MES?", a: "Yes. Our coders support standard communication protocols so codes, batches and dates can be sent automatically from your systems." },
-    ],
-    products: [
-      { name: "Continuous inkjet (CIJ)", description: "High-speed small character coding on almost any surface." },
-      { name: "Thermal inkjet (TIJ)", description: "Crisp high-resolution codes, barcodes and logos with cartridge simplicity." },
-      { name: "Large character printers", description: "Case coding with text, barcodes and graphics directly on cardboard." },
-      { name: "Laser coders", description: "Permanent marking without consumables." },
-      { name: "Print & apply labelers", description: "Automatic labeling of cartons and pallets for logistics compliance." },
     ],
   },
   {
@@ -297,50 +300,48 @@ export const services: { icon: IconName; name: string; description: string }[] =
 ];
 
 export const stats = [
-  { value: "15+", label: "Years of experience" },
-  { value: "1,500+", label: "Machines installed" },
-  { value: "800+", label: "Customers served" },
-  { value: "24/7", label: "Service support" },
+  { value: "100+", label: "Years of Cyklop innovation" },
+  { value: "3", label: "Coding technologies: CIJ, TIJ & laser" },
+  { value: "Local", label: "Supply, setup & service" },
+  { value: "Official", label: "Cyklop partner in Uzbekistan" },
 ];
 
 export const news = [
   {
-    slug: "new-service-center",
+    slug: "co2-laser-marking",
     date: "2026-09-12",
-    category: "News",
-    title: "Khumo Industrial Opens a New Service and Demo Center",
-    excerpt: "Customers can now test strapping, wrapping and coding equipment live with their own products before they invest.",
-  },
-  {
-    slug: "battery-strapping-tool",
-    date: "2026-07-03",
     category: "Products",
-    title: "Next-Generation Battery Strapping Tool Now Available",
-    excerpt: "Longer battery life, faster cycle times and an intuitive display make strapping easier than ever.",
+    title: "Cyklop CO2 Laser Marking System Now Available in Uzbekistan",
+    excerpt: "Permanent, consumable-free coding for cartons, plastics, glass and more — supplied, installed and serviced locally.",
   },
   {
-    slug: "film-savings",
+    slug: "cij-tij-laser",
+    date: "2026-07-03",
+    category: "Guide",
+    title: "CIJ, TIJ or Laser: How to Choose the Right Coding Technology",
+    excerpt: "Line speed, substrate and code content decide which technology fits your production best.",
+  },
+  {
+    slug: "traceability",
     date: "2026-05-20",
-    category: "Press",
-    title: "How Pre-Stretch Technology Cuts Film Use by up to 60%",
-    excerpt: "Modern stretch wrappers reduce consumables and CO₂ footprint without compromising load stability.",
+    category: "Guide",
+    title: "Why Clear Date and Batch Codes Matter for Your Products",
+    excerpt: "Readable codes protect your brand, satisfy retailers and keep your supply chain traceable.",
   },
   {
-    slug: "regional-expansion",
+    slug: "service-training",
     date: "2026-03-08",
-    category: "Events",
-    title: "Meet Khumo Industrial at the Regional Packaging Expo",
-    excerpt: "Visit our stand to see the latest end-of-line automation and talk to our application engineers.",
+    category: "News",
+    title: "Operator Training Included With Every Installation",
+    excerpt: "Our engineers set up your coder on site and train your team to run it with confidence.",
   },
 ];
 
 export const milestones = [
-  { year: "2008", text: "Khumo Industrial founded as a distributor of strapping consumables." },
-  { year: "2012", text: "First service department established and stretch wrapping added to the portfolio." },
-  { year: "2016", text: "Expansion into case sealing and end-of-line automation." },
-  { year: "2020", text: "Coding & marking solutions introduced for full product traceability." },
-  { year: "2024", text: "New warehouse for consumables with same-day dispatch." },
-  { year: "2026", text: "Opening of the service and demo center." },
+  { year: "1912", text: "Cyklop is founded in Cologne, Germany, and grows into a global packaging solutions provider." },
+  { year: "2015", text: "Cyklop introduces coding and marking to its portfolio." },
+  { year: "2024", text: "Cyklop acquires Needham, a UK and Ireland based ink and laser coder manufacturer." },
+  { year: "Today", text: "Khumo Industrial is the official Cyklop partner in Uzbekistan, supplying, setting up and servicing CIJ, TIJ and laser marking systems." },
 ];
 
 export const getSolution = (slug: string) => solutions.find((s) => s.slug === slug);
@@ -351,15 +352,22 @@ export const images: { hero?: string; history?: string; sustainabilityTall?: str
 
 export const hero = {
   lines: ["Strong Packaging.", "Stronger Partner."],
-  text: "Khumo Industrial is your single-source, end-to-end packaging solutions partner. We provide expert support and seamless integration, and stay by your side every step of the way.",
+  text: "Khumo Industrial is the official Cyklop partner in Uzbekistan — your single source for coding, marking and end-of-line packaging. We supply, set up and service your equipment and stay by your side every step of the way.",
 };
 
-export const announcement = { text: "Learn about Khumo Industrial’s commitment to", link: { href: "/sustainability", label: "sustainability" } };
+export const announcement = {
+  partner: "Official Cyklop partner in Uzbekistan",
+  text: "Learn about our commitment to",
+  link: { href: "/sustainability", label: "sustainability" },
+};
 
 export const locations = [
-  { name: "Uzbekistan (HQ)", label: "Uzbekistan", city: "Tashkent", phone: "+998 71 200 00 00", lat: 41.3, lng: 69.24 },
-  { name: "Kazakhstan", label: "Kazakhstan", city: "Almaty", phone: "+7 727 000 00 00", lat: 43.24, lng: 76.89 },
-  { name: "Kyrgyzstan", label: "Kyrgyzstan", city: "Bishkek", phone: "+996 312 00 00 00", lat: 42.87, lng: 74.59 },
+  { name: "Uzbekistan", label: "Uzbekistan", city: "Service across Uzbekistan", phone: "+998 88 088 93 20", lat: 41.3, lng: 69.24 },
+];
+
+export const regions = [
+  "Tashkent city", "Tashkent region", "Andijan", "Bukhara", "Fergana", "Jizzakh", "Kashkadarya", "Khorezm",
+  "Namangan", "Navoi", "Samarkand", "Surkhandarya", "Syrdarya", "Karakalpakstan",
 ];
 
 /** Replace with real client logos (e.g. "/images/clients/acme.svg"). */
@@ -393,5 +401,5 @@ export const resources = [
   { href: "/news", label: "News & Events", description: "Company updates, product launches and events." },
   { href: "/support", label: "FAQ & Support", description: "Answers to common questions about machines and service." },
   { href: "/sustainability", label: "Sustainability", description: "How we help customers reduce packaging waste." },
-  { href: "/company-history", label: "Our History", description: "From a consumables distributor to a full-solution partner." },
+  { href: "/company-history", label: "Our History", description: "Cyklop’s story since 1912 and our partnership in Uzbekistan." },
 ];

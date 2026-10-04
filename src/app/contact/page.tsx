@@ -19,14 +19,24 @@ export default function ContactPage() {
         <div className="container-x grid gap-12 lg:grid-cols-12">
           <div className="space-y-8 lg:col-span-4">
             <div className="space-y-3">
-              <a href={`tel:${company.phone.replace(/\s/g, "")}`} className="flex items-center gap-4 rounded-xl bg-surface p-6 hover:text-orange-500">
-                <Icon name="phone" className="h-6 w-6 text-orange-500" />
-                <span className="display text-xl tracking-[-0.03em]">{company.phone}</span>
-              </a>
-              <a href={`mailto:${company.email}`} className="flex items-center gap-4 rounded-xl bg-surface p-6 hover:text-orange-500">
-                <Icon name="mail" className="h-6 w-6 text-orange-500" />
-                <span className="display break-all text-xl tracking-[-0.03em]">{company.email}</span>
-              </a>
+              {[
+                { href: company.phoneHref, icon: "phone" as const, label: "Call us", value: company.phone },
+                { href: company.telegram.href, icon: "send" as const, label: "Telegram", value: company.telegram.label, external: true },
+                { href: company.instagram.href, icon: "instagram" as const, label: "Instagram", value: company.instagram.label, external: true },
+              ].map((c) => (
+                <a
+                  key={c.label}
+                  href={c.href}
+                  {...(c.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                  className="flex items-center gap-4 rounded-xl bg-surface p-5 hover:text-orange-500 sm:p-6"
+                >
+                  <Icon name={c.icon} className="h-6 w-6 shrink-0 text-orange-500" />
+                  <span className="min-w-0">
+                    <span className="block text-sm text-muted">{c.label}</span>
+                    <span className="display block break-words text-xl tracking-[-0.03em]">{c.value}</span>
+                  </span>
+                </a>
+              ))}
             </div>
             <div id="locations" className="scroll-mt-32">
               <h2 className="display text-3xl">Locations</h2>
@@ -39,7 +49,7 @@ export default function ContactPage() {
                 ))}
               </ul>
             </div>
-            <p className="text-sm text-muted">Mon – Fri: 08:30 – 18:00 · Service hotline 24/7 for contract customers</p>
+            <p className="text-sm text-muted">{company.legalName} · {company.tagline}</p>
           </div>
           <div className="lg:col-span-8">
             <Suspense>

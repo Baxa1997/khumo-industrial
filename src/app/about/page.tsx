@@ -16,7 +16,7 @@ export default function AboutPage() {
     <>
       <PageIntro
         lines={["A Trusted Partner", "for Packaging."]}
-        text={`Since ${company.founded}, ${company.name} has helped manufacturers and distributors secure, protect and identify their products — with complete solutions and dependable service.`}
+        text={`${company.name} is the official Cyklop partner in Uzbekistan. We help manufacturers mark, secure and protect their products — with proven equipment, local setup and dependable service.`}
         crumbs={[{ label: "About" }]}
         image={images.history}
         imageAlt="Khumo Industrial team"

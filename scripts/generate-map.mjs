@@ -6,8 +6,6 @@ import DottedMap from "dotted-map";
 const region = { lat: { min: -12, max: 72 }, lng: { min: -20, max: 150 } };
 const pins = [
   { key: "Uzbekistan", lat: 41.3, lng: 69.24 },
-  { key: "Kazakhstan", lat: 43.24, lng: 76.89 },
-  { key: "Kyrgyzstan", lat: 42.87, lng: 74.59 },
 ];
 
 const map = new DottedMap({ height: 56, grid: "diagonal", region });

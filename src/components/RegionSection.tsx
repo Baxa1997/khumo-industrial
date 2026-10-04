@@ -6,9 +6,7 @@ import { locations } from "@/lib/data";
 const pins = mapData.pins as Record<string, { x: number; y: number }>;
 // Label placement relative to the pin, so nearby offices don't overlap.
 const placement: Record<string, string> = {
-  Uzbekistan: "-translate-x-[calc(100%+0.75rem)] -translate-y-1/2",
-  Kazakhstan: "translate-x-3 -translate-y-[calc(100%+0.5rem)]",
-  Kyrgyzstan: "translate-x-3 translate-y-2",
+  Uzbekistan: "translate-x-3 -translate-y-1/2",
 };
 
 export default function RegionSection() {
@@ -34,12 +32,12 @@ export default function RegionSection() {
             })}
           </div>
           <div>
-            <h2 className="display text-4xl sm:text-5xl lg:text-[3.4rem]">Here for You Across the Region.</h2>
+            <h2 className="display text-4xl sm:text-5xl lg:text-[3.4rem]">Here for You Across Uzbekistan.</h2>
             <p className="display mt-8 text-lg leading-relaxed tracking-[-0.02em] text-white/90">
-              Connect with packaging experts, products and service near you. With offices in Uzbekistan, Kazakhstan and
-              Kyrgyzstan, we are well-equipped to address your packaging needs seamlessly, efficiently and reliably.
+              As the official Cyklop partner in Uzbekistan, we bring you the technology of a global packaging leader with
+              local supply, installation, training and service — wherever your production is.
             </p>
-            <Link href="/contact#locations" className="btn-orange mt-10">Choose Khumo Location</Link>
+            <Link href="/contact" className="btn-orange mt-10">Contact Khumo</Link>
           </div>
         </div>
       </div>

@@ -11,7 +11,7 @@ const automated: Record<string, string[]> = {
   strapping: ["automatic-machines"],
   "stretch-wrapping": ["rotary-arm-wrappers", "ring-wrappers"],
   "case-sealing": ["automatic-sealers"],
-  "coding-marking": ["inkjet-coders", "laser-coders", "print-apply"],
+  "coding-marking": ["continuous-inkjet", "thermal-inkjet", "laser-marking-systems"],
   "binding-bundling": ["banding-machines", "shrink-bundlers"],
 };
 

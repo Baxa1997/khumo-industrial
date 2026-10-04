@@ -5,7 +5,7 @@ export const metadata: Metadata = { title: "FAQ & Support" };
 
 const faqs = [
   { q: "Which strapping material is right for my product?", a: "PP strap suits light to medium loads, PET is a strong and cost-effective alternative to steel for heavy loads, and steel strap is used for the heaviest, sharp-edged or hot products. Our specialists will help you choose." },
-  { q: "Can I test a machine before buying?", a: "Yes. In our demo center you can test strapping, wrapping, sealing and coding equipment with your own products." },
+  { q: "Can I see a coder working before I buy?", a: "Yes. Contact us and we will arrange a demonstration or print samples on your own products." },
   { q: "Do you offer maintenance contracts?", a: "We offer preventive maintenance contracts with scheduled visits, priority response times and discounted spare parts." },
   { q: "How quickly can I get spare parts?", a: "Common spare parts are kept in stock and are usually shipped the same or the next working day." },
   { q: "Do your consumables work with other brands’ machines?", a: "In most cases, yes. Tell us your machine model and we will recommend a compatible consumable." },

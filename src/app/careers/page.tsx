@@ -9,7 +9,7 @@ export const metadata: Metadata = { title: "Careers" };
 const perks = [
   { icon: "tool" as const, t: "Hands-on Work", d: "Install, service and optimize real packaging lines for leading manufacturers." },
   { icon: "book" as const, t: "Training", d: "Technical training on the equipment we sell and service." },
-  { icon: "globe" as const, t: "Regional Team", d: "Work with colleagues and customers across Central Asia." },
+  { icon: "globe" as const, t: "Regional Team", d: "Work with colleagues and customers across Uzbekistan." },
 ];
 
 export default function CareersPage() {
@@ -25,7 +25,7 @@ export default function CareersPage() {
           <SplitHeading title="Why Work at Khumo Industrial?">
             <p>We are a growing team of packaging specialists. Send us your CV and tell us how you would like to contribute.</p>
             <div className="pt-4">
-              <a href={`mailto:${company.email}?subject=Job%20application`} className="btn-orange">Send Your Application</a>
+              <a href={company.telegram.href} target="_blank" rel="noopener noreferrer" className="btn-orange">Send Your Application</a>
             </div>
           </SplitHeading>
           <div className="mt-16 grid gap-5 md:grid-cols-3">

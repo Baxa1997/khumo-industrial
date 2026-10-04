@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Icon from "./Icon";
-import { locations } from "@/lib/data";
+import { regions } from "@/lib/data";
 
 const input =
   "w-full rounded-md border border-ink/15 bg-white px-3 py-3 text-[15px] outline-none transition placeholder:text-ink/55 focus:border-navy-800 focus:ring-2 focus:ring-navy-800/10";
@@ -49,10 +49,10 @@ export default function QuoteFormCard({ product }: { product?: string }) {
             <Field name="company" placeholder="Company Name" required autoComplete="organization" />
           </div>
           <label className="relative block sm:col-span-2">
-            <span className="sr-only">Select Khumo Location</span>
-            <select name="location" defaultValue="" className={`${input} appearance-none pr-10`}>
-              <option value="">Select Khumo Location</option>
-              {locations.map((l) => <option key={l.name}>{l.name}</option>)}
+            <span className="sr-only">Select Region</span>
+            <select name="region" defaultValue="" className={`${input} appearance-none pr-10`}>
+              <option value="">Select Region</option>
+              {regions.map((r) => <option key={r}>{r}</option>)}
             </select>
             <Icon name="chevron" className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2" strokeWidth={2.4} />
           </label>

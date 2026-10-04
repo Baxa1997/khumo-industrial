@@ -7,7 +7,7 @@ import Icon from "./Icon";
 import Logo from "./Logo";
 import { useFavorites } from "@/lib/favorites";
 import Photo from "./Photo";
-import { announcement, industries, locations, resources, solutions } from "@/lib/data";
+import { announcement, company, locations } from "@/lib/data";
 import { menus, type MegaMenu as MegaMenuData } from "@/lib/menus";
 
 type MenuKey = keyof typeof menus | null;
@@ -48,13 +48,20 @@ export default function Header() {
       {/* Announcement bar */}
       <div className="bg-black text-white">
         <div className="flex h-8 items-center justify-between gap-4 px-4 text-xs sm:px-7">
-          <p className="truncate">
-            {announcement.text}{" "}
-            <Link href={announcement.link.href} className="underline underline-offset-2 hover:text-orange-500">
-              {announcement.link.label}
-            </Link>
+          <p className="min-w-0 truncate">
+            <span className="font-medium">{announcement.partner}</span>
+            <span className="hidden md:inline">
+              {" · "}
+              {announcement.text}{" "}
+              <Link href={announcement.link.href} className="underline underline-offset-2 hover:text-orange-500">
+                {announcement.link.label}
+              </Link>
+            </span>
           </p>
+          <a href={company.phoneHref} className="shrink-0 hover:text-orange-500 sm:hidden">{company.phone}</a>
           <div className="hidden shrink-0 items-center gap-5 sm:flex">
+            <a href={company.phoneHref} className="hover:text-orange-500">{company.phone}</a>
+            <span className="text-white/60">|</span>
             <div ref={locRef} className="relative">
               <button type="button" onClick={() => setLocOpen((v) => !v)} aria-expanded={locOpen} className="hover:text-orange-500">
                 Select a Location
@@ -131,20 +138,7 @@ export default function Header() {
       </div>
       {open && <div className="pointer-events-none fixed inset-x-0 bottom-0 top-24 -z-10 hidden bg-[#eef1f5]/80 lg:block" aria-hidden="true" />}
 
-      {mobile && (
-        <div className="max-h-[calc(100vh-6rem)] overflow-y-auto border-t border-line bg-white lg:hidden">
-          <div className="flex flex-col gap-1 px-4 py-4 sm:px-7">
-            <SearchBox className="mb-3 w-full" />
-            <MobileGroup title="Products" base="/products" items={solutions.map((s) => ({ href: `/category/${s.slug}`, label: s.name }))} />
-            <MobileGroup title="Service" base="/service" items={menus.service.side.slice(1)} />
-            <MobileGroup title="Industries" base="/industries" items={industries.map((i) => ({ href: `/industries/${i.slug}`, label: i.name }))} />
-            <MobileGroup title="Resources" base="/resources" items={resources.map((r) => ({ href: r.href, label: r.label }))} />
-            <MobileGroup title="About" base="/about" items={menus.about.side.slice(1)} />
-            <Link href="/contact" className="border-b border-line py-3.5 text-lg">Contact</Link>
-            <Link href="/contact?topic=quote" className="btn-orange mt-4">Request a Quote</Link>
-          </div>
-        </div>
-      )}
+      {mobile && <MobileMenu onClose={() => setMobile(false)} favorites={favorites.length} />}
     </header>
   );
 }
@@ -246,22 +240,119 @@ function MegaMenu({ menu }: { menu: MegaMenuData }) {
   );
 }
 
-function MobileGroup({ title, base, items }: { title: string; base: string; items: { href: string; label: string }[] }) {
-  const [expanded, setExpanded] = useState(false);
+function MobileMenu({ onClose, favorites }: { onClose: () => void; favorites: number }) {
+  const [openGroup, setOpenGroup] = useState<string | null>(null);
+  const [openSub, setOpenSub] = useState<string | null>(null);
+
+  // Take over the screen: lock page scroll and close on Escape.
+  useEffect(() => {
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = prev;
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [onClose]);
+
+  const groups: { key: string; label: string; href: string; links: { href: string; label: string }[]; columns?: typeof menus.products.columns }[] = [
+    { key: "products", label: "Products", href: "/products", links: menus.products.side, columns: menus.products.columns },
+    { key: "service", label: "Service", href: "/service", links: menus.service.side },
+    { key: "industries", label: "Industries", href: "/industries", links: [...menus.industries.side, ...(menus.industries.links ?? [])] },
+    { key: "resources", label: "Resources", href: "/resources", links: menus.resources.side },
+    { key: "about", label: "About", href: "/about", links: menus.about.side },
+  ];
+
   return (
-    <div className="border-b border-line">
-      <button type="button" className="flex w-full items-center justify-between py-3.5 text-lg" onClick={() => setExpanded((v) => !v)} aria-expanded={expanded}>
-        {title}
-        <Icon name="chevron" className={`h-5 w-5 transition-transform ${expanded ? "rotate-180" : ""}`} />
-      </button>
-      {expanded && (
-        <div className="flex flex-col pb-3 pl-3">
-          <Link href={base} className="py-1.5 font-medium text-orange-500">All {title.toLowerCase()}</Link>
-          {items.map((i) => (
-            <Link key={i.href} href={i.href} className="py-1.5 text-muted">{i.label}</Link>
-          ))}
+    <div className="mobile-menu fixed inset-0 z-[70] flex flex-col bg-white lg:hidden" role="dialog" aria-modal="true" aria-label="Menu">
+      <div className="flex h-16 shrink-0 items-center justify-between border-b border-line px-4 sm:px-7">
+        <Logo />
+        <div className="flex items-center gap-1">
+          <FavoritesLink count={favorites} />
+          <button type="button" onClick={onClose} aria-label="Close menu" className="grid h-11 w-11 place-items-center rounded-full hover:bg-surface">
+            <Icon name="close" className="h-6 w-6" />
+          </button>
         </div>
-      )}
+      </div>
+
+      <div className="flex-1 overflow-y-auto overscroll-contain px-4 pb-8 pt-5 sm:px-7">
+        <SearchBox className="w-full" />
+        <nav className="mt-4" aria-label="Mobile">
+          {groups.map((g) => {
+            const expanded = openGroup === g.key;
+            return (
+              <div key={g.key} className="border-b border-line">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setOpenGroup(expanded ? null : g.key);
+                    setOpenSub(null);
+                  }}
+                  aria-expanded={expanded}
+                  className={`flex w-full items-center justify-between py-4 text-left text-xl font-medium tracking-[-0.02em] ${expanded ? "text-orange-500" : ""}`}
+                >
+                  {g.label}
+                  <Icon name="chevron" className={`h-5 w-5 transition-transform ${expanded ? "rotate-180" : ""}`} />
+                </button>
+                {expanded && (
+                  <div className="pb-5">
+                    <ul className="grid gap-1 sm:grid-cols-2">
+                      {g.links.map((l) => (
+                        <li key={l.href + l.label}>
+                          <Link href={l.href} className="block rounded-lg px-3 py-2.5 text-[15px] font-medium hover:bg-surface hover:text-orange-500">
+                            {l.label}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                    {g.columns && (
+                      <div className="mt-3 overflow-hidden rounded-xl bg-surface">
+                        {g.columns.map((c) => {
+                          const subOpen = openSub === c.title;
+                          return (
+                            <div key={c.title} className="border-b border-line/80 last:border-0">
+                              <button
+                                type="button"
+                                onClick={() => setOpenSub(subOpen ? null : c.title)}
+                                aria-expanded={subOpen}
+                                className="flex w-full items-center justify-between px-4 py-3.5 text-left text-[13px] font-semibold uppercase tracking-[0.06em] text-navy-800"
+                              >
+                                {c.title}
+                                <Icon name="chevron" className={`h-4 w-4 transition-transform ${subOpen ? "rotate-180" : ""}`} />
+                              </button>
+                              {subOpen && (
+                                <ul className="px-4 pb-3">
+                                  {c.links.map((l) => (
+                                    <li key={l.href + l.label}>
+                                      <Link href={l.href} className="block py-2 text-[15px] text-ink/75 hover:text-orange-500">{l.label}</Link>
+                                    </li>
+                                  ))}
+                                </ul>
+                              )}
+                            </div>
+                          );
+                        })}
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+            );
+          })}
+          <Link href="/contact" className="block border-b border-line py-4 text-xl font-medium tracking-[-0.02em]">Contact</Link>
+        </nav>
+
+        <div className="mt-8 space-y-3 text-[15px]">
+          <a href={company.phoneHref} className="flex items-center gap-3"><Icon name="phone" className="h-5 w-5 text-orange-500" />{company.phone}</a>
+          <a href={company.telegram.href} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3"><Icon name="send" className="h-5 w-5 text-orange-500" />Telegram {company.telegram.label}</a>
+          <a href={company.instagram.href} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3"><Icon name="instagram" className="h-5 w-5 text-orange-500" />Instagram {company.instagram.label}</a>
+        </div>
+      </div>
+
+      <div className="shrink-0 border-t border-line bg-white p-4 sm:px-7">
+        <Link href="/contact?topic=quote" className="btn-orange w-full">Request a Quote</Link>
+      </div>
     </div>
   );
 }

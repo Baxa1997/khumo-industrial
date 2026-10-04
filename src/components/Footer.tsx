@@ -34,8 +34,9 @@ export default function Footer() {
             <h3 className="kicker text-white/60">Get in touch</h3>
             <ul className="mt-5 space-y-3 text-white/85">
               <li className="flex items-center gap-3"><Icon name="pin" className="h-4 w-4 text-orange-500" />{company.address}</li>
-              <li><a href={`tel:${company.phone.replace(/\s/g, "")}`} className="flex items-center gap-3 hover:text-orange-500"><Icon name="phone" className="h-4 w-4 text-orange-500" />{company.phone}</a></li>
-              <li><a href={`mailto:${company.email}`} className="flex items-center gap-3 hover:text-orange-500"><Icon name="mail" className="h-4 w-4 text-orange-500" />{company.email}</a></li>
+              <li><a href={company.phoneHref} className="flex items-center gap-3 hover:text-orange-500"><Icon name="phone" className="h-4 w-4 text-orange-500" />{company.phone}</a></li>
+              <li><a href={company.telegram.href} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 hover:text-orange-500"><Icon name="send" className="h-4 w-4 text-orange-500" />Telegram {company.telegram.label}</a></li>
+              <li><a href={company.instagram.href} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 hover:text-orange-500"><Icon name="instagram" className="h-4 w-4 text-orange-500" />Instagram {company.instagram.label}</a></li>
             </ul>
           </div>
           {cols.map((c) => (
@@ -52,7 +53,7 @@ export default function Footer() {
       </div>
       <div className="border-t border-white/15">
         <div className="container-x flex flex-col items-center justify-between gap-3 py-6 text-sm text-white/60 md:flex-row">
-          <p>© {year} {company.name}. All rights reserved.</p>
+          <p>© {year} {company.legalName}. All rights reserved.</p>
           <div className="flex gap-6">
             <Link href="/privacy" className="hover:text-white">Privacy Policy</Link>
             <Link href="/terms" className="hover:text-white">Terms &amp; Conditions</Link>

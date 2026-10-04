@@ -9,7 +9,7 @@ export default function HistoryPage() {
     <>
       <PageIntro
         lines={["Our History."]}
-        text="From a distributor of strapping consumables to a full-solution packaging partner — the milestones that shaped Khumo Industrial."
+        text="More than a century of Cyklop packaging innovation — now available in Uzbekistan through Khumo Industrial."
         crumbs={[{ href: "/about", label: "About" }, { label: "History" }]}
       />
       <section className="py-20 sm:py-28">

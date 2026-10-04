@@ -39,7 +39,7 @@ export type CategoryDetail = {
   unsure: string;
 };
 
-export const trustPoints = ["15+ years expertise", "Local service & support", "Built for demanding environments"];
+export const trustPoints = ["Official Cyklop partner", "Local service & support", "Built for demanding environments"];
 
 export const categoryDetails: Record<string, CategoryDetail> = {
   strapping: {
@@ -259,9 +259,10 @@ export const categoryDetails: Record<string, CategoryDetail> = {
   "coding-marking": {
     eyebrow: "Helping businesses mark products clearly for traceability and compliance.",
     headline: "Coding & Marking Systems for Clear, Traceable Products",
-    text: "Continuous and thermal inkjet, large-character printers, laser coders and print-and-apply labelers — Khumo Industrial supplies coding solutions and inks for every substrate and line speed.",
+    heroImage: "/images/products/laser-marking.webp",
+    text: "Continuous inkjet (CIJ), thermal inkjet (TIJ) and laser marking systems from Cyklop — supplied, installed and serviced in Uzbekistan by Khumo Industrial, with inks for every substrate and line speed.",
     band: {
-      badge: "Inkjet, laser & labeling",
+      badge: "CIJ, TIJ & laser marking",
       title: "Every product deserves a clear identity",
       text: "Accurate dates, batch numbers and barcodes protect your brand, satisfy regulations and keep your supply chain traceable.",
       primary: "Plan Your Complete Packaging Line",
@@ -272,25 +273,28 @@ export const categoryDetails: Record<string, CategoryDetail> = {
       text: "Substrate, code content and line speed determine the best technology for your application.",
       items: [
         {
-          slug: "inkjet-coders",
-          name: "Inkjet Coders",
-          description: "Continuous and thermal inkjet printers for dates, batches and barcodes on almost any surface.",
-          bestFor: ["Primary packaging", "High line speeds", "Food, beverage, pharma"],
-          benefits: ["Versatile", "High resolution"],
+          slug: "continuous-inkjet",
+          name: "Continuous Inkjet (CIJ)",
+          description: "CIJ printers are the preferred choice for high-speed manufacturing where reliability and flexibility are critical. They print on a wide range of materials and are especially effective on continuous production lines.",
+          bestFor: ["High-speed production lines", "Curved or uneven surfaces", "Food, beverage, cables and pipes", "Glass, plastic and metal"],
+          benefits: ["Prints on almost any material", "Fast-drying inks", "Non-contact printing", "High uptime"],
+          image: "/images/products/cij-printer.webp",
         },
         {
-          slug: "laser-coders",
-          name: "Laser Coders",
-          description: "Permanent, high-quality marking without inks or solvents.",
-          bestFor: ["Permanent codes", "Glass, PET, coated materials"],
-          benefits: ["No consumables", "Low maintenance"],
+          slug: "thermal-inkjet",
+          name: "Thermal Inkjet (TIJ)",
+          description: "TIJ technology delivers high-resolution printing with minimal maintenance — ideal for businesses that need crisp text, barcodes and QR codes.",
+          bestFor: ["Cartons, labels and paper", "Barcodes and QR codes", "Pharma serialization", "Medium line speeds"],
+          benefits: ["High-resolution codes", "Clean cartridge system", "Minimal maintenance", "Easy to operate"],
+          image: "/images/products/tij-printer.webp",
         },
         {
-          slug: "print-apply",
-          name: "Print & Apply Labelers",
-          description: "Automatic labeling of cartons and pallets for logistics compliance.",
-          bestFor: ["Secondary packaging", "Pallet labels", "Logistics"],
-          benefits: ["Scannable barcodes", "Fully automatic"],
+          slug: "laser-marking-systems",
+          name: "Laser Marking Systems",
+          description: "Laser marking provides permanent, consumable-free coding directly onto products and packaging. It is often chosen by manufacturers looking to reduce operating costs while improving traceability and code durability.",
+          bestFor: ["Permanent product identification", "High-volume manufacturing", "Automotive and electronics industries", "Food, beverage and pharmaceutical applications"],
+          benefits: ["Permanent, tamper-resistant marking", "No ink or solvent costs", "Minimal maintenance", "Excellent long-term operating efficiency"],
+          image: "/images/products/laser-marking.webp",
         },
       ],
     },
@@ -309,9 +313,10 @@ export const categoryDetails: Record<string, CategoryDetail> = {
       },
     ],
     technology: {
-      title: "The Khumo Difference: Connected Coders",
-      text: "Our coders connect to your line and ERP, so codes, batches and dates are always correct — with inks matched to your substrates.",
-      points: ["ERP integration", "Crisp, durable codes", "Inks for every surface", "Low maintenance", "High uptime", "Full traceability"],
+      title: "Cyklop CO2 Laser Marking System",
+      image: "/images/products/co2-laser-poster.webp",
+      text: "Permanent, high-contrast codes on cartons, plastics, glass and coated materials — without ink, solvents or cartridges. Our coders connect to your line and ERP so codes, batches and dates are always correct.",
+      points: ["No inks or solvents", "Permanent codes", "ERP integration", "Low maintenance", "High uptime", "Full traceability"],
     },
     unsure: "Clear, compliant codes depend on the right technology and ink. We help you choose a coding solution that fits your products and line speed.",
   },
@@ -477,10 +482,6 @@ export const subpages: Record<string, RangeItem[]> = {
     sub("strapping-machines", "Strapping Machines", "Semi-automatic and fully automatic strapping machines for cartons, bundles and pallets, from table machines to inline arch and pallet systems.", ["Medium to high volumes", "Repetitive packaging", "Inline production"], ["Consistent tension", "Higher throughput", "Less manual work"]),
     sub("accessories", "Accessories", "Strap dispensers, seals, buckles, edge protectors and cutters that complete your strapping workstation.", ["All strapping applications", "Manual and battery tools"], ["Safer handling", "Better load protection", "Organized workstations"]),
   ],
-  "coding-marking": [
-    sub("continuous-inkjet-printers", "Continuous Inkjet Printers", "CIJ printers for high-speed, non-contact coding of dates, batches and codes on almost any surface.", ["High line speeds", "Curved or uneven surfaces", "Food, beverage, cables"], ["Prints on almost anything", "Fast-drying inks", "High uptime"]),
-    sub("thermal-inkjet-printers", "Thermal Inkjet Printers", "Cartridge-based TIJ printers for crisp, high-resolution codes, barcodes and logos with minimal maintenance.", ["Cartons and labels", "Pharma serialization", "Barcodes and 2D codes"], ["High resolution", "Clean cartridge system", "Easy to operate"]),
-  ],
   "case-sealing": [
     sub("tape-hand-tool", "Tape Hand Tool", "Robust handheld tape guns for fast, consistent carton sealing at any packing bench.", ["Low volumes", "Packing benches", "E-commerce"], ["Economical", "Lightweight", "Quick tape changes"]),
     sub("carton-erecting-machines", "Carton Erecting Machines", "Automatic case erectors that form and bottom-seal cartons ready for filling.", ["High volumes", "Automated lines", "FMCG, e-commerce"], ["Square, stable cartons", "Less manual work", "High throughput"]),
@@ -515,9 +516,9 @@ export const productMenu: { category: string; overview: boolean; links: { label:
     { label: "Accessories", item: "accessories" },
   ] },
   { category: "coding-marking", overview: true, links: [
-    { label: "Continuous Inkjet Printers", item: "continuous-inkjet-printers" },
-    { label: "Thermal Inkjet Printers", item: "thermal-inkjet-printers" },
-    { label: "Laser Marking Systems", item: "laser-coders" },
+    { label: "Continuous Inkjet Printers", item: "continuous-inkjet" },
+    { label: "Thermal Inkjet Printers", item: "thermal-inkjet" },
+    { label: "Laser Marking Systems", item: "laser-marking-systems" },
   ] },
   { category: "case-sealing", overview: true, links: [
     { label: "Tape Hand Tool", item: "tape-hand-tool" },
