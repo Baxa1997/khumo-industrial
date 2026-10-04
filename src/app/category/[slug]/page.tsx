@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Breadcrumbs, ChallengeCards, Eyebrow, FramedPhoto, IndustryCards, RangeCards, TechnologySection, WhyChoose } from "@/components/CategoryParts";
+import { Breadcrumbs, ChallengeCards, CompleteLine, Eyebrow, FramedPhoto, IndustryCards, RangeCards, TechnologySection, WhyChoose } from "@/components/CategoryParts";
 import Faq from "@/components/Faq";
 import Icon from "@/components/Icon";
 import QuoteFormCard from "@/components/QuoteFormCard";
-import { categoryDetails, trustPoints } from "@/lib/categories";
+import { categoryDetails, linePairs, lineTaglines, trustPoints } from "@/lib/categories";
 import { getSolution, industries, solutions } from "@/lib/data";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -108,6 +108,18 @@ export default async function CategoryPage({ params }: Props) {
       />
 
       <WhyChoose category={slug} name={solution.name} others={solutions.map((s) => ({ slug: s.slug, name: s.name }))} />
+
+      <CompleteLine
+        name={solution.name}
+        cards={[
+          ...linePairs[slug].map((other) => {
+            const o = getSolution(other)!;
+            return { href: `/category/${o.slug}`, title: o.name, text: lineTaglines[o.slug], icon: o.icon, image: o.image };
+          }),
+          { href: "/service", title: "Service & Support", text: "Maximize equipment uptime", icon: "tool" as const },
+          { href: "/service#training", title: "Training", text: "Help operators work safely and efficiently", icon: "book" as const },
+        ]}
+      />
 
       {/* FAQ */}
       <section className="py-20 sm:py-24">

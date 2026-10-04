@@ -6,16 +6,18 @@ import { useEffect, useRef, useState } from "react";
 import Icon from "./Icon";
 import Logo from "./Logo";
 import { useFavorites } from "@/lib/favorites";
+import Photo from "./Photo";
 import { announcement, industries, locations, resources, solutions } from "@/lib/data";
+import { menus, type MegaMenu as MegaMenuData } from "@/lib/menus";
 
-type MenuKey = "products" | "industries" | "resources" | null;
+type MenuKey = keyof typeof menus | null;
 
-const nav: { label: string; href: string; menu?: Exclude<MenuKey, null> }[] = [
+const nav: { label: string; href: string; menu: Exclude<MenuKey, null> }[] = [
   { label: "Products", href: "/products", menu: "products" },
-  { label: "Service", href: "/service" },
+  { label: "Service", href: "/service", menu: "service" },
   { label: "Industries", href: "/industries", menu: "industries" },
   { label: "Resources", href: "/resources", menu: "resources" },
-  { label: "About", href: "/about" },
+  { label: "About", href: "/about", menu: "about" },
 ];
 
 export default function Header() {
@@ -75,22 +77,25 @@ export default function Header() {
       </div>
 
       {/* Main navigation */}
-      <div className="relative border-b border-transparent" onMouseLeave={() => setOpen(null)}>
-        <div className="flex h-16 items-center gap-6 px-4 sm:px-7">
+      <div className={`relative border-b ${open ? "border-orange-500" : "border-transparent"}`} onMouseLeave={() => setOpen(null)}>
+        <div className="mx-auto flex h-16 max-w-[110rem] items-center gap-6 px-4 sm:px-7 xl:px-[6.5%]">
           <Logo />
 
           <nav className="hidden items-center gap-0.5 lg:flex xl:ml-4" aria-label="Main">
             {nav.map((item) => {
-              const active = pathname.startsWith(item.href) || (item.menu === "products" && pathname.startsWith("/category"));
+              const active =
+                pathname.startsWith(item.href) ||
+                (item.menu === "products" && pathname.startsWith("/category")) ||
+                (item.menu === "about" && ["/company-history", "/sustainability", "/careers"].some((p) => pathname.startsWith(p)));
               return (
                 <Link
                   key={item.href}
                   href={item.href}
-                  onMouseEnter={() => setOpen(item.menu ?? null)}
-                  onFocus={() => setOpen(item.menu ?? null)}
-                  aria-expanded={item.menu ? open === item.menu : undefined}
+                  onMouseEnter={() => setOpen(item.menu)}
+                  onFocus={() => setOpen(item.menu)}
+                  aria-expanded={open === item.menu}
                   className={`rounded-full px-3 py-2 text-[15px] transition-colors hover:text-orange-500 ${
-                    active || (item.menu && open === item.menu) ? "text-orange-500" : "text-ink/85"
+                    (open ? open === item.menu : active) ? "text-orange-500" : "text-ink/85"
                   }`}
                 >
                   {item.label}
@@ -122,18 +127,19 @@ export default function Header() {
           </div>
         </div>
 
-        {open && <MegaMenu menu={open} />}
+        {open && <MegaMenu menu={menus[open]} />}
       </div>
+      {open && <div className="pointer-events-none fixed inset-x-0 bottom-0 top-24 -z-10 hidden bg-[#eef1f5]/80 lg:block" aria-hidden="true" />}
 
       {mobile && (
         <div className="max-h-[calc(100vh-6rem)] overflow-y-auto border-t border-line bg-white lg:hidden">
           <div className="flex flex-col gap-1 px-4 py-4 sm:px-7">
             <SearchBox className="mb-3 w-full" />
             <MobileGroup title="Products" base="/products" items={solutions.map((s) => ({ href: `/category/${s.slug}`, label: s.name }))} />
-            <Link href="/service" className="border-b border-line py-3.5 text-lg">Service</Link>
+            <MobileGroup title="Service" base="/service" items={menus.service.side.slice(1)} />
             <MobileGroup title="Industries" base="/industries" items={industries.map((i) => ({ href: `/industries/${i.slug}`, label: i.name }))} />
             <MobileGroup title="Resources" base="/resources" items={resources.map((r) => ({ href: r.href, label: r.label }))} />
-            <Link href="/about" className="border-b border-line py-3.5 text-lg">About</Link>
+            <MobileGroup title="About" base="/about" items={menus.about.side.slice(1)} />
             <Link href="/contact" className="border-b border-line py-3.5 text-lg">Contact</Link>
             <Link href="/contact?topic=quote" className="btn-orange mt-4">Request a Quote</Link>
           </div>
@@ -180,57 +186,61 @@ function FavoritesLink({ count }: { count: number }) {
   );
 }
 
-function MegaMenu({ menu }: { menu: Exclude<MenuKey, null> }) {
-  if (menu === "resources") {
-    return (
-      <Panel title="Resources" text="Insights, news and support to help you get the most from your packaging." href="/resources">
-        <div className="grid grid-cols-2 gap-3">
-          {resources.map((r) => (
-            <Link key={r.href} href={r.href} className="group rounded-2xl bg-surface p-6 transition-colors hover:bg-steel-400 hover:text-white">
-              <span className="display block text-2xl">{r.label}</span>
-              <span className="mt-2 block text-sm text-muted group-hover:text-white/85">{r.description}</span>
-            </Link>
-          ))}
-        </div>
-      </Panel>
-    );
-  }
-  const isProducts = menu === "products";
-  const items = isProducts
-    ? solutions.map((s) => ({ href: `/category/${s.slug}`, label: s.name, icon: s.icon }))
-    : industries.map((i) => ({ href: `/industries/${i.slug}`, label: i.name, icon: i.icon }));
+function MegaMenu({ menu }: { menu: MegaMenuData }) {
   return (
-    <Panel
-      title={isProducts ? "Products" : "Industries"}
-      text={isProducts ? "Complete end-of-line packaging, from handheld tools to fully automated systems." : "Packaging expertise tailored to the challenges of your sector."}
-      href={isProducts ? "/products" : "/industries"}
-    >
-      <div className={`grid gap-3 ${isProducts ? "grid-cols-3" : "grid-cols-4"}`}>
-        {items.map((i) => (
-          <Link
-            key={i.href}
-            href={i.href}
-            className={`group flex items-center justify-between gap-3 rounded-2xl bg-steel-400 px-5 text-white transition-colors hover:bg-steel-600 ${isProducts ? "h-24" : "h-16"}`}
-          >
-            <span className="display text-xl">{i.label}</span>
-            <Icon name={i.icon} className="h-7 w-7 shrink-0 opacity-80" />
-          </Link>
-        ))}
-      </div>
-    </Panel>
-  );
-}
-
-function Panel({ title, text, href, children }: { title: string; text: string; href: string; children: React.ReactNode }) {
-  return (
-    <div className="absolute inset-x-0 top-full hidden border-t border-line bg-white shadow-2xl lg:block">
-      <div className="container-x grid grid-cols-12 gap-10 py-12">
-        <div className="col-span-3">
-          <p className="display text-4xl">{title}</p>
-          <p className="mt-4 text-muted">{text}</p>
-          <Link href={href} className="btn-orange mt-8">View All</Link>
+    <div className="absolute inset-x-0 top-full hidden lg:block">
+      <div className="mx-auto max-w-[110rem] px-4 sm:px-7 xl:px-[5.5%]">
+        <div className="grid grid-cols-12 bg-white py-9 shadow-[0_25px_40px_-25px_rgba(0,0,0,0.15)]">
+          <ul className="col-span-3 space-y-5 border-r border-line pl-[22%] pr-6 xl:col-span-2 xl:pl-[35%]">
+            {menu.side.map((l) => (
+              <li key={l.href + l.label}>
+                <Link href={l.href} className="display text-[15px] tracking-[-0.03em] text-ink hover:text-orange-500">{l.label}</Link>
+              </li>
+            ))}
+          </ul>
+          <div className="col-span-9 pl-10 pr-8 xl:col-span-10">
+            {menu.columns && (
+              <div className="grid grid-cols-3 gap-x-8 gap-y-10">
+                {menu.columns.map((c) => (
+                  <div key={c.title}>
+                    <Link href={c.href} className="text-[13px] font-semibold uppercase tracking-[0.06em] text-navy-800 hover:text-orange-500">
+                      {c.title}
+                    </Link>
+                    <ul className="mt-3 space-y-2">
+                      {c.links.map((l) => (
+                        <li key={l.href + l.label}>
+                          <Link href={l.href} className="text-[13px] tracking-[0.01em] text-ink/70 hover:text-orange-500">{l.label}</Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+            )}
+            {menu.links && (
+              <ul className="grid grid-cols-3 gap-x-8 gap-y-3">
+                {menu.links.map((l) => (
+                  <li key={l.href}>
+                    <Link href={l.href} className="text-[13px] font-semibold uppercase tracking-[0.06em] text-navy-800 hover:text-orange-500">{l.label}</Link>
+                  </li>
+                ))}
+              </ul>
+            )}
+            {menu.cards && (
+              <div className="flex flex-wrap gap-9 xl:pl-[10%]">
+                {menu.cards.map((c) => (
+                  <Link key={c.href + c.cta} href={c.href} className="group w-60">
+                    <Photo src={c.image} alt="" className="h-34 w-full rounded-md" />
+                    <p className="mt-4 text-[13px] leading-relaxed text-ink/75">{c.text}</p>
+                    <span className="mt-2 inline-flex items-center gap-1.5 text-[13px] text-orange-500 group-hover:underline">
+                      {c.cta} <Icon name="arrow" className="h-3.5 w-3.5" strokeWidth={2.2} />
+                    </span>
+                  </Link>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
-        <div className="col-span-9">{children}</div>
       </div>
     </div>
   );

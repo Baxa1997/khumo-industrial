@@ -245,7 +245,7 @@ export function ServiceGrid() {
   return (
     <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
       {services.map((s) => (
-        <div key={s.name} className="rounded-xl bg-surface p-8">
+        <div key={s.name} id={s.name.toLowerCase().replace(/[^a-z0-9]+/g, "-")} className="scroll-mt-28 rounded-xl bg-surface p-8">
           <Icon name={s.icon} className="h-9 w-9 text-orange-500" strokeWidth={1.5} />
           <h3 className="display mt-8 text-2xl tracking-[-0.035em]">{s.name}</h3>
           <p className="mt-3 leading-relaxed text-muted">{s.description}</p>

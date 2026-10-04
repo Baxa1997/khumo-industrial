@@ -228,3 +228,35 @@ export function WhyChoose({ category, name, others }: { category: string; name: 
     </section>
   );
 }
+
+export function CompleteLine({ name, cards }: { name: string; cards: { href: string; title: string; text: string; icon: IconName; image?: string }[] }) {
+  return (
+    <section className="bg-surface py-20 sm:py-24">
+      <div className="mx-auto max-w-[74rem] px-4 sm:px-8">
+        <Eyebrow>Beyond {name.toLowerCase()}</Eyebrow>
+        <h2 className="display mt-5 max-w-3xl text-4xl sm:text-5xl">Complete Your Packaging Line</h2>
+        <p className="mt-6 max-w-3xl text-lg leading-relaxed text-muted">
+          {name} is one step of your end of line. Combine it with the right equipment and support for a fully optimized
+          packaging process.
+        </p>
+        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {cards.map((c) => (
+            <Link key={c.title} href={c.href} className="group rounded-xl border border-line bg-white p-5 transition-shadow hover:shadow-lg">
+              <div className="grid h-36 place-items-center overflow-hidden rounded-lg">
+                {c.image ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={c.image} alt="" className="h-full w-full object-cover" />
+                ) : (
+                  <Icon name={c.icon} className="h-20 w-20 text-steel-400 transition-transform group-hover:scale-110" strokeWidth={1} />
+                )}
+              </div>
+              <h3 className="mt-5 text-xl font-semibold tracking-[-0.015em] group-hover:text-orange-500">{c.title}</h3>
+              <p className="mt-2 text-[15px] leading-relaxed text-muted">{c.text}</p>
+            </Link>
+          ))}
+        </div>
+        <Link href="/contact?topic=quote" className="btn-orange mt-10 px-6 py-3 text-[15px]">Build Your Complete Packaging Line</Link>
+      </div>
+    </section>
+  );
+}

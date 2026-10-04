@@ -437,3 +437,23 @@ export const categoryDetails: Record<string, CategoryDetail> = {
 
 export const getRangeItem = (category: string, item: string) =>
   categoryDetails[category]?.range.items.find((i) => i.slug === item);
+
+/** Short taglines for the "complete your packaging line" cards. */
+export const lineTaglines: Record<string, string> = {
+  strapping: "Secure loads for safe handling",
+  "stretch-wrapping": "Additional load stability for transport",
+  "case-sealing": "Close every carton securely",
+  "coding-marking": "Add traceability before shipment",
+  "binding-bundling": "Bundle products gently",
+  consumables: "Materials matched to your machines",
+};
+
+/** Which two other categories to suggest on each category page. */
+export const linePairs: Record<string, [string, string]> = {
+  strapping: ["stretch-wrapping", "coding-marking"],
+  "stretch-wrapping": ["strapping", "coding-marking"],
+  "case-sealing": ["coding-marking", "strapping"],
+  "coding-marking": ["case-sealing", "stretch-wrapping"],
+  "binding-bundling": ["coding-marking", "consumables"],
+  consumables: ["strapping", "stretch-wrapping"],
+};
