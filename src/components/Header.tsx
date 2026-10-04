@@ -1,16 +1,19 @@
 "use client";
 
-import Link from "next/link";
+import Link from "@/i18n/Link";
 import { usePathname, useRouter } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Icon from "./Icon";
 import Logo from "./Logo";
 import { useFavorites } from "@/lib/favorites";
 import Photo from "./Photo";
-import { announcement, company, locations } from "@/lib/data";
-import { menus, type MegaMenu as MegaMenuData } from "@/lib/menus";
+import { LanguageButtons, LanguageDropdown } from "./LanguageSwitcher";
+import { useI18n } from "@/i18n/client";
+import { localizeHref } from "@/i18n/config";
+import { announcement, company } from "@/lib/data";
+import { menus as baseMenus, type MegaMenu as MegaMenuData } from "@/lib/menus";
 
-type MenuKey = keyof typeof menus | null;
+type MenuKey = keyof typeof baseMenus | null;
 
 const nav: { label: string; href: string; menu: Exclude<MenuKey, null> }[] = [
   { label: "Products", href: "/products", menu: "products" },
@@ -23,25 +26,18 @@ const nav: { label: string; href: string; menu: Exclude<MenuKey, null> }[] = [
 export default function Header() {
   const [open, setOpen] = useState<MenuKey>(null);
   const [mobile, setMobile] = useState(false);
-  const [locOpen, setLocOpen] = useState(false);
-  const pathname = usePathname();
+  const fullPath = usePathname();
   const { favorites } = useFavorites();
-  const locRef = useRef<HTMLDivElement>(null);
+  const { t, loc } = useI18n();
+  const menus = useMemo(() => loc(baseMenus), [loc]);
+  const bar = loc(announcement);
+  // Path without the language prefix, for active-link checks.
+  const pathname = fullPath.replace(/^\/(uz|ru|en)(?=\/|$)/, "") || "/";
 
   useEffect(() => {
     setOpen(null);
     setMobile(false);
-    setLocOpen(false);
-  }, [pathname]);
-
-  useEffect(() => {
-    if (!locOpen) return;
-    const onClick = (e: MouseEvent) => {
-      if (!locRef.current?.contains(e.target as Node)) setLocOpen(false);
-    };
-    document.addEventListener("mousedown", onClick);
-    return () => document.removeEventListener("mousedown", onClick);
-  }, [locOpen]);
+  }, [fullPath]);
 
   return (
     <header className="sticky top-0 z-50 bg-white">
@@ -49,12 +45,12 @@ export default function Header() {
       <div className="bg-black text-white">
         <div className="flex h-8 items-center justify-between gap-4 px-4 text-xs sm:px-7">
           <p className="min-w-0 truncate">
-            <span className="font-medium">{announcement.partner}</span>
+            <span className="font-medium">{bar.partner}</span>
             <span className="hidden md:inline">
               {" · "}
-              {announcement.text}{" "}
-              <Link href={announcement.link.href} className="underline underline-offset-2 hover:text-orange-500">
-                {announcement.link.label}
+              {bar.text}{" "}
+              <Link href={bar.link.href} className="underline underline-offset-2 hover:text-orange-500">
+                {bar.link.label}
               </Link>
             </span>
           </p>
@@ -62,23 +58,9 @@ export default function Header() {
           <div className="hidden shrink-0 items-center gap-5 sm:flex">
             <a href={company.phoneHref} className="hover:text-orange-500">{company.phone}</a>
             <span className="text-white/60">|</span>
-            <div ref={locRef} className="relative">
-              <button type="button" onClick={() => setLocOpen((v) => !v)} aria-expanded={locOpen} className="hover:text-orange-500">
-                Select a Location
-              </button>
-              {locOpen && (
-                <div className="absolute right-0 top-8 z-10 w-64 rounded-xl bg-white p-2 text-ink shadow-xl ring-1 ring-line">
-                  {locations.map((l) => (
-                    <Link key={l.name} href="/contact#locations" className="block rounded-lg px-3 py-2 hover:bg-surface">
-                      <span className="block font-medium">{l.name}</span>
-                      <span className="block text-xs text-muted">{l.city} · {l.phone}</span>
-                    </Link>
-                  ))}
-                </div>
-              )}
-            </div>
+            <LanguageDropdown />
             <span className="text-white/60">|</span>
-            <Link href="/contact" className="hover:text-orange-500">Contact</Link>
+            <Link href="/contact" className="hover:text-orange-500">{t("Contact")}</Link>
           </div>
         </div>
       </div>
@@ -105,7 +87,7 @@ export default function Header() {
                     (open ? open === item.menu : active) ? "text-orange-500" : "text-ink/85"
                   }`}
                 >
-                  {item.label}
+                  {t(item.label)}
                 </Link>
               );
             })}
@@ -113,10 +95,10 @@ export default function Header() {
 
           <div className="ml-auto hidden items-center gap-4 lg:flex">
             <SearchBox className="hidden w-60 xl:flex 2xl:w-72" />
-            <Link href="/search" aria-label="Search" className="p-1.5 hover:text-orange-500 xl:hidden">
+            <Link href="/search" aria-label={t("Search")} className="p-1.5 hover:text-orange-500 xl:hidden">
               <Icon name="search" className="h-6 w-6" />
             </Link>
-            <Link href="/contact?topic=quote" className="btn-orange px-6 py-2.5 text-[15px] xl:px-8">Request a Quote</Link>
+            <Link href="/contact?topic=quote" className="btn-orange px-6 py-2.5 text-[15px] xl:px-8">{t("Request a Quote")}</Link>
             <FavoritesLink count={favorites.length} />
           </div>
 
@@ -126,7 +108,7 @@ export default function Header() {
               type="button"
               className="rounded-md p-2"
               onClick={() => setMobile((v) => !v)}
-              aria-label={mobile ? "Close menu" : "Open menu"}
+              aria-label={mobile ? t("Close menu") : t("Open menu")}
               aria-expanded={mobile}
             >
               <Icon name={mobile ? "close" : "menu"} className="h-6 w-6" />
@@ -138,13 +120,14 @@ export default function Header() {
       </div>
       {open && <div className="pointer-events-none fixed inset-x-0 bottom-0 top-24 -z-10 hidden bg-[#eef1f5]/80 lg:block" aria-hidden="true" />}
 
-      {mobile && <MobileMenu onClose={() => setMobile(false)} favorites={favorites.length} />}
+      {mobile && <MobileMenu menus={menus} onClose={() => setMobile(false)} favorites={favorites.length} />}
     </header>
   );
 }
 
 function SearchBox({ className = "" }: { className?: string }) {
   const router = useRouter();
+  const { t, locale } = useI18n();
   const [q, setQ] = useState("");
   return (
     <form
@@ -152,15 +135,15 @@ function SearchBox({ className = "" }: { className?: string }) {
       className={`flex h-11 items-center gap-2.5 rounded-full border border-ink/25 px-4 transition-colors focus-within:border-navy-800 ${className}`}
       onSubmit={(e) => {
         e.preventDefault();
-        router.push(`/search?q=${encodeURIComponent(q.trim())}`);
+        router.push(localizeHref(locale, `/search?q=${encodeURIComponent(q.trim())}`));
       }}
     >
       <Icon name="search" className="h-[18px] w-[18px] shrink-0 text-ink/70" />
       <input
         value={q}
         onChange={(e) => setQ(e.target.value)}
-        placeholder="Search Khumo"
-        aria-label="Search Khumo"
+        placeholder={t("Search Khumo")}
+        aria-label={t("Search Khumo")}
         className="w-full bg-transparent text-[15px] outline-none placeholder:text-ink/60"
       />
     </form>
@@ -168,8 +151,9 @@ function SearchBox({ className = "" }: { className?: string }) {
 }
 
 function FavoritesLink({ count }: { count: number }) {
+  const { t } = useI18n();
   return (
-    <Link href="/favorites" aria-label={`Saved products (${count})`} className="relative p-1.5 text-ink hover:text-orange-500">
+    <Link href="/favorites" aria-label={t("Saved products ({count})", { count })} className="relative p-1.5 text-ink hover:text-orange-500">
       <Icon name="heart" className="h-6 w-6" strokeWidth={1.7} />
       {count > 0 && (
         <span className="absolute -right-0.5 -top-0.5 grid h-5 min-w-5 place-items-center rounded-full bg-orange-500 px-1 text-[11px] font-semibold text-white">
@@ -240,7 +224,8 @@ function MegaMenu({ menu }: { menu: MegaMenuData }) {
   );
 }
 
-function MobileMenu({ onClose, favorites }: { onClose: () => void; favorites: number }) {
+function MobileMenu({ menus, onClose, favorites }: { menus: typeof baseMenus; onClose: () => void; favorites: number }) {
+  const { t } = useI18n();
   const [openGroup, setOpenGroup] = useState<string | null>(null);
   const [openSub, setOpenSub] = useState<string | null>(null);
 
@@ -257,28 +242,29 @@ function MobileMenu({ onClose, favorites }: { onClose: () => void; favorites: nu
   }, [onClose]);
 
   const groups: { key: string; label: string; href: string; links: { href: string; label: string }[]; columns?: typeof menus.products.columns }[] = [
-    { key: "products", label: "Products", href: "/products", links: menus.products.side, columns: menus.products.columns },
-    { key: "service", label: "Service", href: "/service", links: menus.service.side },
-    { key: "industries", label: "Industries", href: "/industries", links: [...menus.industries.side, ...(menus.industries.links ?? [])] },
-    { key: "resources", label: "Resources", href: "/resources", links: menus.resources.side },
-    { key: "about", label: "About", href: "/about", links: menus.about.side },
+    { key: "products", label: t("Products"), href: "/products", links: menus.products.side, columns: menus.products.columns },
+    { key: "service", label: t("Service"), href: "/service", links: menus.service.side },
+    { key: "industries", label: t("Industries"), href: "/industries", links: [...menus.industries.side, ...(menus.industries.links ?? [])] },
+    { key: "resources", label: t("Resources"), href: "/resources", links: menus.resources.side },
+    { key: "about", label: t("About"), href: "/about", links: menus.about.side },
   ];
 
   return (
-    <div className="mobile-menu fixed inset-0 z-[70] flex flex-col bg-white lg:hidden" role="dialog" aria-modal="true" aria-label="Menu">
+    <div className="mobile-menu fixed inset-0 z-[70] flex flex-col bg-white lg:hidden" role="dialog" aria-modal="true" aria-label={t("Menu")}>
       <div className="flex h-16 shrink-0 items-center justify-between border-b border-line px-4 sm:px-7">
         <Logo />
         <div className="flex items-center gap-1">
           <FavoritesLink count={favorites} />
-          <button type="button" onClick={onClose} aria-label="Close menu" className="grid h-11 w-11 place-items-center rounded-full hover:bg-surface">
+          <button type="button" onClick={onClose} aria-label={t("Close menu")} className="grid h-11 w-11 place-items-center rounded-full hover:bg-surface">
             <Icon name="close" className="h-6 w-6" />
           </button>
         </div>
       </div>
 
       <div className="flex-1 overflow-y-auto overscroll-contain px-4 pb-8 pt-5 sm:px-7">
-        <SearchBox className="w-full" />
-        <nav className="mt-4" aria-label="Mobile">
+        <LanguageButtons />
+        <SearchBox className="mt-4 w-full" />
+        <nav className="mt-4" aria-label={t("Mobile menu")}>
           {groups.map((g) => {
             const expanded = openGroup === g.key;
             return (
@@ -340,7 +326,7 @@ function MobileMenu({ onClose, favorites }: { onClose: () => void; favorites: nu
               </div>
             );
           })}
-          <Link href="/contact" className="block border-b border-line py-4 text-xl font-medium tracking-[-0.02em]">Contact</Link>
+          <Link href="/contact" className="block border-b border-line py-4 text-xl font-medium tracking-[-0.02em]">{t("Contact")}</Link>
         </nav>
 
         <div className="mt-8 space-y-3 text-[15px]">
@@ -351,7 +337,7 @@ function MobileMenu({ onClose, favorites }: { onClose: () => void; favorites: nu
       </div>
 
       <div className="shrink-0 border-t border-line bg-white p-4 sm:px-7">
-        <Link href="/contact?topic=quote" className="btn-orange w-full">Request a Quote</Link>
+        <Link href="/contact?topic=quote" className="btn-orange w-full">{t("Request a Quote")}</Link>
       </div>
     </div>
   );

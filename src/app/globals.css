@@ -50,6 +50,11 @@ body {
 @utility btn-ghost {
   @apply btn border border-line text-ink hover:border-ink;
 }
+/* Long Russian/Uzbek words: hyphenate where supported, otherwise break instead of overflowing. */
+@utility long-words {
+  overflow-wrap: anywhere;
+  hyphens: auto;
+}
 @utility kicker {
   font-family: Georgia, "Times New Roman", serif;
   @apply text-xs uppercase tracking-[0.08em];

@@ -2,9 +2,12 @@
 
 import { useState } from "react";
 import Icon from "./Icon";
-import { testimonials } from "@/lib/data";
+import { useI18n } from "@/i18n/client";
+import { testimonials as baseTestimonials } from "@/lib/data";
 
 export default function Testimonials() {
+  const { t: tr, loc } = useI18n();
+  const testimonials = loc(baseTestimonials);
   const [index, setIndex] = useState(0);
   const go = (delta: number) => setIndex((i) => (i + delta + testimonials.length) % testimonials.length);
   const t = testimonials[index];
@@ -12,19 +15,13 @@ export default function Testimonials() {
   return (
     <section className="pb-24 sm:pb-32">
       <div className="container-x">
-        <div className="flex items-end justify-between gap-8">
-          <h2 className="display text-4xl sm:text-5xl lg:text-[3.6rem]">
-            Hear directly from
-            <br />
-            our valued
-            <br />
-            customers
-          </h2>
-          <div className="flex shrink-0 gap-4">
-            <button type="button" onClick={() => go(-1)} aria-label="Previous testimonial" className="grid h-16 w-16 place-items-center rounded-full border border-line transition-colors hover:border-ink">
+        <div className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-end sm:gap-8">
+          <h2 className="display long-words max-w-[14ch] text-4xl sm:text-5xl lg:text-[3.6rem]">{tr("Hear directly from our valued customers")}</h2>
+          <div className="flex shrink-0 gap-3 sm:gap-4">
+            <button type="button" onClick={() => go(-1)} aria-label={tr("Previous testimonial")} className="grid h-12 w-12 sm:h-16 sm:w-16 place-items-center rounded-full border border-line transition-colors hover:border-ink">
               <Icon name="arrowLeft" className="h-5 w-5" />
             </button>
-            <button type="button" onClick={() => go(1)} aria-label="Next testimonial" className="grid h-16 w-16 place-items-center rounded-full border border-line transition-colors hover:border-ink">
+            <button type="button" onClick={() => go(1)} aria-label={tr("Next testimonial")} className="grid h-12 w-12 sm:h-16 sm:w-16 place-items-center rounded-full border border-line transition-colors hover:border-ink">
               <Icon name="arrow" className="h-5 w-5" />
             </button>
           </div>

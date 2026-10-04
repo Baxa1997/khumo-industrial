@@ -1,8 +1,12 @@
-import Link from "next/link";
+"use client";
+
+import Link from "@/i18n/Link";
+import { useI18n } from "@/i18n/client";
 
 export default function Logo({ light = false }: { light?: boolean }) {
+  const { t } = useI18n();
   return (
-    <Link href="/" className="flex shrink-0 items-center gap-2.5" aria-label="Khumo Industrial home">
+    <Link href="/" className="flex shrink-0 items-center gap-2.5" aria-label={t("Khumo Industrial home")}>
       <svg viewBox="0 0 44 36" className="h-8 w-auto" aria-hidden="true">
         {/* KH monogram */}
         <path d="M4 3v30M4 19L18 3M9.5 13.5L19 33" stroke={light ? "#fff" : "#0b1f3f"} strokeWidth="6" strokeLinecap="square" fill="none" />

@@ -1,6 +1,7 @@
-import Link from "next/link";
+import Link from "@/i18n/Link";
 import Icon from "./Icon";
 import mapData from "@/lib/map-pins.json";
+import { getI18n } from "@/i18n/server";
 import { locations } from "@/lib/data";
 
 const pins = mapData.pins as Record<string, { x: number; y: number }>;
@@ -9,7 +10,8 @@ const placement: Record<string, string> = {
   Uzbekistan: "translate-x-3 -translate-y-1/2",
 };
 
-export default function RegionSection() {
+export default async function RegionSection() {
+  const { t } = await getI18n();
   return (
     <section className="py-16 sm:py-24">
       <div className="mx-auto max-w-[82rem] px-4 sm:px-8">
@@ -25,19 +27,18 @@ export default function RegionSection() {
                   <span className="absolute -left-1 -top-1 h-2 w-2 rounded-full bg-orange-500 ring-4 ring-orange-500/25" />
                   <span className={`absolute flex items-center gap-1.5 whitespace-nowrap rounded-full bg-white/20 px-3 py-1.5 backdrop-blur ${placement[l.label] ?? ""}`}>
                     <Icon name="pin" className="h-3.5 w-3.5 text-orange-500" strokeWidth={2.2} />
-                    <span className="kicker text-[11px]">{l.label}</span>
+                    <span className="kicker text-[11px]">{t(l.label)}</span>
                   </span>
                 </span>
               );
             })}
           </div>
           <div>
-            <h2 className="display text-4xl sm:text-5xl lg:text-[3.4rem]">Here for You Across Uzbekistan.</h2>
+            <h2 className="display text-4xl sm:text-5xl lg:text-[3.4rem]">{t("Here for You Across Uzbekistan.")}</h2>
             <p className="display mt-8 text-lg leading-relaxed tracking-[-0.02em] text-white/90">
-              As the official Cyklop partner in Uzbekistan, we bring you the technology of a global packaging leader with
-              local supply, installation, training and service — wherever your production is.
+              {t("As the official Cyklop partner in Uzbekistan, we bring you the technology of a global packaging leader with local supply, installation, training and service — wherever your production is.")}
             </p>
-            <Link href="/contact" className="btn-orange mt-10">Contact Khumo</Link>
+            <Link href="/contact" className="btn-orange mt-10">{t("Contact Khumo")}</Link>
           </div>
         </div>
       </div>

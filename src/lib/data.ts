@@ -351,7 +351,7 @@ export const getIndustry = (slug: string) => industries.find((i) => i.slug === s
 export const images: { hero?: string; history?: string; sustainabilityTall?: string; sustainabilityTool?: string; sustainabilityTeam?: string } = {};
 
 export const hero = {
-  lines: ["Strong Packaging.", "Stronger Partner."],
+  lines: ["Strong Packaging.\nStronger Partner."],
   text: "Khumo Industrial is the official Cyklop partner in Uzbekistan — your single source for coding, marking and end-of-line packaging. We supply, set up and service your equipment and stay by your side every step of the way.",
 };
 

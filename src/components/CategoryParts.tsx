@@ -1,15 +1,20 @@
-import Link from "next/link";
+import Link from "@/i18n/Link";
 import Icon, { type IconName } from "./Icon";
 import Photo from "./Photo";
+import { getI18n } from "@/i18n/server";
 import type { Challenge, Guide, IndustryCard, RangeItem, Technology } from "@/lib/categories";
 
+/** Category names read naturally lower-cased mid-sentence in English only. */
+const inline = (locale: string, name: string) => (locale === "en" ? name.toLowerCase() : name);
+
 export function Eyebrow({ children, className = "" }: { children: React.ReactNode; className?: string }) {
-  return <p className={`text-[13px] font-semibold uppercase leading-relaxed tracking-[0.14em] text-orange-500 ${className}`}>{children}</p>;
+  return <p className={`long-words text-[13px] font-semibold uppercase leading-relaxed tracking-[0.08em] text-orange-500 sm:tracking-[0.14em] ${className}`}>{children}</p>;
 }
 
-export function Breadcrumbs({ items }: { items: { href?: string; label: string }[] }) {
+export async function Breadcrumbs({ items }: { items: { href?: string; label: string }[] }) {
+  const { t } = await getI18n();
   return (
-    <nav aria-label="Breadcrumb" className="flex flex-wrap items-center gap-1.5 text-[15px] text-muted">
+    <nav aria-label={t("Breadcrumb")} className="flex flex-wrap items-center gap-1.5 text-[15px] text-muted">
       {items.map((c, idx) => (
         <span key={c.label} className="flex items-center gap-1.5">
           {idx > 0 && <span>/</span>}
@@ -47,7 +52,7 @@ function BulletBlock({ title, items }: { title: string; items: string[] }) {
   );
 }
 
-export function RangeCards({
+export async function RangeCards({
   category,
   items,
   icon,
@@ -58,6 +63,7 @@ export function RangeCards({
   icon: IconName;
   cols?: string;
 }) {
+  const { t } = await getI18n();
   return (
     <div className={`grid gap-5 ${cols}`}>
       {items.map((item) => (
@@ -75,13 +81,13 @@ export function RangeCards({
           </div>
           <h3 className="text-2xl font-semibold tracking-[-0.02em]">{item.name}</h3>
           <p className="text-[15px] leading-relaxed text-ink/85">{item.description}</p>
-          <BulletBlock title="Best suited for" items={item.bestFor} />
-          <BulletBlock title="Key benefits" items={item.benefits} />
+          <BulletBlock title={t("Best suited for")} items={item.bestFor} />
+          <BulletBlock title={t("Key benefits")} items={item.benefits} />
           <Link
             href={`/category/${category}/${item.slug}`}
             className="group mt-2 inline-flex items-center gap-1.5 self-end text-[15px] font-semibold text-navy-800 hover:text-orange-500"
           >
-            Explore {item.name}
+            {t("Explore {name}", { name: item.name })}
             <Icon name="arrow" className="h-4 w-4 transition-transform group-hover:translate-x-0.5" strokeWidth={2.2} />
           </Link>
         </article>
@@ -90,7 +96,8 @@ export function RangeCards({
   );
 }
 
-export function ChallengeCards({ items, icon }: { items: Challenge[]; icon: IconName }) {
+export async function ChallengeCards({ items, icon }: { items: Challenge[]; icon: IconName }) {
+  const { t } = await getI18n();
   return (
     <div className="grid gap-5 lg:grid-cols-2">
       {items.map((c, idx) => (
@@ -104,10 +111,10 @@ export function ChallengeCards({ items, icon }: { items: Challenge[]; icon: Icon
           </div>
           <p className="mt-6 flex-1 text-[15px] leading-relaxed text-muted">{c.problem}</p>
           <div className="mt-8 rounded-r-lg border-l-4 border-orange-500 bg-surface p-5">
-            <Eyebrow className="text-xs">How our solutions help</Eyebrow>
+            <Eyebrow className="text-xs">{t("How our solutions help")}</Eyebrow>
             <p className="mt-2 text-[15px] leading-relaxed text-ink/85">{c.solution}</p>
           </div>
-          <p className="mt-7 text-xs font-semibold uppercase tracking-[0.14em] text-muted">Operational benefits</p>
+          <p className="mt-7 text-xs font-semibold uppercase tracking-[0.14em] text-muted">{t("Operational benefits")}</p>
           <ul className="mt-3 grid gap-x-6 gap-y-2 text-sm text-muted sm:grid-cols-2">
             {c.benefits.map((b) => (
               <li key={b} className="flex items-center gap-2">
@@ -122,12 +129,13 @@ export function ChallengeCards({ items, icon }: { items: Challenge[]; icon: Icon
   );
 }
 
-export function TechnologySection({ technology, icon }: { technology: Technology; icon: IconName }) {
+export async function TechnologySection({ technology, icon }: { technology: Technology; icon: IconName }) {
+  const { t } = await getI18n();
   return (
     <section className="py-20 sm:py-24">
       <div className="mx-auto grid max-w-[74rem] items-center gap-12 px-4 sm:px-8 lg:grid-cols-2">
         <div>
-          <Eyebrow>Our technology</Eyebrow>
+          <Eyebrow>{t("Our technology")}</Eyebrow>
           <h2 className="display mt-5 text-4xl sm:text-5xl">{technology.title}</h2>
           <p className="mt-6 text-lg leading-relaxed text-muted">{technology.text}</p>
           <ul className="mt-10 grid gap-x-8 gap-y-3 text-[15px] text-muted sm:grid-cols-2">
@@ -152,11 +160,12 @@ export function TechnologySection({ technology, icon }: { technology: Technology
   );
 }
 
-export function IndustryCards({ title, text, items }: { title: string; text: string; items: IndustryCard[] }) {
+export async function IndustryCards({ title, text, items }: { title: string; text: string; items: IndustryCard[] }) {
+  const { t } = await getI18n();
   return (
     <section className="py-20 sm:py-24">
       <div className="mx-auto max-w-[74rem] px-4 sm:px-8">
-        <Eyebrow>Industries we serve</Eyebrow>
+        <Eyebrow>{t("Industries we serve")}</Eyebrow>
         <h2 className="display mt-5 text-4xl sm:text-5xl">{title}</h2>
         <p className="mt-6 max-w-3xl text-lg leading-relaxed text-muted">{text}</p>
         <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -181,33 +190,34 @@ export function IndustryCards({ title, text, items }: { title: string; text: str
   );
 }
 
-const reasons = [
-  { icon: "layers" as IconName, title: (n: string) => `Complete ${n} Portfolio`, text: (n: string) => `From manual tools to fully automatic systems, we offer ${n.toLowerCase()} solutions for every production environment.` },
-  { icon: "tool" as IconName, title: () => "Tailored to Your Production", text: () => "Every business is different. Our engineers work with you to recommend the right equipment, automation level and consumables for your application." },
-  { icon: "headset" as IconName, title: () => "Expert Advice, Local Support", text: () => "Our specialists and technicians provide fast local service, spare parts and technical support wherever you operate in the region." },
-  { icon: "shield" as IconName, title: () => "Backed by Cyklop Since 1912", text: () => "As the official Cyklop partner in Uzbekistan, we bring you technology from a manufacturer with more than 100 years of packaging innovation." },
+// "{name}" is replaced with the category name.
+const reasons: { icon: IconName; title: string; text: string }[] = [
+  { icon: "layers", title: "Complete {name} Portfolio", text: "From manual tools to fully automatic systems, we offer {name} solutions for every production environment." },
+  { icon: "tool", title: "Tailored to Your Production", text: "Every business is different. Our engineers work with you to recommend the right equipment, automation level and consumables for your application." },
+  { icon: "headset", title: "Expert Advice, Local Support", text: "Our specialists and technicians provide fast local service, spare parts and technical support wherever you operate in the region." },
+  { icon: "shield", title: "Backed by Cyklop Since 1912", text: "As the official Cyklop partner in Uzbekistan, we bring you technology from a manufacturer with more than 100 years of packaging innovation." },
 ];
 
-export function WhyChoose({ category, name, others }: { category: string; name: string; others: { slug: string; name: string }[] }) {
+export async function WhyChoose({ category, name, others }: { category: string; name: string; others: { slug: string; name: string }[] }) {
+  const { t, locale } = await getI18n();
+  const lower = inline(locale, name);
   return (
     <section className="relative overflow-hidden bg-navy-800 text-white">
       <div className="pointer-events-none absolute inset-0 opacity-[0.07] [background-image:repeating-linear-gradient(115deg,#fff_0_1px,transparent_1px_90px)]" />
       <div className="relative mx-auto max-w-[74rem] px-4 py-20 sm:px-8 sm:py-24">
         <div className="mx-auto max-w-3xl text-center">
-          <Eyebrow>Why choose Khumo?</Eyebrow>
-          <h2 className="mt-4 text-3xl font-semibold tracking-[-0.02em] sm:text-[2.6rem] sm:leading-tight">A packaging partner, not just a supplier</h2>
+          <Eyebrow>{t("Why choose Khumo?")}</Eyebrow>
+          <h2 className="mt-4 text-3xl font-semibold tracking-[-0.02em] sm:text-[2.6rem] sm:leading-tight">{t("A packaging partner, not just a supplier")}</h2>
           <p className="mt-6 text-lg leading-relaxed text-white/90">
-            Choosing the right {name.toLowerCase()} solution is about more than selecting a machine. It’s about a partner who
-            understands your production, your packaging challenges and your long-term goals.
+            {t("Choosing the right {name} solution is about more than selecting a machine. It’s about a partner who understands your production, your packaging challenges and your long-term goals.", { name: lower })}
           </p>
           <p className="mt-5 leading-relaxed text-white/65">
-            As the official Cyklop partner in Uzbekistan, Khumo Industrial helps manufacturers raise packaging efficiency,
-            reduce operating costs and protect products with reliable equipment and expert local support.
+            {t("As the official Cyklop partner in Uzbekistan, Khumo Industrial helps manufacturers raise packaging efficiency, reduce operating costs and protect products with reliable equipment and expert local support.")}
           </p>
         </div>
         <div className="mt-14 grid gap-7 sm:grid-cols-2 lg:grid-cols-4">
           {reasons.map((r) => (
-            <div key={r.title(name)} className="border-t border-white/20 pt-6">
+            <div key={r.title} className="border-t border-white/20 pt-6">
               <article className="h-full rounded-lg bg-white p-5 text-ink shadow-xl">
                 <div className="photo-placeholder grid h-36 place-items-center rounded-md">
                   <Icon name={r.icon} className="h-12 w-12 text-white/40" strokeWidth={1} />
@@ -215,17 +225,17 @@ export function WhyChoose({ category, name, others }: { category: string; name: 
                 <span className="mt-5 grid h-10 w-10 place-items-center rounded-full bg-orange-500/10 text-orange-500">
                   <Icon name="check" className="h-4 w-4" strokeWidth={2.6} />
                 </span>
-                <h3 className="mt-4 text-lg font-semibold leading-snug">{r.title(name)}</h3>
-                <p className="mt-2.5 text-sm leading-relaxed text-muted">{r.text(name)}</p>
+                <h3 className="mt-4 text-lg font-semibold leading-snug">{t(r.title, { name })}</h3>
+                <p className="mt-2.5 text-sm leading-relaxed text-muted">{t(r.text, { name: lower })}</p>
               </article>
             </div>
           ))}
         </div>
         <div className="mt-16 grid gap-8 border-t border-white/20 pt-10 lg:grid-cols-2">
           <div>
-            <h3 className="text-2xl font-semibold tracking-[-0.015em]">Your Complete Packaging Partner</h3>
+            <h3 className="text-2xl font-semibold tracking-[-0.015em]">{t("Your Complete Packaging Partner")}</h3>
             <p className="mt-3 max-w-md text-white/70">
-              Our expertise goes beyond {name.toLowerCase()}. We help you optimize your entire packaging process with:
+              {t("Our expertise goes beyond {name}. We help you optimize your entire packaging process with:", { name: lower })}
             </p>
           </div>
           <div className="grid content-start gap-3.5 sm:grid-cols-2">
@@ -246,15 +256,15 @@ export function WhyChoose({ category, name, others }: { category: string; name: 
   );
 }
 
-export function CompleteLine({ name, cards }: { name: string; cards: { href: string; title: string; text: string; icon: IconName; image?: string }[] }) {
+export async function CompleteLine({ name, cards }: { name: string; cards: { href: string; title: string; text: string; icon: IconName; image?: string }[] }) {
+  const { t, locale } = await getI18n();
   return (
     <section className="bg-surface py-20 sm:py-24">
       <div className="mx-auto max-w-[74rem] px-4 sm:px-8">
-        <Eyebrow>Beyond {name.toLowerCase()}</Eyebrow>
-        <h2 className="display mt-5 max-w-3xl text-4xl sm:text-5xl">Complete Your Packaging Line</h2>
+        <Eyebrow>{t("Beyond {name}", { name: inline(locale, name) })}</Eyebrow>
+        <h2 className="display mt-5 max-w-3xl text-4xl sm:text-5xl">{t("Complete Your Packaging Line")}</h2>
         <p className="mt-6 max-w-3xl text-lg leading-relaxed text-muted">
-          {name} is one step of your end of line. Combine it with the right equipment and support for a fully optimized
-          packaging process.
+          {t("{name} is one step of your end of line. Combine it with the right equipment and support for a fully optimized packaging process.", { name })}
         </p>
         <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {cards.map((c) => (
@@ -272,17 +282,18 @@ export function CompleteLine({ name, cards }: { name: string; cards: { href: str
             </Link>
           ))}
         </div>
-        <Link href="/contact?topic=quote" className="btn-orange mt-10 px-6 py-3 text-[15px]">Build Your Complete Packaging Line</Link>
+        <Link href="/contact?topic=quote" className="btn-orange mt-10 px-6 py-3 text-[15px]">{t("Build Your Complete Packaging Line")}</Link>
       </div>
     </section>
   );
 }
 
-export function BuyingGuide({ guide }: { guide: Guide }) {
+export async function BuyingGuide({ guide }: { guide: Guide }) {
+  const { t } = await getI18n();
   return (
     <section className="bg-surface py-20 sm:py-24">
       <div className="mx-auto max-w-[74rem] px-4 sm:px-8">
-        <Eyebrow>Buying guide</Eyebrow>
+        <Eyebrow>{t("Buying guide")}</Eyebrow>
         <h2 className="display mt-5 max-w-3xl text-4xl sm:text-5xl">{guide.title}</h2>
         <p className="mt-6 max-w-3xl text-lg leading-relaxed text-muted">{guide.text}</p>
         <div className="mt-12 grid gap-6 lg:grid-cols-3">
@@ -290,10 +301,10 @@ export function BuyingGuide({ guide }: { guide: Guide }) {
             <article key={o.title} className="flex flex-col rounded-2xl border border-line bg-white p-7 shadow-[0_8px_30px_-18px_rgba(0,0,0,0.15)]">
               <h3 className="mt-3 text-2xl font-semibold tracking-[-0.02em]">{o.title}</h3>
               <div className="mt-5 rounded-lg bg-[#fff4ec] p-4">
-                <Eyebrow className="text-xs">Best suited for</Eyebrow>
+                <Eyebrow className="text-xs">{t("Best suited for")}</Eyebrow>
                 <p className="mt-1.5 text-[15px] leading-relaxed text-muted">{o.bestFor}</p>
               </div>
-              <Eyebrow className="mt-6 text-xs">Key benefits</Eyebrow>
+              <Eyebrow className="mt-6 text-xs">{t("Key benefits")}</Eyebrow>
               <ul className="mt-2.5 flex-1 space-y-2.5 pl-4 text-sm leading-relaxed text-ink/85">
                 {o.points.map((p) => (
                   <li key={p} className="flex gap-2">
@@ -310,7 +321,7 @@ export function BuyingGuide({ guide }: { guide: Guide }) {
           ))}
         </div>
         <div className="mt-8 flex flex-col items-start justify-between gap-4 rounded-xl bg-navy-800 px-7 py-5 text-white sm:flex-row sm:items-center">
-          <p className="text-xl font-semibold">Still Unsure?</p>
+          <p className="text-xl font-semibold">{t("Still Unsure?")}</p>
           <a href="#quote" className="btn-orange px-6 py-3 text-[15px]">{guide.unsureCta}</a>
         </div>
       </div>
