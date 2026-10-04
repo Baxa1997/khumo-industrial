@@ -25,7 +25,7 @@ yarn generate:map  # regenerate the dotted region map after changing office loca
 
 The site is available in Uzbek (default), Russian and English under `/uz`, `/ru` and `/en`.
 
-- `/` redirects to the visitor's language (saved choice → browser language → Uzbek), handled in `src/proxy.ts`.
+- `/` opens Uzbek by default; a language picked with the switcher is remembered (cookie). Handled in `src/proxy.ts`.
 - English text in the code and in `src/lib/*.ts` is the source; translations live in
   `src/i18n/messages/ru.json` and `src/i18n/messages/uz.json`, keyed by the English text. Missing keys fall back to English.
 - Server components use `const { t, loc } = await getI18n()` (`src/i18n/server.ts`), client components use `useI18n()`.
