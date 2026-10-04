@@ -16,22 +16,9 @@ export const aboutValues = [
   { t: "Sustainability", d: "We help customers reduce material use, energy and waste in packaging." },
 ];
 
-export const careerPerks = [
-  { icon: "tool" as const, t: "Hands-on Work", d: "Install, service and optimize real packaging lines for leading manufacturers." },
-  { icon: "book" as const, t: "Training", d: "Technical training on the equipment we sell and service." },
-  { icon: "globe" as const, t: "Regional Team", d: "Work with colleagues and customers across Uzbekistan." },
-];
-
 export const serviceSteps = [
   { t: "Analysis", d: "We visit your site, review your products and processes and define your goals." },
   { t: "Recommendation", d: "You receive a tailored proposal with machines, consumables and expected savings." },
   { t: "Installation", d: "Our technicians install, commission and integrate the solution into your line." },
   { t: "Lifetime Support", d: "Training, maintenance and spare parts keep your equipment running for years." },
-];
-
-export const sustainabilityPillars = [
-  { icon: "roll" as const, t: "Less Material", d: "Pre-stretch film technology and optimized strapping patterns reduce consumable use." },
-  { icon: "layers" as const, t: "Recycled Content", d: "PET strap from recycled bottles and paper-based banding and tape options." },
-  { icon: "gear" as const, t: "Energy Efficiency", d: "Modern drives and standby modes cut the energy consumption of every machine." },
-  { icon: "tool" as const, t: "Longer Lifetime", d: "Preventive maintenance and refurbishment keep equipment in service for longer." },
 ];

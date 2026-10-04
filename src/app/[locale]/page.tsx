@@ -1,7 +1,7 @@
 import RegionSection from "@/components/RegionSection";
 import Link from "@/i18n/Link";
 import Icon from "@/components/Icon";
-import { CategoryGrid, ClientsStrip, CtaBanner, HistoryBlock, InstagramSection, NewsSection, PageIntro, SustainabilityBlock } from "@/components/Sections";
+import { CategoryGrid, ClientsStrip, CtaBanner, HistoryBlock, InstagramSection, NewsSection, PageIntro } from "@/components/Sections";
 import { getI18n } from "@/i18n/server";
 import { company, hero, images } from "@/lib/data";
 
@@ -25,7 +25,6 @@ export default async function HomePage() {
         </div>
       </section>
       <HistoryBlock />
-      <SustainabilityBlock />
       <NewsSection />
       <InstagramSection />
       <RegionSection />

@@ -5,7 +5,6 @@ import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import Icon from "./Icon";
 import Logo from "./Logo";
-import { useFavorites } from "@/lib/favorites";
 import Photo from "./Photo";
 import { LanguageButtons, LanguageDropdown } from "./LanguageSwitcher";
 import { useI18n } from "@/i18n/client";
@@ -27,7 +26,6 @@ export default function Header() {
   const [open, setOpen] = useState<MenuKey>(null);
   const [mobile, setMobile] = useState(false);
   const fullPath = usePathname();
-  const { favorites } = useFavorites();
   const { t, loc } = useI18n();
   const menus = useMemo(() => loc(baseMenus), [loc]);
   const bar = loc(announcement);
@@ -59,8 +57,6 @@ export default function Header() {
             <a href={company.phoneHref} className="hover:text-orange-500">{company.phone}</a>
             <span className="text-white/60">|</span>
             <LanguageDropdown />
-            <span className="text-white/60">|</span>
-            <Link href="/contact" className="hover:text-orange-500">{t("Contact")}</Link>
           </div>
         </div>
       </div>
@@ -75,7 +71,7 @@ export default function Header() {
               const active =
                 pathname.startsWith(item.href) ||
                 (item.menu === "products" && pathname.startsWith("/category")) ||
-                (item.menu === "about" && ["/company-history", "/sustainability", "/careers"].some((p) => pathname.startsWith(p)));
+                (item.menu === "about" && ["/company-history"].some((p) => pathname.startsWith(p)));
               return (
                 <Link
                   key={item.href}
@@ -99,11 +95,9 @@ export default function Header() {
               <Icon name="search" className="h-6 w-6" />
             </Link>
             <Link href="/contact?topic=quote" className="btn-orange px-6 py-2.5 text-[15px] xl:px-8">{t("Request a Quote")}</Link>
-            <FavoritesLink count={favorites.length} />
           </div>
 
           <div className="ml-auto flex items-center gap-2 lg:hidden">
-            <FavoritesLink count={favorites.length} />
             <button
               type="button"
               className="rounded-md p-2"
@@ -120,7 +114,7 @@ export default function Header() {
       </div>
       {open && <div className="pointer-events-none fixed inset-x-0 bottom-0 top-24 -z-10 hidden bg-[#eef1f5]/80 lg:block" aria-hidden="true" />}
 
-      {mobile && <MobileMenu menus={menus} onClose={() => setMobile(false)} favorites={favorites.length} />}
+      {mobile && <MobileMenu menus={menus} onClose={() => setMobile(false)} />}
     </header>
   );
 }
@@ -147,20 +141,6 @@ function SearchBox({ className = "" }: { className?: string }) {
         className="w-full bg-transparent text-[15px] outline-none placeholder:text-ink/60"
       />
     </form>
-  );
-}
-
-function FavoritesLink({ count }: { count: number }) {
-  const { t } = useI18n();
-  return (
-    <Link href="/favorites" aria-label={t("Saved products ({count})", { count })} className="relative p-1.5 text-ink hover:text-orange-500">
-      <Icon name="heart" className="h-6 w-6" strokeWidth={1.7} />
-      {count > 0 && (
-        <span className="absolute -right-0.5 -top-0.5 grid h-5 min-w-5 place-items-center rounded-full bg-orange-500 px-1 text-[11px] font-semibold text-white">
-          {count}
-        </span>
-      )}
-    </Link>
   );
 }
 
@@ -224,7 +204,7 @@ function MegaMenu({ menu }: { menu: MegaMenuData }) {
   );
 }
 
-function MobileMenu({ menus, onClose, favorites }: { menus: typeof baseMenus; onClose: () => void; favorites: number }) {
+function MobileMenu({ menus, onClose }: { menus: typeof baseMenus; onClose: () => void }) {
   const { t } = useI18n();
   const [openGroup, setOpenGroup] = useState<string | null>(null);
   const [openSub, setOpenSub] = useState<string | null>(null);
@@ -253,12 +233,9 @@ function MobileMenu({ menus, onClose, favorites }: { menus: typeof baseMenus; on
     <div className="mobile-menu fixed inset-0 z-[70] flex flex-col bg-white lg:hidden" role="dialog" aria-modal="true" aria-label={t("Menu")}>
       <div className="flex h-16 shrink-0 items-center justify-between border-b border-line px-4 sm:px-7">
         <Logo />
-        <div className="flex items-center gap-1">
-          <FavoritesLink count={favorites} />
-          <button type="button" onClick={onClose} aria-label={t("Close menu")} className="grid h-11 w-11 place-items-center rounded-full hover:bg-surface">
+        <button type="button" onClick={onClose} aria-label={t("Close menu")} className="grid h-11 w-11 place-items-center rounded-full hover:bg-surface">
             <Icon name="close" className="h-6 w-6" />
           </button>
-        </div>
       </div>
 
       <div className="flex-1 overflow-y-auto overscroll-contain px-4 pb-8 pt-5 sm:px-7">

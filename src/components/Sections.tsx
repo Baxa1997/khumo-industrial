@@ -167,49 +167,6 @@ export async function HistoryBlock() {
 
 /* ---------- Sustainability (navy block) ---------- */
 
-export async function SustainabilityBlock() {
-  const { t } = await getI18n();
-  return (
-    <section className="relative mt-10 overflow-hidden">
-      <div className="relative bg-navy-800 pb-20 pt-28 text-white sm:pb-28 sm:pt-36 [clip-path:polygon(0_9%,34%_0,100%_0,100%_100%,0_100%)] lg:[clip-path:polygon(0_7rem,34%_0,100%_0,100%_100%,0_100%)]">
-        <svg className="pointer-events-none absolute -right-24 top-0 h-[34rem] w-[34rem] text-white/15" viewBox="0 0 200 200" fill="none" stroke="currentColor" strokeWidth="0.8" aria-hidden="true">
-          <path d="M60 10h70l50 70-30 80H70L20 90z" />
-          <path d="M90 40h70l40 60-25 70H95L55 110z" />
-        </svg>
-        <div className="mx-auto max-w-[110rem] px-4 sm:px-8 lg:px-[6.5%]">
-          <h2 className="display mx-auto max-w-4xl text-center text-3xl tracking-[-0.04em] sm:text-5xl">
-            {t("Committed to the future of the planet, people, and packaging")}
-          </h2>
-          <div className="mt-16 grid gap-5 lg:grid-cols-3 lg:grid-rows-[auto_auto]">
-            <Photo src={images.sustainabilityTall} alt={t("Packaging machine in a warehouse")} icon="box" className="h-80 rounded-xl lg:row-span-2 lg:h-full" />
-            <Photo src={images.sustainabilityTool} alt={t("Battery strapping tool in use")} icon="strap" className="h-72 rounded-xl" />
-            <Link href="/category/consumables" className="group flex h-72 flex-col rounded-xl bg-orange-500 p-9 transition-colors hover:bg-orange-600">
-              <svg viewBox="0 0 36 36" className="h-12 w-12" aria-hidden="true">
-                <path d="M9 4v28" stroke="#003063" strokeWidth="6" strokeLinecap="round" />
-                <path d="M30 6L15.5 18 30 30" stroke="#fff" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" fill="none" />
-              </svg>
-              <p className="display mt-6 text-3xl tracking-[-0.04em]">{t("Recycle, re-use, reliable. Sustainable consumables.")}</p>
-              <span className="kicker mt-5 group-hover:underline">{t("Browse consumables")}</span>
-            </Link>
-            <div className="relative flex flex-col overflow-hidden rounded-xl bg-steel-400 p-9 text-navy-950 lg:col-span-2 lg:p-12">
-              <p className="kicker">{t("Local action. Global impact.")}</p>
-              <p className="display relative z-10 mt-4 max-w-3xl text-2xl tracking-[-0.03em] text-white sm:text-[2rem] sm:leading-tight">
-                {t("Khumo Industrial is committed to practicing sustainability and helping you do the same.")}
-              </p>
-              <div className="relative z-10 mt-10">
-                <Link href="/sustainability" className="btn-orange">
-                  {t("Commitment to Sustainability")} <Icon name="arrow" className="h-5 w-5" />
-                </Link>
-              </div>
-              <Photo src={images.sustainabilityTeam} alt={t("Khumo Industrial team")} icon="globe" className="absolute -right-6 bottom-6 hidden h-40 w-56 rotate-6 rounded-lg shadow-xl xl:grid" />
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
 /* ---------- News list ---------- */
 
 export async function NewsList({ limit = 3 }: { limit?: number }) {

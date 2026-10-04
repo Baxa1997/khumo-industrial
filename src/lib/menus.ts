@@ -1,5 +1,5 @@
 import { productMenu } from "./categories";
-import { industries, news, solutions } from "./data";
+import { industries, solutions } from "./data";
 
 export type MenuLink = { href: string; label: string };
 export type MenuCard = { href: string; text: string; cta: string; image?: string };
@@ -16,9 +16,6 @@ export const menus: Record<"products" | "service" | "industries" | "resources" |
   products: {
     side: [
       { href: "/products", label: "All Products" },
-      { href: "/products/automation", label: "Automation" },
-      { href: "/news", label: "New Arrivals" },
-      { href: "/products/most-viewed", label: "Most Viewed" },
     ],
     columns: productMenu.map((m) => {
       const s = solutions.find((x) => x.slug === m.category)!;
@@ -53,22 +50,13 @@ export const menus: Record<"products" | "service" | "industries" | "resources" |
     side: [
       { href: "/news", label: "News & Events" },
       { href: "/support", label: "FAQ & Support" },
-      { href: "/sustainability", label: "Sustainability" },
-      { href: "/company-history", label: "Our Story" },
     ],
-    cards: news.slice(0, 2).map((n) => ({ href: `/news#${n.slug}`, text: n.title, cta: "Read more" })),
   },
   about: {
     side: [
       { href: "/about", label: "Who We Are" },
       { href: "/company-history", label: "Our Story" },
-      { href: "/sustainability", label: "Sustainability" },
-      { href: "/careers", label: "Careers" },
       { href: "/contact", label: "Contact" },
-    ],
-    cards: [
-      { href: "/about", text: "Driven by our values. Who we are is what makes our solutions work for you.", cta: "Get to know us" },
-      { href: "/sustainability", text: "Recycled PET strap and pre-stretch film help customers cut their plastic footprint.", cta: "Sustainability" },
     ],
   },
 };

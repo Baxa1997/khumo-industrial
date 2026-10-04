@@ -18,7 +18,6 @@ export default async function Footer() {
         { href: "/about", label: t("About") },
         { href: "/service", label: t("Service") },
         { href: "/contact", label: t("Contact") },
-        { href: "/contact?topic=quote", label: t("Request a Quote") },
       ],
     },
   ];
@@ -57,11 +56,6 @@ export default async function Footer() {
       <div className="border-t border-white/15">
         <div className="container-x flex flex-col items-center justify-between gap-3 py-6 text-sm text-white/60 md:flex-row">
           <p>© {year} {company.legalName}. {t("All rights reserved.")}</p>
-          <div className="flex flex-wrap justify-center gap-x-6 gap-y-2">
-            <Link href="/privacy" className="hover:text-white">{t("Privacy Policy")}</Link>
-            <Link href="/terms" className="hover:text-white">{t("Terms & Conditions")}</Link>
-            <Link href="/imprint" className="hover:text-white">{t("Imprint")}</Link>
-          </div>
         </div>
       </div>
     </footer>

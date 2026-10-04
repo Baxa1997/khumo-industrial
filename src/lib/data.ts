@@ -363,7 +363,7 @@ export const getSolution = (slug: string) => solutions.find((s) => s.slug === sl
 export const getIndustry = (slug: string) => industries.find((i) => i.slug === slug);
 
 /** Optional photos used across the site. Drop files into /public/images and set the paths here. */
-export const images: { hero?: string; history?: string; sustainabilityTall?: string; sustainabilityTool?: string; sustainabilityTeam?: string } = {};
+export const images: { hero?: string; history?: string } = {};
 
 export const hero = {
   lines: ["Product Marking\nSolutions."],
@@ -389,6 +389,4 @@ export const regions = [
 export const resources = [
   { href: "/news", label: "News & Events", description: "Highlights from our Instagram: new equipment, installations and training." },
   { href: "/support", label: "FAQ & Support", description: "Answers to common questions about machines and service." },
-  { href: "/sustainability", label: "Sustainability", description: "How we help customers reduce packaging waste." },
-  { href: "/company-history", label: "Our Story", description: "Who we are and how we support product marking in Uzbekistan." },
 ];
