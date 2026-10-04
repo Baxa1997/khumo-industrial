@@ -3,13 +3,13 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Breadcrumbs, Eyebrow, FramedPhoto, RangeCards } from "@/components/CategoryParts";
 import { CtaBanner } from "@/components/Sections";
-import { categoryDetails, getRangeItem } from "@/lib/categories";
+import { allItems, categoryDetails, getRangeItem } from "@/lib/categories";
 import { getSolution } from "@/lib/data";
 
 type Props = { params: Promise<{ slug: string; item: string }> };
 
 export function generateStaticParams() {
-  return Object.entries(categoryDetails).flatMap(([slug, d]) => d.range.items.map((i) => ({ slug, item: i.slug })));
+  return Object.keys(categoryDetails).flatMap((slug) => allItems(slug).map((i) => ({ slug, item: i.slug })));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {

@@ -1,4 +1,4 @@
-import { categoryDetails } from "./categories";
+import { productMenu } from "./categories";
 import { industries, news, solutions } from "./data";
 
 export type MenuLink = { href: string; label: string };
@@ -18,16 +18,19 @@ export const menus: Record<"products" | "service" | "industries" | "resources" |
       { href: "/products", label: "All Products" },
       { href: "/products/automation", label: "Automation" },
       { href: "/news", label: "New Arrivals" },
-      { href: "/favorites", label: "Saved Products" },
+      { href: "/products/most-viewed", label: "Most Viewed" },
     ],
-    columns: solutions.map((s) => ({
-      title: s.name,
-      href: `/category/${s.slug}`,
-      links: [
-        { href: `/category/${s.slug}`, label: "Product Overview" },
-        ...(categoryDetails[s.slug]?.range.items ?? []).map((i) => ({ href: `/category/${s.slug}/${i.slug}`, label: i.name })),
-      ],
-    })),
+    columns: productMenu.map((m) => {
+      const s = solutions.find((x) => x.slug === m.category)!;
+      return {
+        title: s.name,
+        href: `/category/${s.slug}`,
+        links: [
+          ...(m.overview ? [{ href: `/category/${s.slug}`, label: "Product Overview" }] : []),
+          ...m.links.map((l) => ({ href: `/category/${s.slug}/${l.item}`, label: l.label })),
+        ],
+      };
+    }),
   },
   service: {
     side: [

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Icon, { type IconName } from "./Icon";
 import Photo from "./Photo";
-import type { Challenge, IndustryCard, RangeItem, Technology } from "@/lib/categories";
+import type { Challenge, Guide, IndustryCard, RangeItem, Technology } from "@/lib/categories";
 
 export function Eyebrow({ children, className = "" }: { children: React.ReactNode; className?: string }) {
   return <p className={`text-[13px] font-semibold uppercase leading-relaxed tracking-[0.14em] text-orange-500 ${className}`}>{children}</p>;
@@ -40,9 +40,19 @@ function BulletBlock({ title, items }: { title: string; items: string[] }) {
   );
 }
 
-export function RangeCards({ category, items, icon }: { category: string; items: RangeItem[]; icon: IconName }) {
+export function RangeCards({
+  category,
+  items,
+  icon,
+  cols = "md:grid-cols-2 lg:grid-cols-3",
+}: {
+  category: string;
+  items: RangeItem[];
+  icon: IconName;
+  cols?: string;
+}) {
   return (
-    <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+    <div className={`grid gap-5 ${cols}`}>
       {items.map((item) => (
         <article
           key={item.slug}
@@ -256,6 +266,46 @@ export function CompleteLine({ name, cards }: { name: string; cards: { href: str
           ))}
         </div>
         <Link href="/contact?topic=quote" className="btn-orange mt-10 px-6 py-3 text-[15px]">Build Your Complete Packaging Line</Link>
+      </div>
+    </section>
+  );
+}
+
+export function BuyingGuide({ guide }: { guide: Guide }) {
+  return (
+    <section className="bg-surface py-20 sm:py-24">
+      <div className="mx-auto max-w-[74rem] px-4 sm:px-8">
+        <Eyebrow>Buying guide</Eyebrow>
+        <h2 className="display mt-5 max-w-3xl text-4xl sm:text-5xl">{guide.title}</h2>
+        <p className="mt-6 max-w-3xl text-lg leading-relaxed text-muted">{guide.text}</p>
+        <div className="mt-12 grid gap-6 lg:grid-cols-3">
+          {guide.options.map((o) => (
+            <article key={o.title} className="flex flex-col rounded-2xl border border-line bg-white p-7 shadow-[0_8px_30px_-18px_rgba(0,0,0,0.15)]">
+              <h3 className="mt-3 text-2xl font-semibold tracking-[-0.02em]">{o.title}</h3>
+              <div className="mt-5 rounded-lg bg-[#fff4ec] p-4">
+                <Eyebrow className="text-xs">Best suited for</Eyebrow>
+                <p className="mt-1.5 text-[15px] leading-relaxed text-muted">{o.bestFor}</p>
+              </div>
+              <Eyebrow className="mt-6 text-xs">Key benefits</Eyebrow>
+              <ul className="mt-2.5 flex-1 space-y-2.5 pl-4 text-sm leading-relaxed text-ink/85">
+                {o.points.map((p) => (
+                  <li key={p} className="flex gap-2">
+                    <Icon name="check" className="mt-0.5 h-3.5 w-3.5 shrink-0 text-orange-500" strokeWidth={2.6} />
+                    {p}
+                  </li>
+                ))}
+              </ul>
+              <Link href={o.href} className="group mt-7 inline-flex items-center gap-1.5 text-[15px] font-semibold text-navy-800 hover:text-orange-500">
+                {o.cta}
+                <Icon name="arrow" className="h-4 w-4 transition-transform group-hover:translate-x-0.5" strokeWidth={2.2} />
+              </Link>
+            </article>
+          ))}
+        </div>
+        <div className="mt-8 flex flex-col items-start justify-between gap-4 rounded-xl bg-navy-800 px-7 py-5 text-white sm:flex-row sm:items-center">
+          <p className="text-xl font-semibold">Still Unsure?</p>
+          <a href="#quote" className="btn-orange px-6 py-3 text-[15px]">{guide.unsureCta}</a>
+        </div>
       </div>
     </section>
   );

@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Breadcrumbs, ChallengeCards, CompleteLine, Eyebrow, FramedPhoto, IndustryCards, RangeCards, TechnologySection, WhyChoose } from "@/components/CategoryParts";
+import { Breadcrumbs, BuyingGuide, ChallengeCards, CompleteLine, Eyebrow, FramedPhoto, IndustryCards, RangeCards, TechnologySection, WhyChoose } from "@/components/CategoryParts";
 import Faq from "@/components/Faq";
 import Icon from "@/components/Icon";
 import QuoteFormCard from "@/components/QuoteFormCard";
-import { categoryDetails, linePairs, lineTaglines, trustPoints } from "@/lib/categories";
+import { categoryDetails, guides, linePairs, lineTaglines, trustPoints } from "@/lib/categories";
 import { getSolution, industries, solutions } from "@/lib/data";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -76,8 +76,10 @@ export default async function CategoryPage({ params }: Props) {
         </div>
       </section>
 
+      {guides[slug] && <BuyingGuide guide={guides[slug]} />}
+
       {/* Range */}
-      <section id="range" className="scroll-mt-24 bg-surface py-20 sm:py-24">
+      <section id="range" className={`scroll-mt-24 py-20 sm:py-24 ${guides[slug] ? "" : "bg-surface"}`}>
         <div className="mx-auto max-w-[82rem] px-4 sm:px-8">
           <Eyebrow>Our range</Eyebrow>
           <h2 className="display mt-4 text-4xl sm:text-5xl">{detail.range.title}</h2>
@@ -133,7 +135,7 @@ export default async function CategoryPage({ params }: Props) {
       </section>
 
       {/* Still unsure */}
-      <section className="pb-24 pt-8">
+      <section id="quote" className="scroll-mt-24 pb-24 pt-8">
         <div className="mx-auto grid max-w-[74rem] items-start gap-12 px-4 sm:px-8 lg:grid-cols-2">
           <div className="lg:pt-6">
             <h2 className="display text-4xl sm:text-5xl">Still Unsure?</h2>

@@ -435,8 +435,7 @@ export const categoryDetails: Record<string, CategoryDetail> = {
   },
 };
 
-export const getRangeItem = (category: string, item: string) =>
-  categoryDetails[category]?.range.items.find((i) => i.slug === item);
+export const getRangeItem = (category: string, item: string) => allItems(category).find((i) => i.slug === item);
 
 /** Short taglines for the "complete your packaging line" cards. */
 export const lineTaglines: Record<string, string> = {
@@ -456,4 +455,128 @@ export const linePairs: Record<string, [string, string]> = {
   "coding-marking": ["case-sealing", "stretch-wrapping"],
   "binding-bundling": ["coding-marking", "consumables"],
   consumables: ["strapping", "stretch-wrapping"],
+};
+
+/* ---------- Extra product pages (menu entries without a range card) ---------- */
+
+const sub = (slug: string, name: string, description: string, bestFor: string[], benefits: string[]): RangeItem => ({
+  slug,
+  name,
+  description,
+  bestFor,
+  benefits,
+});
+
+export const subpages: Record<string, RangeItem[]> = {
+  "stretch-wrapping": [
+    sub("manual-wrapping", "Manual Wrapping", "Hand film dispensers and pre-stretched hand film for occasional pallet wrapping without a machine.", ["Low volumes", "Changing locations", "Small warehouses"], ["No investment in machinery", "Ergonomic dispensers", "Less film with pre-stretched rolls"]),
+    sub("robot-wrapper", "Robot Wrapper", "Self-propelled wrapping robots that travel around the load — ideal for oversize pallets and flexible locations.", ["Oversize or heavy loads", "Multiple wrapping locations", "Construction, metals"], ["Mobile", "No fixed installation", "Wraps any load size"]),
+    sub("horizontal-wrapper", "Horizontal Wrapper", "Orbital wrappers that spiral film around long products such as profiles, pipes, doors and timber.", ["Long products", "Profiles and pipes", "Timber and panels"], ["Full protection", "Consistent wrap", "Inline integration"]),
+  ],
+  strapping: [
+    sub("strapping-machines", "Strapping Machines", "Semi-automatic and fully automatic strapping machines for cartons, bundles and pallets, from table machines to inline arch and pallet systems.", ["Medium to high volumes", "Repetitive packaging", "Inline production"], ["Consistent tension", "Higher throughput", "Less manual work"]),
+    sub("accessories", "Accessories", "Strap dispensers, seals, buckles, edge protectors and cutters that complete your strapping workstation.", ["All strapping applications", "Manual and battery tools"], ["Safer handling", "Better load protection", "Organized workstations"]),
+  ],
+  "coding-marking": [
+    sub("continuous-inkjet-printers", "Continuous Inkjet Printers", "CIJ printers for high-speed, non-contact coding of dates, batches and codes on almost any surface.", ["High line speeds", "Curved or uneven surfaces", "Food, beverage, cables"], ["Prints on almost anything", "Fast-drying inks", "High uptime"]),
+    sub("thermal-inkjet-printers", "Thermal Inkjet Printers", "Cartridge-based TIJ printers for crisp, high-resolution codes, barcodes and logos with minimal maintenance.", ["Cartons and labels", "Pharma serialization", "Barcodes and 2D codes"], ["High resolution", "Clean cartridge system", "Easy to operate"]),
+  ],
+  "case-sealing": [
+    sub("tape-hand-tool", "Tape Hand Tool", "Robust handheld tape guns for fast, consistent carton sealing at any packing bench.", ["Low volumes", "Packing benches", "E-commerce"], ["Economical", "Lightweight", "Quick tape changes"]),
+    sub("carton-erecting-machines", "Carton Erecting Machines", "Automatic case erectors that form and bottom-seal cartons ready for filling.", ["High volumes", "Automated lines", "FMCG, e-commerce"], ["Square, stable cartons", "Less manual work", "High throughput"]),
+  ],
+  "binding-bundling": [
+    sub("binders", "Binders", "Binding machines that bundle stacks of printed products, cards or flat goods quickly and securely.", ["Printed matter", "Stacks and bundles", "Post and logistics"], ["Fast", "Secure bundles", "Compact"]),
+    sub("elastic-binders", "Elastic Binders", "Machines that bind products with elastic loops for gentle, re-usable bundling.", ["Vegetables and flowers", "Sensitive products", "Retail bundles"], ["Gentle on products", "Re-usable elastic", "Low material use"]),
+  ],
+  consumables: [
+    sub("tape", "Tape", "Acrylic, hot-melt, paper and printed packaging tapes for manual and machine sealing.", ["Case sealing", "Printed branding", "Cold or humid storage"], ["Reliable adhesion", "Machine-tested", "Recyclable paper options"]),
+    sub("elastic", "Elastic", "Elastic loops and yarn for elastic binding machines.", ["Elastic binders", "Food and horticulture"], ["Consistent quality", "Food-safe options"]),
+    sub("ink", "Ink", "Inks, make-up fluids and cartridges for inkjet coders.", ["CIJ and TIJ printers", "All substrates"], ["Crisp codes", "Fast drying", "Matched to printers"]),
+    sub("pp-strapping", "PP Strapping", "Polypropylene strap for light to medium-weight cartons and consumer goods — economical and flexible.", ["Warehousing, retail, food", "E-commerce, consumer goods"], ["Cost-effective", "Flexible", "Recyclable"]),
+    sub("pet-strapping", "PET Strapping", "High-strength polyester strap with excellent tension retention — a safe alternative to steel for heavy loads.", ["Timber, bricks, beverages", "Logistics, industrial manufacturing"], ["High tension retention", "Replaces steel", "Weather resistant"]),
+    sub("steel-strapping", "Steel Strapping", "High-tensile steel strap and seals for the heaviest, rigid and sharp-edged loads.", ["Steel and metals", "Heavy industry, construction"], ["Maximum holding force", "Minimal stretch", "Heat resistant"]),
+  ],
+};
+
+/** Products mega-menu: label + page slug (range item or subpage). Order matches the menu. */
+export const productMenu: { category: string; overview: boolean; links: { label: string; item: string }[] }[] = [
+  { category: "stretch-wrapping", overview: true, links: [
+    { label: "Manual Wrapping", item: "manual-wrapping" },
+    { label: "Turntable Wrapper", item: "turntable-wrappers" },
+    { label: "Arm Wrapper", item: "rotary-arm-wrappers" },
+    { label: "Robot Wrapper", item: "robot-wrapper" },
+    { label: "Horizontal Wrapper", item: "horizontal-wrapper" },
+    { label: "Ring Wrapper", item: "ring-wrappers" },
+  ] },
+  { category: "strapping", overview: true, links: [
+    { label: "Strapping Machines", item: "strapping-machines" },
+    { label: "Strapping Tools", item: "manual-battery-tools" },
+    { label: "Accessories", item: "accessories" },
+  ] },
+  { category: "coding-marking", overview: true, links: [
+    { label: "Continuous Inkjet Printers", item: "continuous-inkjet-printers" },
+    { label: "Thermal Inkjet Printers", item: "thermal-inkjet-printers" },
+    { label: "Laser Marking Systems", item: "laser-coders" },
+  ] },
+  { category: "case-sealing", overview: true, links: [
+    { label: "Tape Hand Tool", item: "tape-hand-tool" },
+    { label: "Tape Dispensers", item: "tape-dispensers" },
+    { label: "Semi-Automatic Tape Machines", item: "semi-automatic-sealers" },
+    { label: "Fully-Automatic Tape Machines", item: "automatic-sealers" },
+    { label: "Carton Erecting Machines", item: "carton-erecting-machines" },
+  ] },
+  { category: "binding-bundling", overview: true, links: [
+    { label: "Binders", item: "binders" },
+    { label: "Elastic Binders", item: "elastic-binders" },
+  ] },
+  { category: "consumables", overview: false, links: [
+    { label: "Stretch Film", item: "stretch-film" },
+    { label: "Strapping Material", item: "strap" },
+    { label: "Tape", item: "tape" },
+    { label: "Elastic", item: "elastic" },
+    { label: "Ink", item: "ink" },
+  ] },
+];
+
+export const allItems = (category: string) => [...(categoryDetails[category]?.range.items ?? []), ...(subpages[category] ?? [])];
+
+/* ---------- Buying guide ---------- */
+
+export type Guide = {
+  title: string;
+  text: string;
+  options: { title: string; bestFor: string; points: string[]; cta: string; href: string }[];
+  unsureCta: string;
+};
+
+export const guides: Record<string, Guide> = {
+  strapping: {
+    title: "Still Not Sure Which Strapping Material Is Right?",
+    text: "Our specialists recommend the right strap based on your products, production environment and load requirements.",
+    options: [
+      {
+        title: "Choose PP if…",
+        bestFor: "Warehousing, retail, food, e-commerce and consumer goods.",
+        points: ["You secure light to medium-weight cartons or consumer goods.", "Cost-effectiveness is your priority.", "You need a flexible solution for everyday packaging.", "You want a recyclable material for general applications."],
+        cta: "Explore PP Strapping",
+        href: "/category/consumables/pp-strapping",
+      },
+      {
+        title: "Choose PET if…",
+        bestFor: "Timber, bricks, beverages, logistics and industrial manufacturing.",
+        points: ["You need to secure heavy palletized loads.", "You want to replace steel strapping.", "High tension retention matters during transport.", "Products are stored outdoors or face changing temperatures."],
+        cta: "Explore PET Strapping",
+        href: "/category/consumables/pet-strapping",
+      },
+      {
+        title: "Choose Steel if…",
+        bestFor: "Steel, metals, heavy industry and construction.",
+        points: ["You secure extremely heavy or rigid loads.", "Maximum holding force is critical.", "You work with steel coils, metals or construction materials.", "Your application demands the highest strength."],
+        cta: "Explore Steel Strapping",
+        href: "/category/consumables/steel-strapping",
+      },
+    ],
+    unsureCta: "Talk to a Strapping Specialist",
+  },
 };
